@@ -236,32 +236,11 @@ function ausgabe_uhrzeit()
           Appname: 
           <a href="<?php echo he(idx($app_info, 'link'));?>" target="_top"><?php echo he($app_name); ?></a>
         </p>
-
-        <div id="share-app">
-          <p>App Teilen:</p>
-          <ul>
-            <li>
-              <a href="#" class="facebook-button" id="postToWall" data-url="<?php echo AppInfo::getUrl(); ?>">
-                <span class="plus">Auf Pinnwand Posten</span>
-              </a>
-            </li>
-            <li>
-              <a href="#" class="facebook-button speech-bubble" id="sendToFriends" data-url="<?php echo AppInfo::getUrl(); ?>">
-                <span class="speech-bubble">Nachricht Senden</span>
-              </a>
-            </li>
-            <li>
-              <a href="#" class="facebook-button apprequests" id="sendRequest" data-message="Mein Event Script kann dir für deine Veranstaltung 				arbeit abnehmen">
-                <span class="apprequests">Sende Anfrage</span>
-              </a>
-            </li>
-          </ul>
-        </div>
       </div>
       <?php } else { ?>
       <div>
         <h1>Willkommen</h1>
-        <div class="fb-login-button" data-scope="user_events,friends_events,user_groups,user_website"></div>
+        <div class="fb-login-button" data-scope="user_events"></div>
       </div>
       <?php } ?>
     </header>
