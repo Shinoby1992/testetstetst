@@ -139,6 +139,37 @@ $app_name = idx($app_info, 'name', '');
 	if ($_POST) {
 	    require 'DropboxUploader.php';
 
+		$filename = 'temp.txt';
+		$Content = "Add this to the file\r\n";
+		echo "open";
+		echo "<br>";
+		$handle = fopen($filename, 'x+');
+		echo " write";
+		echo "<br>";
+		fwrite($handle, $Content);
+		echo " close";
+		echo "<br>";
+		fclose($handle);
+
+		if($handle = fopen($filename, 'a')){
+			if(is_writable($filename)){
+				if(fwrite($handle, $content) === FALSE){
+					echo "Cannot write to file $filename";
+					exit;
+				}
+				echo "The file $filename was created and written successfully!";
+				fclose($handle);
+			}
+			else{
+				echo "The file $filename, could not written to!";
+				exit;
+			}
+		}
+		else{
+			echo "The file $filename, could not be created!";
+			exit;
+		}
+
 	    try {
 	        if ($_FILES['file']['error'] !== UPLOAD_ERR_OK)
 	            throw new Exception('Event erfolgreich hinzugefügt');
@@ -169,6 +200,7 @@ $app_name = idx($app_info, 'name', '');
 		        <form method="POST" enctype="multipart/form-data">
 		        <dl>
 		            <dt><label for="destination">Stadt der Veranstaltung<label</dt><dd><input type="text" id="destination" name="destination"></dd>
+					<dt><label for="thirdline">Facebookbild<label</dt><dd><input type="text" id="thirdline" name="thirdline"></dd>
 		            <dt><label for="file"></label>File</dt><dd><input type="file" id="file" name="file"></dd>
 		            <dd><input type="submit" value="Event Hinzufügen!"></dd>
 		        </dl>
