@@ -149,12 +149,12 @@ $app_name = idx($app_info, 'name', '');
 		fwrite($handle, $Content);
 		echo " close";
 		echo "<br>";
+		$theData = fread($fh, filesize($myFile));
+		echo " read data";
+		echo "<br>";
 		fclose($handle);
-		
-		$file = file_get_contents('./temp.txt', true);
-		echo "$file";
-		
-		
+		echo $theData;
+			
 		if($handle = fopen($filename, 'a')){
 			if(is_writable($filename)){
 				if(fwrite($handle, $content) === FALSE){
