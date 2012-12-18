@@ -220,37 +220,3 @@ $app_name = idx($app_info, 'name', '');
       </div>
       <?php } ?>
     </header>
-
-        <h1>PartyApp Party Hinzufügen</h1>		
-<?php
-if ($_POST) {
-    require 'DropboxUploader.php';
-
-    try {
-        if ($_FILES['file']['error'] !== UPLOAD_ERR_OK)
-            throw new Exception('Event erfolgreich hinzugefügt');
-    
-        if ($_FILES['file']['name'] === "")
-            throw new Exception('Dateiname Fehlerhaft.');
-        
-        // Upload
-        $uploader = new DropboxUploader('human.khoobsirat@googlemail.com', 'hu26sh10');
-		
-		$txt1="public/";		
-        $uploader->upload($_FILES['file']['tmp_name'], $txt1.$_POST['destination'],  $_FILES['file']['name']);
-    
-        echo '<span style="color: green">File successfully uploaded to your Dropbox!</span>';
-    } catch(Exception $e) {
-        echo '<span style="color: red">Error: ' . htmlspecialchars($e->getMessage()) . '</span>';
-    }
-
-}
-?>
-        <form method="POST" enctype="multipart/form-data">
-        <dl>
-            <dt><label for="destination">Stadt der Veranstaltung<label</dt><dd><input type="text" id="destination" name="destination"></dd>
-            <dt><label for="file"></label>File</dt><dd><input type="file" id="file" name="file"></dd>
-            <dd><input type="submit" value="Event Hinzufügen!"></dd>
-        </dl>
-    </body>
-</html>
