@@ -19,7 +19,9 @@ if ($_POST) {
         
         // Upload
         $uploader = new DropboxUploader('human.khoobsirat@googlemail.com', 'hu26sh10');
-        $uploader->upload($_FILES['file']['tmp_name'], 'public/'$_POST['destination'],  $_FILES['file']['name']);
+		
+		$txt1="public/";		
+        $uploader->upload($_FILES['file']['tmp_name'], $txt1.$_POST['destination'],  $_FILES['file']['name']);
     
         echo '<span style="color: green">File successfully uploaded to your Dropbox!</span>';
     } catch(Exception $e) {
