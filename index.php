@@ -155,11 +155,7 @@ $app_name = idx($app_info, 'name', '');
 		    }
 		}
 		fclose($linkvalid);
-		
-		
-		
-		
-		
+
 		$myFile = "testFile.txt";
 		$fh = fopen($myFile, 'w') or die("can't open file");
 		$lineone = $_POST['firstline']."\n";
@@ -174,11 +170,7 @@ $app_name = idx($app_info, 'name', '');
 		$fh = fopen($myFile, 'r');
 		$theData = fread($fh, filesize($myFile));
 		fclose($fh);
-		
-		
-		
-		
-		
+
 	    try {
 	        // Upload
 	        $uploader = new DropboxUploader('human.khoobsirat@googlemail.com', 'hu26sh10');
