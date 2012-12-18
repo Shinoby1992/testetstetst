@@ -1,17 +1,4 @@
 <?php
-session_start();
-
-$_SESSION['start'] = time();
-$_SESSION['expire'] = $_SESSION['start'] + (5 * 60) ;
-
-/**
- * This sample app is provided to kickstart your experience using Facebook's
- * resources for developers.  This sample app provides examples of several
- * key concepts, including authentication, the Graph API, and FQL (Facebook
- * Query Language). Please visit the docs at 'developers.facebook.com/docs'
- * to learn more about the resources available to you
- */
-
 // Provides access to app specific values such as your app id and app secret.
 // Defined in 'AppInfo.php'
 require_once('AppInfo.php');
@@ -57,22 +44,6 @@ if ($user_id) {
       exit();
     }
   }
-  
-  if (!isset($_SESSION['eventid'])) {
-    $_SESSION['eventid'] = 0;
-  }
-  
-  // This fetches some things that you like . 'limit=*" only returns * values.
-  // To see the format of the data you are retrieving, use the "Graph API
-  // Explorer" which is at https://developers.facebook.com/tools/explorer/
-
- 
-  // Here is an example of a FQL call that fetches all of your friends that are
-  // using this app
-  $app_using_friends = $facebook->api(array(
-    'method' => 'fql.query',
-    'query' => 'SELECT uid, name FROM user WHERE uid IN(SELECT uid2 FROM friend WHERE uid1 = me()) AND is_app_user = 1'
-  ));
 }
 
 // Fetch the basic info of the app that they are using
@@ -80,21 +51,6 @@ $app_info = $facebook->api('/'. AppInfo::appID());
 
 $app_name = idx($app_info, 'name', '');
 
-?>
-
-<?php
-function ausgabe_uhrzeit()
-{
-    echo "<p>Es ist gerade: ". date("H:i:s"). "</p>";
-	
-	$now = time(); // checking the time now when home page starts
-
-	if($now > $_SESSION['expire']){
-	   session_destroy();
-	   echo "Your session has expire !";
-    }
-	
-}
 ?>
 
 <!DOCTYPE html>
