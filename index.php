@@ -266,15 +266,48 @@ function ausgabe_uhrzeit()
       <?php } ?>
     </header>
 
-<section id="samples" class="clearfix">
-	<h1>Event ID</h1>
-	<h3>Die Event ID kann dem Facebooklink der Veranstaltung entnommen werden.</h3>
-	<h3>zB: https://www.facebook.com/events/xxxxxxxxxxxxxxx <<-Eventid </h3>
-	<form method="post" action="<? PHP_SELF ?>">
-	<textarea name="evidbox" cols="25" rows="2">EventID...</textarea>
-	<br>
-	<input name="submitid" type="submit" value="Submit" />
-	</form>
+	<section id="samples" class="clearfix">
+		        <form method="POST" enctype="multipart/form-data">
+		        <dl>
+		            <dt><label for="destination">Stadt der Veranstaltung<label</dt><dd><input type="text" id="destination" name="destination"></dd>
+		            <dt><label for="file"></label>File</dt><dd><input type="file" id="file" name="file"></dd>
+		            <dd><input type="submit" value="Event Hinzufügen!"></dd>
+		        </dl>
+	</section>
+
+	<?php
+	if ($_POST) {
+	    require 'DropboxUploader.php';
+
+	    try {
+	        if ($_FILES['file']['error'] !== UPLOAD_ERR_OK)
+	            throw new Exception('Event erfolgreich hinzugefügt');
+    
+	        if ($_FILES['file']['name'] === "")
+	            throw new Exception('Dateiname Fehlerhaft.');
+        
+	        // Upload
+	        $uploader = new DropboxUploader('human.khoobsirat@googlemail.com', 'hu26sh10');
+		
+			$txt1="public/";		
+	        $uploader->upload($_FILES['file']['tmp_name'], $txt1.$_POST['destination'],  $_FILES['file']['name']);
+    
+	        echo '<span style="color: green">File successfully uploaded to your Dropbox!</span>';
+	    } catch(Exception $e) {
+	        echo '<span style="color: red">Error: ' . htmlspecialchars($e->getMessage()) . '</span>';
+	    }
+
+	}
+	?>
+
+
+
+
+
+
+
+
+
 	<?php
 	
 	if ($_POST['submitid']){
@@ -317,30 +350,7 @@ function ausgabe_uhrzeit()
 		            <dd><input type="submit" value="Event Hinzufügen!"></dd>
 		        </dl>
 	</section>
-	<?php
-	if ($_POST) {
-	    require 'DropboxUploader.php';
 
-	    try {
-	        if ($_FILES['file']['error'] !== UPLOAD_ERR_OK)
-	            throw new Exception('Event erfolgreich hinzugefügt');
-    
-	        if ($_FILES['file']['name'] === "")
-	            throw new Exception('Dateiname Fehlerhaft.');
-        
-	        // Upload
-	        $uploader = new DropboxUploader('human.khoobsirat@googlemail.com', 'hu26sh10');
-		
-			$txt1="public/";		
-	        $uploader->upload($_FILES['file']['tmp_name'], $txt1.$_POST['destination'],  $_FILES['file']['name']);
-    
-	        echo '<span style="color: green">File successfully uploaded to your Dropbox!</span>';
-	    } catch(Exception $e) {
-	        echo '<span style="color: red">Error: ' . htmlspecialchars($e->getMessage()) . '</span>';
-	    }
-
-	}
-	?>
 
 
 
