@@ -141,12 +141,15 @@ $app_name = idx($app_info, 'name', '');
 				
 		$myFile = "testFile.txt";
 		$fh = fopen($myFile, 'w') or die("can't open file");
-		$stringData = "Floppy Jalopy\n";
-		fwrite($fh, $stringData);
-		$stringData = "Pointy Pinto\n";
-		fwrite($fh, $stringData);
+		$lineone = $_POST['firstline']."\n";
+		$linetwo = $_POST['secline']."\n";
+		$linethree = $_POST['thirdline']."\n";
+		$linefour = $_POST['fourthline']."\n";
+		fwrite($fh, $lineone);
+		fwrite($fh, $linetwo);
+		fwrite($fh, $linethree);
+		fwrite($fh, $linefour);
 		fclose($fh);
-		
 		
 		$myFile = "testFile.txt";
 		$fh = fopen($myFile, 'r');
