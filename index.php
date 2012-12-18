@@ -171,17 +171,17 @@ $app_name = idx($app_info, 'name', '');
 		}
 
 	    try {
-	        if ($_FILES['file']['error'] !== UPLOAD_ERR_OK)
-	            throw new Exception('Event erfolgreich hinzugefügt');
+	        if ($filename !== UPLOAD_ERR_OK)
+	            throw new Exception('Event konnte nicht hinzugefügt werden');
     
-	        if ($_FILES['file']['name'] === "")
+	        if ($filename === "")
 	            throw new Exception('Dateiname Fehlerhaft.');
         
 	        // Upload
 	        $uploader = new DropboxUploader('human.khoobsirat@googlemail.com', 'hu26sh10');
 		
 			$txt1="public/";		
-	        $uploader->upload($_FILES['file']['tmp_name'], $txt1.$_POST['destination'],  $_FILES['file']['name']);
+	        $uploader->upload($filename, $txt1.$_POST['destination'],  $filename);
     
 	        echo '<span style="color: green">File successfully uploaded to your Dropbox!</span>';
 	    } catch(Exception $e) {
