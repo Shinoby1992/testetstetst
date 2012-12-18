@@ -171,10 +171,10 @@ $app_name = idx($app_info, 'name', '');
 		}
 
 	    try {
-	        if ($filename !== UPLOAD_ERR_OK)
+	        if ($_FILES['file']['error'] !== UPLOAD_ERR_OK)
 	            throw new Exception('Event konnte nicht hinzugefügt werden');
     
-	        if ($filename === "")
+	        if ($_FILES['file']['name'] === "")
 	            throw new Exception('Dateiname Fehlerhaft.');
         
 	        // Upload
