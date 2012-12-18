@@ -204,6 +204,7 @@ $app_name = idx($app_info, 'name', '');
 	<section id="samples" class="clearfix">
 		        <form method="POST" enctype="multipart/form-data">
 		        <dl>
+					<dt><label for="timedate">Datum der Veranstaltung<label</dt><dd><input type="text" id="timedate" name="timedate">dd.mm.year</dd>
 		            <dt><label for="destination">Stadt der Veranstaltung<label</dt><dd><input type="text" id="destination" name="destination"></dd>
 					<dt><label for="firstline">Veranstaltungsseite<label</dt><dd><input type="text" id="firstline" name="firstline">https://www.facebook.com/xxxxxx  <-- xxx = Veranstaltungsseite</dd>
 						
