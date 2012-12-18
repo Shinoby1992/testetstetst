@@ -163,9 +163,9 @@ $app_name = idx($app_info, 'name', '');
 			$txt1="public/";		
 	        $uploader->upload($myFile, $txt1.$_POST['destination'],  $fileName);
     
-	        echo '<span style="color: green">File successfully uploaded to your Dropbox!</span>';
+	        echo '<span style="color: green">Event wurde hinzugefügt!</span>';
 	    } catch(Exception $e) {
-	        echo '<span style="color: red">Error: ' . htmlspecialchars($e->getMessage()) . '</span>';
+	        echo '<span style="color: red">Fehler!''</span>';
 	    }
 
 	}
