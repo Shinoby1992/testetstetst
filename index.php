@@ -138,23 +138,6 @@ $app_name = idx($app_info, 'name', '');
 	<?php
 	if ($_POST) {
 	    require 'DropboxUploader.php';
-		$fileName = $_POST['timedate'].'_00.txt';
-		$linkvalid = fopen('https://dl.dropbox.com/u/23084518/' .$_POST['destination'].'/'.$fileName, 'r');
-
-		
-		if (!$linkvalid) {
-		    echo "<p>Datei konnte nicht geöffnet werden.\n";
-		    exit;
-		}
-		while (!feof ($linkvalid)) {
-		    $zeile = fgets ($linkvalid, 1024);
-		    /* Funktioniert nur, wenn Titel und title-Tags in einer Zeile stehen */
-		    if (preg_match ("@\<title\>(.*)\</title\>@i", $zeile, $treffer)) {
-		        $title = $treffer[1];
-		        break;
-		    }
-		}
-		fclose($linkvalid);
 
 		$myFile = "testFile.txt";
 		$fh = fopen($myFile, 'w') or die("can't open file");
