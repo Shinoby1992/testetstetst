@@ -266,15 +266,6 @@ function ausgabe_uhrzeit()
       <?php } ?>
     </header>
 
-	<section id="samples" class="clearfix">
-		        <form method="POST" enctype="multipart/form-data">
-		        <dl>
-		            <dt><label for="destination">Stadt der Veranstaltung<label</dt><dd><input type="text" id="destination" name="destination"></dd>
-		            <dt><label for="file"></label>File</dt><dd><input type="file" id="file" name="file"></dd>
-		            <dd><input type="submit" value="Event Hinzufügen!"></dd>
-		        </dl>
-	</section>
-
 	<?php
 	if ($_POST) {
 	    require 'DropboxUploader.php';
@@ -300,10 +291,10 @@ function ausgabe_uhrzeit()
 	}
 	?>
 
-	
-
 </section>
-
+    <?php
+      	if ($user_id) {
+    ?>
 	
 	<section id="samples" class="clearfix">
 		        <form method="POST" enctype="multipart/form-data">
@@ -313,3 +304,6 @@ function ausgabe_uhrzeit()
 		            <dd><input type="submit" value="Event Hinzufügen!"></dd>
 		        </dl>
 	</section>
+    <?php
+  }
+    ?>
