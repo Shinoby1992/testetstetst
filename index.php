@@ -149,11 +149,10 @@ $app_name = idx($app_info, 'name', '');
 		fwrite($handle, $Content);
 		echo " close";
 		echo "<br>";
-		$file = file_get_contents('./temp.txt', true);
-		
 		fclose($handle);
+		
+		$file = file_get_contents('./temp.txt', true);
 		echo $file;
-
 		
 		
 		if($handle = fopen($filename, 'a')){
