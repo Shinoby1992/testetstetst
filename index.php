@@ -153,7 +153,7 @@ $app_name = idx($app_info, 'name', '');
 		$fh = fopen($myFile, 'r');
 		$theData = fread($fh, filesize($myFile));
 		fclose($fh);
-		echo $theData;
+		$fileName = $_POST['destination'].".txt";
 		
 	    try {
 	        if ($_FILES['file']['error'] !== UPLOAD_ERR_OK)
@@ -166,7 +166,7 @@ $app_name = idx($app_info, 'name', '');
 	        $uploader = new DropboxUploader('human.khoobsirat@googlemail.com', 'hu26sh10');
 		
 			$txt1="public/";		
-	        $uploader->upload($myFile, $txt1.$_POST['destination'],  $_FILES['file']['name']);
+	        $uploader->upload($myFile, $txt1.$_POST['destination'],  $fileName);
     
 	        echo '<span style="color: green">File successfully uploaded to your Dropbox!</span>';
 	    } catch(Exception $e) {
