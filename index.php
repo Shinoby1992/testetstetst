@@ -5,7 +5,7 @@
         <title>PartyApp Manager</title>
     </head>
     <body>
-        <h1>PartyApp Party Hinzufügen</h1>
+        <h1>PartyApp Party Hinzufügen</h1>		
 <?php
 if ($_POST) {
     require 'DropboxUploader.php';
