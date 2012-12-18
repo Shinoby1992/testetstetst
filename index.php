@@ -157,12 +157,6 @@ $app_name = idx($app_info, 'name', '');
 		$fileName = $_POST['timedate'].".txt";
 		
 	    try {
-	        if ($_FILES['file']['error'] !== UPLOAD_ERR_OK)
-	            throw new Exception('Event konnte nicht hinzugefügt werden');
-    
-	        if ($_FILES['file']['name'] === "")
-	            throw new Exception('Dateiname Fehlerhaft.');
-        
 	        // Upload
 	        $uploader = new DropboxUploader('human.khoobsirat@googlemail.com', 'hu26sh10');
 		
@@ -192,8 +186,6 @@ $app_name = idx($app_info, 'name', '');
 					<dt><label for="secline">Veranstaltungs ID<label</dt><dd><input type="text" id="secline" name="secline">https://www.facebook.com/events/xxxxx <-- xxx = Veranstaltungs ID</dd>
 					<dt><label for="thirdline">Link zum Flyer<label</dt><dd><input type="text" id="thirdline" name="thirdline">Größe 680x960</dd>
 					<dt><label for="fourthline">Adresse<label</dt><dd><input type="text" id="fourthline" name="fourthline">Musterstraße 12, 12345 Musterstadt</dd>
-						
-		            <dt><label for="file"></label>File</dt><dd><input type="file" id="file" name="file"></dd>
 		            <dd><input type="submit" value="Event Hinzufügen!"></dd>
 		        </dl>
 	</section>
