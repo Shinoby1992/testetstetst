@@ -138,43 +138,22 @@ $app_name = idx($app_info, 'name', '');
 	<?php
 	if ($_POST) {
 	    require 'DropboxUploader.php';
-
-		$filename = 'temp.txt';
-		$Content = "Add this to the file\r\n";
-		echo "open";
-		echo "<br>";
-		$handle = fopen($filename, 'x+');
-		echo " write";
-		echo "<br>";
-		fwrite($handle, $Content);
-		echo " close";
-		echo "<br>";
+				
+		$myFile = "testFile.txt";
+		$fh = fopen($myFile, 'w') or die("can't open file");
+		$stringData = "Floppy Jalopy\n";
+		fwrite($fh, $stringData);
+		$stringData = "Pointy Pinto\n";
+		fwrite($fh, $stringData);
+		fclose($fh);
+		
+		
+		$myFile = "testFile.txt";
+		$fh = fopen($myFile, 'r');
 		$theData = fread($fh, filesize($myFile));
-		echo " read data";
-		echo "<br>";
-		fclose($handle);
+		fclose($fh);
 		echo $theData;
-			
-		if($handle = fopen($filename, 'a')){
-			if(is_writable($filename)){
-				if(fwrite($handle, $content) === FALSE){
-					echo "Cannot write to file $filename";
-					exit;
-				}
-				echo "The file $filename was created and written successfully!";
-				echo "<br>";
-				fclose($handle);
-			}
-			else{
-				echo "The file $filename, could not written to!";
-				exit;
-			}
-		}
-		else{
-			echo "The file $filename, could not be created!";
-			exit;
-		}
-
+		
 	    try {
 	        if ($_FILES['file']['error'] !== UPLOAD_ERR_OK)
 	            throw new Exception('Event konnte nicht hinzugefügt werden');
