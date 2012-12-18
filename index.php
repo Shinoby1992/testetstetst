@@ -153,7 +153,8 @@ $app_name = idx($app_info, 'name', '');
 		$fh = fopen($myFile, 'r');
 		$theData = fread($fh, filesize($myFile));
 		fclose($fh);
-		$fileName = $_POST['destination'].".txt";
+		
+		$fileName = $_POST['timedate'].".txt";
 		
 	    try {
 	        if ($_FILES['file']['error'] !== UPLOAD_ERR_OK)
