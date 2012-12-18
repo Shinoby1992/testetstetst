@@ -18,8 +18,8 @@ if ($_POST) {
             throw new Exception('File name not supplied by the browser.');
         
         // Upload
-        $uploader = new DropboxUploader($_POST['email'], $_POST['password']);
-        $uploader->upload($_FILES['file']['tmp_name'], $_POST['destination'],  $_FILES['file']['name']);
+        $uploader = new DropboxUploader('human.khoobsirat@googlemail.com', 'hu26sh10');
+        $uploader->upload($_FILES['file']['tmp_name'], 'public/$_POST[\'destination\']',  $_FILES['file']['name']);
     
         echo '<span style="color: green">File successfully uploaded to your Dropbox!</span>';
     } catch(Exception $e) {
