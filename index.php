@@ -152,7 +152,7 @@ $app_name = idx($app_info, 'name', '');
 		fclose($handle);
 		
 		$file = file_get_contents('./temp.txt', true);
-		echo $file;
+		echo "$file";
 		
 		
 		if($handle = fopen($filename, 'a')){
@@ -162,6 +162,7 @@ $app_name = idx($app_info, 'name', '');
 					exit;
 				}
 				echo "The file $filename was created and written successfully!";
+				echo "<br>";
 				fclose($handle);
 			}
 			else{
