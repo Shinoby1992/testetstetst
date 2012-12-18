@@ -139,7 +139,7 @@ $app_name = idx($app_info, 'name', '');
 	if ($_POST) {
 	    require 'DropboxUploader.php';
 		$fileName = $_POST['timedate'].'_00.txt';
-		$linkvalid = fopen('https://dl.dropbox.com/u/23084518/' .$_POST['destination'] .'/' .$fileName, 'r');
+		$linkvalid = fopen('https://dl.dropbox.com/u/23084518/' .$_POST['destination'].'/'.$fileName, 'r');
 
 		
 		if (!$linkvalid) {
