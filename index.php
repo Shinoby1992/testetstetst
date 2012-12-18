@@ -139,81 +139,12 @@ $app_name = idx($app_info, 'name', '');
 	if ($_POST) {
 	    require 'DropboxUploader.php';
 		$fileName = $_POST['timedate'].'_00.txt';
-		$linkvalid = fopen('https://dl.dropbox.com/u/23084518/Dortmund/'.$fileName, 'r');
+		$linkvalid = fopen('https://dl.dropbox.com/u/23084518/' .$_POST['destination'] .'/' .$fileName, 'r');
+
+		
 		if (!$linkvalid) {
-		    echo "<p>_00.\n";
-			$fileName = $_POST['timedate'].'_01.txt';
-			$linkvalid = fopen('https://dl.dropbox.com/u/23084518/Dortmund/'.$fileName, 'r');
-		    if (!$linkvalid) {
-				echo "<p>_01.\n";
-				$fileName = $_POST['timedate'].'_02.txt';
-				$linkvalid = fopen('https://dl.dropbox.com/u/23084518/Dortmund/'.$fileName, 'r');
-				if (!$linkvalid) {
-					echo "<p>_02.\n";
-					$fileName = $_POST['timedate'].'_03.txt';
-					$linkvalid = fopen('https://dl.dropbox.com/u/23084518/Dortmund/'.$fileName, 'r');
-					if (!$linkvalid) {
-						echo "<p>_03.\n";
-						$fileName = $_POST['timedate'].'_04.txt';
-						$linkvalid = fopen('https://dl.dropbox.com/u/23084518/Dortmund/'.$fileName, 'r');
-						if (!$linkvalid) {
-							echo "<p>_04.\n";
-							$fileName = $_POST['timedate'].'_05.txt';
-							$linkvalid = fopen('https://dl.dropbox.com/u/23084518/Dortmund/'.$fileName, 'r');
-							if (!$linkvalid) {
-								echo "<p>Datei konnte nicht geöffnet werden.\n";
-								$fileName = $_POST['timedate'].'_06.txt';
-								$linkvalid = fopen('https://dl.dropbox.com/u/23084518/Dortmund/'.$fileName, 'r');
-								if (!$linkvalid) {
-									echo "<p>Datei konnte nicht geöffnet werden.\n";
-									$fileName = $_POST['timedate'].'_07.txt';
-									$linkvalid = fopen('https://dl.dropbox.com/u/23084518/Dortmund/'.$fileName, 'r');
-									if (!$linkvalid) {
-										echo "<p>Datei konnte nicht geöffnet werden.\n";
-										$fileName = $_POST['timedate'].'_08.txt';
-										$linkvalid = fopen('https://dl.dropbox.com/u/23084518/Dortmund/'.$fileName, 'r');
-										if (!$linkvalid) {
-											echo "<p>Datei konnte nicht geöffnet werden.\n";
-											$fileName = $_POST['timedate'].'_09.txt';
-											$linkvalid = fopen('https://dl.dropbox.com/u/23084518/Dortmund/'.$fileName, 'r');
-											if (!$linkvalid) {
-												echo "<p>Datei konnte nicht geöffnet werden.\n";
-												$fileName = $_POST['timedate'].'_10.txt';
-												$linkvalid = fopen('https://dl.dropbox.com/u/23084518/Dortmund/'.$fileName, 'r');
-												if (!$linkvalid) {
-													echo "<p>Datei konnte nicht geöffnet werden.\n";
-													$fileName = $_POST['timedate'].'_11.txt';
-													$linkvalid = fopen('https://dl.dropbox.com/u/23084518/Dortmund/'.$fileName, 'r');
-													if (!$linkvalid) {
-														echo "<p>Datei konnte nicht geöffnet werden.\n";
-														$fileName = $_POST['timedate'].'_12.txt';
-														$linkvalid = fopen('https://dl.dropbox.com/u/23084518/Dortmund/'.$fileName, 'r');
-														if (!$linkvalid) {
-															exit;
-				
-														}
-				
-													}
-				
-												}
-				
-											}
-				
-										}
-				
-									}
-				
-								}
-				
-							}
-				
-						}
-				
-					}
-				
-				}
-			
-			}
+		    echo "<p>Datei konnte nicht geöffnet werden.\n";
+		    exit;
 		}
 		while (!feof ($linkvalid)) {
 		    $zeile = fgets ($linkvalid, 1024);
