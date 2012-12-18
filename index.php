@@ -2,10 +2,10 @@
 <html>
     <head>
          <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <title>Dropbox Uploader Demo</title>
+        <title>PartyApp Manager</title>
     </head>
     <body>
-        <h1>Dropbox Uploader Demo</h1>
+        <h1>PartyApp Party Hinzufügen</h1>
 <?php
 if ($_POST) {
     require 'DropboxUploader.php';
@@ -32,11 +32,9 @@ if ($_POST) {
 ?>
         <form method="POST" enctype="multipart/form-data">
         <dl>
-            <dt><label for="email">Dropbox e-mail</label></dt><dd><input type="text" id="email" name="email"></dd>
-            <dt><label for="password">Dropbox password</label></dt><dd><input type="password" id="password" name="password"></dd>
-            <dt><label for="destination">Destination directory (optional)<label</dt><dd><input type="text" id="destination" name="destination"> e.g. "dir/subdirectory", will be created if it doesn't exist</dd>
+            <dt><label for="destination">Stadt der Veranstaltung<label</dt><dd><input type="text" id="destination" name="destination"></dd>
             <dt><label for="file"></label>File</dt><dd><input type="file" id="file" name="file"></dd>
-            <dd><input type="submit" value="Upload the file to my Dropbox!"></dd>
+            <dd><input type="submit" value="Event Hinzufügen!"></dd>
         </dl>
     </body>
 </html>
