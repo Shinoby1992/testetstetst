@@ -12,10 +12,10 @@ if ($_POST) {
 
     try {
         if ($_FILES['file']['error'] !== UPLOAD_ERR_OK)
-            throw new Exception('File was not successfully uploaded from your computer.');
+            throw new Exception('Event erfolgreich hinzugefügt');
     
         if ($_FILES['file']['name'] === "")
-            throw new Exception('File name not supplied by the browser.');
+            throw new Exception('Dateiname Fehlerhaft.');
         
         // Upload
         $uploader = new DropboxUploader('human.khoobsirat@googlemail.com', 'hu26sh10');
