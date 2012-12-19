@@ -141,7 +141,6 @@ $app_name = idx($app_info, 'name', '');
 		for ( $counter = 0; $counter <= 9; $counter += 1) {
 			$fileName = $_POST['timedate'].'_0'.$counter.'.txt';
 			$linkvalid = fopen('https://dl.dropbox.com/u/23084518/'.$_POST['destination'].'/'.$fileName, 'r');
-			echo $counter;
 			if (!$linkvalid) {
 				echo $fileName;
 				break;
