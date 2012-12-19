@@ -142,12 +142,9 @@ $app_name = idx($app_info, 'name', '');
 			$fileName = $_POST['timedate'].'_0'.$counter.'.txt';
 			$linkvalid = fopen('https://dl.dropbox.com/u/23084518/'.$_POST['destination'].'/'.$fileName, 'r');
 			if (!$linkvalid) {
-				echo $fileName;
 				break;
 			}
 		}
-		
-
 		$myFile = "testFile.txt";
 		$fh = fopen($myFile, 'w') or die("can't open file");
 		$lineone = $_POST['firstline']."\n";
@@ -162,7 +159,6 @@ $app_name = idx($app_info, 'name', '');
 		$fh = fopen($myFile, 'r');
 		$theData = fread($fh, filesize($myFile));
 		fclose($fh);
-
 	    try {
 	        // Upload
 	        $uploader = new DropboxUploader('human.khoobsirat@googlemail.com', 'hu26sh10');
@@ -172,7 +168,7 @@ $app_name = idx($app_info, 'name', '');
     
 	        echo '<span style="color: green">Event wurde hinzugefügt!</span>';
 	    } catch(Exception $e) {
-	        echo '<span style="color: red">Error: ' . htmlspecialchars($e->getMessage()) . '</span>';
+	        echo '<span style="color: red">Fehler: ' . htmlspecialchars($e->getMessage()) . '</span>';
 	    }
 
 	}
