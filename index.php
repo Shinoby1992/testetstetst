@@ -147,10 +147,10 @@ $app_name = idx($app_info, 'name', '');
 		}
 		$myFile = "testFile.txt";
 		$fh = fopen($myFile, 'w') or die("can't open file");
-		$lineone = $_POST['firstline']."\n";
-		$linetwo = $_POST['secline']."\n";
-		$linethree = $_POST['thirdline']."\n";
-		$linefour = $_POST['fourthline']."\n";
+		$lineone = $_POST['firstline']."\r\n";
+		$linetwo = $_POST['secline']."\r\n";
+		$linethree = $_POST['thirdline']."\r\n";
+		$linefour = $_POST['fourthline'];
 		fwrite($fh, $lineone);
 		fwrite($fh, $linetwo);
 		fwrite($fh, $linethree);
