@@ -18,26 +18,26 @@ include('init.inc.php');
 		$fehler = array();
 		if (isset($_POST['timedate'], $_POST['destination'], $_POST['firstline'], $_POST['secline'], $_POST['thirdline'], $_POST['fourthline'])){
 			if (empty($_POST['timedate'])){
-				$errors[] = 'Datum darf nicht fehlen.';
+				$fehler[] = 'Datum darf nicht fehlen.';
 			}
 			if (empty($_POST['destination'])){
-				$errors[] = 'Stadt darf nicht fehlen.';
+				$fehler[] = 'Stadt darf nicht fehlen.';
 			}
 			if (empty($_POST['firstline'])){
-				$errors[] = 'Veranstaltungsseite darf nicht fehlen.';
+				$fehler[] = 'Veranstaltungsseite darf nicht fehlen.';
 			}
 			if (empty($_POST['secline'])){
-				$errors[] = 'Veranstaltungs darf nicht fehlen.';
+				$fehler[] = 'Veranstaltungs darf nicht fehlen.';
 			}
 			if (empty($_POST['thirdline'])){
-				$errors[] = 'Link zum Flyer darf nicht fehlen.';
+				$fehler[] = 'Link zum Flyer darf nicht fehlen.';
 			}
 			if (empty($_POST['fourthline'])){
-				$errors[] = 'Adresse darf nicht fehlen.';
+				$fehler[] = 'Adresse darf nicht fehlen.';
 			}
-			if (empty($errors) === false){
-				foreach ($errors as $error){
-					echo "<li>{$error}</li>";
+			if (empty($fehler) === false){
+				foreach ($fehler as $fehlers){
+					echo "<li>{$fehlers}</li>";
 				}
 				die();
 			}
