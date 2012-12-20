@@ -6,7 +6,6 @@ $errors = array();
 if (isset($_POST['username'], $_POST['password'])){
 	if (empty($_POST['username'])){
 		$errors[] = 'Der Benutzername kann nicht leer sein.';
-		echo "fehler";
 	}
 	if (empty($_POST['password'])){
 		$errors[] = 'Das Passwort kann nicht leer sein.';
