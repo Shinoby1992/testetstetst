@@ -5,7 +5,18 @@ $exceptions = array('register', 'login');
 $page = substr(end(explode('/', $_SERVER['SCRIPT_NAME'])), 0,-4);
 
 echo "USERNAME = ".$_SESSION['username'];
-echo isset($_SESSION['username'];
+
+if (isset($_SESSION['username']) === false){
+	echo "USERNAME FALSE";
+}
+if (isset($_SESSION['username']) === true){
+	echo "USERNAME TRUE";
+}
+
+if (isset($_SESSION['blasn']) === true){
+	echo "blasn TRUE";
+}
+
 
 if (in_array($page, $exception) === false){
 	if (isset($_SESSION['username']) === false){
