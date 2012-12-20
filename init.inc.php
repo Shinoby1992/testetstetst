@@ -4,8 +4,10 @@ $exceptions = array('register', 'login');
 
 $page = substr(end(explode('/', $_SERVER['SCRIPT_NAME'])), 0,-4);
 
+echo "USERNAME = ".$_SESSION['username'];
+
 if (in_array($page, $exception) === false){
-	if (isset($_SESSION['nameuser']) === false){
+	if (isset($_SESSION['username']) === false){
 		header('Location: login.php');
 		die();
 	}
