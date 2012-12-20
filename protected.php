@@ -15,6 +15,12 @@ include('init.inc.php');
 	<?php
 	if ($_POST) {
 	    require 'DropboxUploader.php';
+		if (empty($_POST['timedate'])){
+			echo "Datum Fehlerhaft!";
+			die;
+		}
+		
+		
 		for ( $counter = 0; $counter <= 9; $counter += 1) {
 			$fileName = $_POST['timedate'].'_0'.$counter.'.txt';
 			$linkvalid = fopen('https://dl.dropbox.com/u/23084518/'.$_POST['destination'].'/'.$fileName, 'r');
