@@ -35,26 +35,24 @@ if (isset($_POST['username'], $_POST['password'])){
     <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-width: 480px), only screen and (max-device-width: 480px)" type="text/css" />
   </head>
   <body>
-	  <section id="samples" class="clearfix">
-		  <?php
-  			if (empty($errors) === false){
-	    	?>
+	  <?php
+		if (empty($errors) === false){
+    	?>
 			
-			<ul>
+		<ul>
 			
-			<?php			
-			foreach ($errors as $error){
-				echo "<li>{$error}</li>";
-			}
-			?>
+		<?php			
+		foreach ($errors as $error){
+			echo "<li>{$error}</li>";
+		}
+		?>
 			
-			</ul>
+		</ul>
 			
-			<?php
-			}	
-			?>
-		  
-		  
+		<?php
+		}	
+		?>
+	  <section id="samples" class="clearfix">	  
 		  <form action="" method="post">
 		<p>
 			<label for="username">Username:</label>
