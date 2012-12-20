@@ -1,10 +1,8 @@
 <?php
 
 session_start();
-
 $_SESSION = array();
-
 session_destroy();
+header('protected.php');
 
-header('Location: protected.php');
 ?>
