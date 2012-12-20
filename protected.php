@@ -47,6 +47,7 @@ include('init.inc.php');
 	    } catch(Exception $e) {
 	        echo '<span style="color: red">Fehler: ' . htmlspecialchars($e->getMessage()) . '</span>';
 	    }
+		unlink('testFile.txt');
 
 	}
 	?>
