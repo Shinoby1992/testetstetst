@@ -20,7 +20,4 @@ mysql_select_db("app10036823");
 $path = dirname(__FILE__);
 
 include("{$path}/inc/user.inc.php");
-
-echo "{$path}/inc/user.inc.php";
-
 ?>
