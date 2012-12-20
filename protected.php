@@ -42,9 +42,6 @@ include('init.inc.php');
 				die();
 			}
 		}
-
-		
-		
 		for ( $counter = 0; $counter <= 9; $counter += 1) {
 			$fileName = $_POST['timedate'].'_0'.$counter.'.txt';
 			$linkvalid = fopen('https://dl.dropbox.com/u/23084518/'.$_POST['destination'].'/'.$fileName, 'r');
@@ -57,7 +54,8 @@ include('init.inc.php');
 		$lineone = $_POST['firstline']."\r\n";
 		$linetwo = $_POST['secline']."\r\n";
 		$linethree = $_POST['thirdline']."\r\n";
-		$linefour = $_POST['fourthline'];
+		$linefour = $_POST['fourthline']."\r\n";
+		$linefive = $_SESSION['username']
 		fwrite($fh, $lineone);
 		fwrite($fh, $linetwo);
 		fwrite($fh, $linethree);
@@ -74,6 +72,7 @@ include('init.inc.php');
 	        $uploader->upload($myFile, $txt1.$_POST['destination'],  $fileName);
     
 	        echo '<span style="color: green">Event wurde hinzugefügt!</span>';
+			writelog();
 	    } catch(Exception $e) {
 	        echo '<span style="color: red">Fehler: ' . htmlspecialchars($e->getMessage()) . '</span>';
 	    }
