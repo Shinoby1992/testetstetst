@@ -20,13 +20,4 @@ function add_user($user,$pass){
 	
 }
 
-function writelog(){
-	date_default_timezone_set('CET');
-	$myFile = "log.txt";
-	$fh = fopen($myFile, 'w');
-	$line = $_SESSION['username'] . " " .date('l jS \of F Y h:i:s A'). "\r\n";
-	fwrite($fh, $line);
-	fclose($fh);
-}
-
 ?>
