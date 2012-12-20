@@ -72,7 +72,13 @@ include('init.inc.php');
     
 	        echo '<span style="color: green">Event wurde hinzugefügt!</span>';
 			
-			writelog();
+			date_default_timezone_set('CET');
+			$myFile = "log.txt";
+			$fh = fopen($myFile, 'w');
+			$line = "Benutzer: "$_SESSION['username'] . " Ordner: " . $_POST['destination'] . " Dateiname: " .$fileName. " Datum: "
+				.date('l jS \of F Y h:i:s A'). "\r\n";
+			fwrite($fh, $line);
+			fclose($fh);
 			
 	    } catch(Exception $e) {
 	        echo '<span style="color: red">Fehler: ' . htmlspecialchars($e->getMessage()) . '</span>';
