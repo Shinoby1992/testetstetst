@@ -1,5 +1,4 @@
-<?php include('core/init.inc.php')
-?>
+<?php include('core/init.inc.php');?>
 <!DOCTYPE html>
 <html xmlns:fb="http://ogp.me/ns/fb#" lang="en">
   <head>
