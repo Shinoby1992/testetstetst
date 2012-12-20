@@ -1,6 +1,6 @@
 <?php
 session_start();
-$exceptions = array('register', 'login');
+$exception = array('register', 'login');
 
 $page = substr(end(explode('/', $_SERVER['SCRIPT_NAME'])), 0,-4);
 
