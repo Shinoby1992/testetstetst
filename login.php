@@ -67,6 +67,4 @@ if (isset($_POST['username'], $_POST['password'])){
 		</p>
 	</form>
 </body>
-				
-	
 	</section>
