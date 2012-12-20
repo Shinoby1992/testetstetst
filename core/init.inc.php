@@ -2,11 +2,13 @@
 
 session_start();
 
-echo $_SERVER['SCRIPT_NAME'];
+
 
 $exceptions = array('register', 'login');
 
 $page = substr(end(explode('/', $_SERVER['SCRIPT_NAME'])), 0,-4);
+
+echo $page;
 
 if (in_array($page, $exception) === false){
 	if (isset($_SESSION['username']) === false){
