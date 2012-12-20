@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 $exceptions = array('register', 'login');
 
