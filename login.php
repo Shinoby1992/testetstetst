@@ -5,10 +5,10 @@ $errors = array();
 
 if (isset($_POST['username'], $_POST['password'])){
 	if (empty($_POST['username'])){
-		$errors[] = 'Der Benutzername kann nicht leer sein.';
+		$errors[] = 'Der Benutzername darf nicht leer sein.';
 	}
 	if (empty($_POST['password'])){
-		$errors[] = 'Das Passwort kann nicht leer sein.';
+		$errors[] = 'Das Passwort darf nicht leer sein.';
 	}
 	if (valid_credentials($_POST['username'], $_POST['password']) === false){
 		$errors[] = 'Benutzername / Passwort falsch.';
