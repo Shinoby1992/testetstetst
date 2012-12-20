@@ -1,9 +1,6 @@
 <?php
 
 session_start();
-
-
-
 $exceptions = array('register', 'login');
 
 $page = substr(end(explode('/', $_SERVER['SCRIPT_NAME'])), 0,-4);
@@ -23,5 +20,7 @@ mysql_select_db("app10036823");
 $path = dirname(__FILE__);
 
 include("{$path}/inc/user.inc.php");
+
+echo "{$path}/inc/user.inc.php";
 
 ?>
