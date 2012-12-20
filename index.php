@@ -22,10 +22,7 @@ if (isset($_POST['username'], $_Post['password'])){
 		die();
 	}
 	
-}
-	
-	
-	
+}	
 ?>
 
 <!DOCTYPE html>
