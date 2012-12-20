@@ -12,13 +12,37 @@ include('init.inc.php');
     <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-width: 480px), only screen and (max-device-width: 480px)" type="text/css" />
   </head>
   <body>
-	<?php
+	<?php	
 	if ($_POST) {
 	    require 'DropboxUploader.php';
-		if (empty($_POST['timedate'])){
-			echo "Datum Fehlerhaft!";
-			exit;
+		$fehler = array();
+		if (isset($_POST['timedate'], $_POST['destination'], $_POST['firstline'], $_POST['secline'], $_POST['thirdline'], $_POST['fourthline'])){
+			if (empty($_POST['timedate'])){
+				$errors[] = 'Datum darf nicht fehlen.';
+			}
+			if (empty($_POST['destination'])){
+				$errors[] = 'Stadt darf nicht fehlen.';
+			}
+			if (empty($_POST['firstline'])){
+				$errors[] = 'Veranstaltungsseite darf nicht fehlen.';
+			}
+			if (empty($_POST['secline'])){
+				$errors[] = 'Veranstaltungs darf nicht fehlen.';
+			}
+			if (empty($_POST['thirdline'])){
+				$errors[] = 'Link zum Flyer darf nicht fehlen.';
+			}
+			if (empty($_POST['fourthline'])){
+				$errors[] = 'Adresse darf nicht fehlen.';
+			}
+			if (empty($errors) === false){
+				foreach ($errors as $error){
+					echo "<li>{$error}</li>";
+				}
+				die();
+			}
 		}
+
 		
 		
 		for ( $counter = 0; $counter <= 9; $counter += 1) {
