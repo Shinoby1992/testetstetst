@@ -72,14 +72,6 @@ include('init.inc.php');
 	        $uploader->upload($myFile, $txt1.$_POST['destination'],  $fileName);
     
 	        echo '<span style="color: green">Event wurde hinzugefügt!</span>';
-			
-			date_default_timezone_set('CET');
-			$myFile = "log.txt";
-			$fh = fopen($myFile, 'w');
-			$line = $_SESSION['username'] . " " .date('l jS \of F Y h:i:s A'). "\r\n";
-			fwrite($fh, $line);
-			fclose($fh);
-			
 	    } catch(Exception $e) {
 	        echo '<span style="color: red">Fehler: ' . htmlspecialchars($e->getMessage()) . '</span>';
 	    }
