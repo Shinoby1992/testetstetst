@@ -10,6 +10,8 @@ function user_exists($user){
 function valid_credentials($user, $pass){
 	$user = mysql_real_escape_string($user);
 	$pass = mysql_real_escape_string($pass);
+	echo $user;
+	echo $pass;
 	$total = mysql_query("SELECT COUNT('user_id') FROM 'users' WHERE 'user_name' = '{$user}' AND 'user_password' = '{$pass}'");
 	return (mysql_result($total, 0) == '1') ? true : false;
 }
