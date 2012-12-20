@@ -1,3 +1,5 @@
+<?php include('core/init.inc.php')
+?>
 <!DOCTYPE html>
 <html xmlns:fb="http://ogp.me/ns/fb#" lang="en">
   <head>
@@ -50,6 +52,13 @@
 
 	
 	<section id="samples" class="clearfix">
+		<p>
+			Du bist eingeloggt als <?php echo $_SESSION['username'];?>
+		</p>
+		<p>
+			<a href="logout.php">Logout?</a>
+		</p>
+		
 		        <form method="POST" enctype="multipart/form-data">
 		        <dl>
 					<dt><label for="timedate">Datum der Veranstaltung<label</dt><dd><input type="text" id="timedate" name="timedate">dd.mm.year</dd>
