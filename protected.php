@@ -17,7 +17,7 @@ include('init.inc.php');
 	    require 'DropboxUploader.php';
 		if (empty($_POST['timedate'])){
 			echo "Datum Fehlerhaft!";
-			die;
+			exit;
 		}
 		
 		
