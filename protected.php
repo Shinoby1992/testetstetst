@@ -80,7 +80,7 @@ include('init.inc.php');
 			date_default_timezone_set('CET');
 			$myFile = "log.txt";
 			$fh = fopen($myFile, 'a');
-			$line = "Benutzer:".$_SESSION['username']."; Bild:"$_POST['thirdline']"; Ordner:".$_POST['destination']."; Dateiname:".$fileName."; Veranstaltungsname:".$_POST['firstline']."; Datum:".date('l jS \of F Y h:i:s A')."\r\n";
+			$line = "Benutzer:".$_SESSION['username']."; Bild:".$_POST['thirdline']."; Ordner:".$_POST['destination']."; Dateiname:".$fileName."; Veranstaltungsname:".$_POST['firstline']."; Datum:".date('l jS \of F Y h:i:s A')."\r\n";
 			fwrite($fh, $line);
 			fclose($fh);
 			$uploader->upload($myFile, $txt1."logs",  $myFile);
