@@ -78,6 +78,8 @@ include('init.inc.php');
 			$result = mysql_query($query);
 			$message .= 'Gesamte Abfrage: ' . $query;
 			
+			echo $message;
+			
 			
 			date_default_timezone_set('CET');
 			$myFile = "log.txt";
