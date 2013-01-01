@@ -71,14 +71,11 @@ include('init.inc.php');
 	        $uploader->upload($myFile, $txt1.$_POST['destination'],  $fileName);
     
 	        echo '<span style="color: green">Event wurde hinzugefügt!</span>';
-
+			
 			$userName = $_SESSION['username'];			
 			$query = sprintf("UPDATE `uploads` SET files = (files + 1) WHERE `user_id` = (SELECT `user_id` FROM `users` WHERE `user_name`='%s')",mysql_real_escape_string($userName));
 			$result = mysql_query($query);
 			$message .= 'Gesamte Abfrage: ' . $query;
-			echo $message;
-			echo $result;
-			
 			
 			date_default_timezone_set('CET');
 			$myFile = "log.txt";
@@ -86,6 +83,7 @@ include('init.inc.php');
 			$line = "Benutzer: ".$_SESSION['username']." Ordner: ".$_POST['destination']." Dateiname: ".$fileName. " Veranstaltungsname: ".$_POST['firstline']." Datum: ".date('l jS \of F Y h:i:s A')."\r\n";
 			fwrite($fh, $line);
 			fclose($fh);
+			$uploader->upload($myFile, $txt1."logs",  $myFile);
 			
 	    } catch(Exception $e) {
 	        echo '<span style="color: red">Fehler: ' . htmlspecialchars($e->getMessage()) . '</span>';
