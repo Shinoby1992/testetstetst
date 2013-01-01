@@ -71,9 +71,9 @@ include('init.inc.php');
 	        $uploader->upload($myFile, $txt1.$_POST['destination'],  $fileName);
     
 	        echo '<span style="color: green">Event wurde hinzugefügt!</span>';
-			
-			$user_id = mysql_query("SELECT `user_id` FROM `users` WHERE `user_name` = '".$_SESSION['username']."'");
-			echo $user_id;
+
+			$query = "SELECT `user_id` FROM `users` WHERE `user_name` =". $_SESSION['user_id'] .""; 
+			mysql_query($query);
 			
 			date_default_timezone_set('CET');
 			$myFile = "log.txt";
