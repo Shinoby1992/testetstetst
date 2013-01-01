@@ -72,13 +72,14 @@ include('init.inc.php');
     
 	        echo '<span style="color: green">Event wurde hinzugefügt!</span>';
 
-			$userName = $_SESSION['username'];
-			$query = sprintf("SELECT `user_id` FROM `users` WHERE `user_name`='%s'",
-			mysql_real_escape_string($userName));
+			$userName = $_SESSION['username'];			
+			$query = sprintf("UPDATE `uploads` SET files = (files + 1) WHERE `user_id` = (SELECT `user_id` FROM `users` WHERE `user_name`='%s'"),mysql_real_escape_string($userName));
 			$result = mysql_query($query);
 			$message .= 'Gesamte Abfrage: ' . $query;
-			
+						
 			echo $message;
+			echo "<br>";
+			echo $result;
 			
 			
 			date_default_timezone_set('CET');
