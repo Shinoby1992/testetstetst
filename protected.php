@@ -72,11 +72,8 @@ include('init.inc.php');
     
 	        echo '<span style="color: green">Event wurde hinzugefügt!</span>';
 			
-			echo $_SESSION['user_id'];
-			
-			$query = "UPDATE `uploads` SET files = (files + 1) WHERE `user_id` = '
-			". $_SESSION['user_id'] ."'";
-			mysql_query ($query);
+			$user_id = mysql_query("SELECT `user_id` FROM `users` WHERE `user_name` = '$_SESSION['username']'");
+			echo $user_id;
 			
 			date_default_timezone_set('CET');
 			$myFile = "log.txt";

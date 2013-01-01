@@ -11,10 +11,6 @@ function valid_credentials($user, $pass){
 	$user = mysql_real_escape_string($user);
 	$pass = mysql_real_escape_string($pass);
 	$total = mysql_query("SELECT COUNT(`user_id`) FROM `users` WHERE `user_name` = '{$user}' AND `user_password` = '{$pass}'");
-	$user_id = mysql_query("SELECT `user_id` FROM `users` WHERE `user_name` = '{$user}' AND `user_password` = '{$pass}'");
-	
-	$_SESSION['user_id'] = $user_id;
-	
 	return (mysql_result($total, 0) == '1') ? true : false;
 }
 ?>
