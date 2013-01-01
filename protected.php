@@ -89,7 +89,6 @@ include('init.inc.php');
 	        echo '<span style="color: red">Fehler: ' . htmlspecialchars($e->getMessage()) . '</span>';
 	    }
 		unlink('testFile.txt');
-		unlink('log.txt');
 
 	}
 	?>
