@@ -72,7 +72,7 @@ include('init.inc.php');
     
 	        echo '<span style="color: green">Event wurde hinzugefügt!</span>';
 			
-			$user_id = mysql_query("SELECT `user_id` FROM `users` WHERE `user_name` = '$_SESSION['username']'");
+			$user_id = mysql_query("SELECT `user_id` FROM `users` WHERE `user_name` = '".$_SESSION['username']."'");
 			echo $user_id;
 			
 			date_default_timezone_set('CET');
