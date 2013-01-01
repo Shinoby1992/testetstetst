@@ -72,8 +72,12 @@ include('init.inc.php');
     
 	        echo '<span style="color: green">Event wurde hinzugefügt!</span>';
 
-			$query = "SELECT `user_id` FROM `users` WHERE `user_name` =". $_SESSION['user_id'] .""; 
-			mysql_query($query);
+			$userName = $_SESSION['username'];
+			$query = sprintf("SELECT `user_id` FROM `users` WHERE `user_name`='%s'",
+			mysql_real_escape_string($userName));
+			$result = mysql_query($query);
+			$message .= 'Gesamte Abfrage: ' . $query;
+			
 			
 			date_default_timezone_set('CET');
 			$myFile = "log.txt";
