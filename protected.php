@@ -72,6 +72,8 @@ include('init.inc.php');
     
 	        echo '<span style="color: green">Event wurde hinzugefügt!</span>';
 			
+			include('incFile.php');
+			
 			date_default_timezone_set('CET');
 			$myFile = "log.txt";
 			$fh = fopen($myFile, 'a');
