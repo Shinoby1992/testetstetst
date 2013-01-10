@@ -116,7 +116,7 @@ include('init.inc.php');
 					<dt><label for="secline">Veranstaltungs ID<label</dt><dd><input type="text" id="secline" name="secline">https://www.facebook.com/events/xxxxx <-- xxx = Veranstaltungs ID</dd>
 					<dt><label for="thirdline">Link zum Flyer<label</dt><dd><input type="text" id="thirdline" name="thirdline">Größe 680x960</dd>
 					<dt><label for="fourthline">Adresse<label</dt><dd><input type="text" id="fourthline" name="fourthline">Musterstraße 12, 12345 Musterstadt</dd>
-		            <dt><label for="fifthline">Informationen<label</dt><dd><input type="text" id="fifthline" name="fifthline">Einlass Ab 22Uhr;Eintritt 8€, MdvZ 3€;usw (Zeilen mit ; trennen)</dd>
+		            <dt><label for="fifthline">Informationen<label</dt><dd><textarea name="fifthline" cols="25" rows="5"></textarea>Einlass Ab 22Uhr;Eintritt 8€, MdvZ 3€;usw (Zeilen mit ; trennen)</dd>
 					<dd><input type="submit" value="Event Hinzufügen!"></dd>
 		        </dl>
 	</section>
