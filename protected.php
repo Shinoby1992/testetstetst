@@ -35,6 +35,9 @@ include('init.inc.php');
 			if (empty($_POST['fourthline'])){
 				$fehler[] = 'Adresse darf nicht fehlen.';
 			}
+			if (empty($_POST['fifthline'])){
+				$fehler[] = 'Geben Sie mindestens eine Information an';
+			}			
 			if (empty($fehler) === false){
 				foreach ($fehler as $fehlers){
 					echo "<li>{$fehlers}</li>";
@@ -54,11 +57,13 @@ include('init.inc.php');
 		$lineone = $_POST['firstline']."\r\n";
 		$linetwo = $_POST['secline']."\r\n";
 		$linethree = $_POST['thirdline']."\r\n";
-		$linefour = $_POST['fourthline'];
+		$linefour = $_POST['fourthline']."\r\n";
+		$linefife = $_POST['fifthline'];
 		fwrite($fh, $lineone);
 		fwrite($fh, $linetwo);
 		fwrite($fh, $linethree);
 		fwrite($fh, $linefour);
+		fwrite($fh, $linefife);
 		fclose($fh);
 		$fh = fopen($myFile, 'r');
 		$theData = fread($fh, filesize($myFile));
@@ -111,6 +116,7 @@ include('init.inc.php');
 					<dt><label for="secline">Veranstaltungs ID<label</dt><dd><input type="text" id="secline" name="secline">https://www.facebook.com/events/xxxxx <-- xxx = Veranstaltungs ID</dd>
 					<dt><label for="thirdline">Link zum Flyer<label</dt><dd><input type="text" id="thirdline" name="thirdline">Größe 680x960</dd>
 					<dt><label for="fourthline">Adresse<label</dt><dd><input type="text" id="fourthline" name="fourthline">Musterstraße 12, 12345 Musterstadt</dd>
-		            <dd><input type="submit" value="Event Hinzufügen!"></dd>
+		            <dt><label for="fifthline">Informationen<label</dt><dd><input type="text" id="fifthline" name="fifthline">Einlass Ab 22Uhr;Eintritt 8€, MdvZ 3€;usw (Jede Information mit ; trennen)</dd>
+					<dd><input type="submit" value="Event Hinzufügen!"></dd>
 		        </dl>
 	</section>
