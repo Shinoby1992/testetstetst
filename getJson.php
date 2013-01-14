@@ -7,7 +7,7 @@ mysql_query("SET NAMES 'utf8'");
 mysql_query("SET CHARACTER SET 'utf8'");
 
 $cityid = $_GET['city'];
-$selection = sprintf("SELECT * FROM `events` WHERE `city` = '%s' and `datum` >= CURDATE()", mysql_real_escape_string($cityid));
+$selection = sprintf("SELECT * FROM `events` WHERE `city` = '%s' and `datum` >= CURDATE();", mysql_real_escape_string($cityid));
 $sth = mysql_query($selection);
 
 $rows = array();
