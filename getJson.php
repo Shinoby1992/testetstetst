@@ -6,11 +6,10 @@ mysql_select_db('app10036823');
 mysql_query("SET NAMES 'utf8'"); 
 mysql_query("SET CHARACTER SET 'utf8'");
 
-$cityid = $_GET['stadt_id'];
+$cityid = $_GET['city'];
+$selection = sprintf("SELECT * FROM `events` WHERE `city` = '%s' and `datum` >= CURDATE()", mysql_real_escape_string($cityid));
+$sth = mysql_query($selection);
 
-
-
-$sth = mysql_query("SELECT * From `events`");
 $rows = array();
 while($r = mysql_fetch_assoc($sth)) {
     $rows[] = $r;
