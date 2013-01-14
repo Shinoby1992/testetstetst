@@ -10,10 +10,10 @@ $cityid = $_GET['city'];
 $selection = sprintf("SELECT * FROM `events` WHERE `city` = '%s' and `datum` >= CURDATE() ORDER BY `events`.`datum` ASC", mysql_real_escape_string($cityid));
 
 $sth = mysql_query($selection);
-$rows = array();
 while($r = mysql_fetch_assoc($sth)) {
     $rows[] = $r;
 }
+
 echo json_encode($rows);
 mysql_close($connect);
 
