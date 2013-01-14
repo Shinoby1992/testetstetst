@@ -8,7 +8,7 @@ mysql_query("SET CHARACTER SET 'utf8'");
 
 $cityid = $_GET['city'];
 $date = mysql_query('SELECT CURDATE()');
-$selection = sprintf("SELECT * FROM `events` WHERE `city` = '%s' and `datum` >= 'bla'", mysql_real_escape_string($cityid));
+$selection = sprintf("SELECT * FROM `events` WHERE `city` = '%s' and `datum` >= '%s'", mysql_real_escape_string($cityid), mysql_real_escape_string($date));
 
 print $selection;
 
