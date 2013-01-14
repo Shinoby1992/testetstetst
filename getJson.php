@@ -13,7 +13,7 @@ $sth = mysql_query($selection);
 while($r = mysql_fetch_assoc($sth)) {
     $rows[] = $r;
 }
-$dict = "events" => array($rows);
+$dict = array("events" => array($rows));
 
 echo json_encode($dict);
 mysql_close($connect);
