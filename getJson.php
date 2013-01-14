@@ -1,4 +1,4 @@
-<?php
+<?php header('content-type: application/json; charset=utf-8');
 session_start();
 $connect = mysql_connect('instance34712.db.xeround.com:3312','app10036823','hu26sh10');
 mysql_select_db('app10036823');
@@ -8,7 +8,7 @@ $rows = array();
 while($r = mysql_fetch_assoc($sth)) {
     $rows[] = $r;
 }
-print utf8_encode(json_encode($rows));
+print $rows;
 
 mysql_close($connect);
 
