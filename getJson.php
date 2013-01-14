@@ -8,8 +8,6 @@ $rows = array();
 while($r = mysql_fetch_assoc($sth)) {
     $rows[] = $r;
 }
-print $rows;
-print json_encode($rows);
 print utf8_encode(json_encode($rows));
 
 mysql_close($connect);
