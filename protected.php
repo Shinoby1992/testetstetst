@@ -52,7 +52,7 @@ include('init.inc.php');
 			$txt1="public/";
 			
 			$insertQuery = sprintf("INSERT INTO `events` VALUES ('%s','%s','%s','%s','%s','%s','%s')", mysql_real_escape_string($_POST['destination']),mysql_real_escape_string($_POST['timedate']),mysql_real_escape_string($_POST['firstline']),mysql_real_escape_string($_POST['secline']),mysql_real_escape_string($_POST['thirdline']),mysql_real_escape_string($_POST['fourthline']),mysql_real_escape_string($_POST['fifthline']));
-			$result = mysql_query($query);
+			$result = mysql_query($insertQuery);
 			
 	        echo '<span style="color: green">Event wurde hinzugefügt!</span>';
 			
