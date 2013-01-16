@@ -56,10 +56,13 @@ include('init.inc.php');
 			$userName = $_SESSION['username'];			
 			$query = sprintf("UPDATE `uploads` SET files = (files + 1) WHERE `user_id` = (SELECT `user_id` FROM `users` WHERE `user_name`='%s')",mysql_real_escape_string($userName));
 			
+			$updateCitys = sprintf("INSERT INTO `usage`(`Stadt`) VALUES ('%s')", mysql_real_escape_string($_POST['destination']));
+			
 			mysql_query("SET NAMES 'utf8'"); 
 			mysql_query("SET CHARACTER SET 'utf8'");
 			mysql_query($insertQuery);
 			mysql_query($query);
+			mysql_query($updateCitys);
 			
 			echo '<span style="color: green">Event wurde hinzugefügt!</span>';
 			
