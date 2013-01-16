@@ -55,13 +55,15 @@ include('init.inc.php');
 			mysql_query("SET CHARACTER SET 'utf8'");
 			
 			$insertQuery = sprintf("INSERT INTO `events` VALUES ('%s','%s','%s','%s','%s','%s','%s')", mysql_real_escape_string($_POST['destination']),mysql_real_escape_string($_POST['timedate']),mysql_real_escape_string($_POST['firstline']),mysql_real_escape_string($_POST['secline']),mysql_real_escape_string($_POST['thirdline']),mysql_real_escape_string($_POST['fourthline']),mysql_real_escape_string($_POST['fifthline']));
-			$result = mysql_query($insertQuery);
 			
-	        echo '<span style="color: green">Event wurde hinzugefügt!</span>';
 			
 			$userName = $_SESSION['username'];			
 			$query = sprintf("UPDATE `uploads` SET files = (files + 1) WHERE `user_id` = (SELECT `user_id` FROM `users` WHERE `user_name`='%s')",mysql_real_escape_string($userName));
-			$result = mysql_query($query);
+			
+			mysql_query($insertQuery);
+			mysql_query($query);
+			
+			echo '<span style="color: green">Event wurde hinzugefügt!</span>';
 			
 			date_default_timezone_set('CET');
 			$myFile = "log.txt";
@@ -90,7 +92,7 @@ include('init.inc.php');
 		
 		        <form method="POST" enctype="multipart/form-data">
 		        <dl>
-					<dt><label for="timedate">Datum der Veranstaltung<label</dt><dd><input type="text" id="timedate" name="timedate">dd.mm.year</dd>
+					<dt><label for="timedate">Datum der Veranstaltung<label</dt><dd><input type="text" id="timedate" name="timedate">year-mm-dd (2013-01-31)</dd>
 		            <dt><label for="destination">Stadt der Veranstaltung<label</dt><dd><input type="text" id="destination" name="destination"></dd>
 					<dt><label for="firstline">Veranstaltungsseite<label</dt><dd><input type="text" id="firstline" name="firstline">https://www.facebook.com/xxxxxx  <-- xxx = Veranstaltungsseite</dd>
 						
