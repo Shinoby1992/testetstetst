@@ -51,15 +51,13 @@ include('init.inc.php');
 	        $uploader = new DropboxUploader('human.khoobsirat@googlemail.com', 'hu26sh10');
 			$txt1="public/";
 			
-			mysql_query("SET NAMES 'utf8'"); 
-			mysql_query("SET CHARACTER SET 'utf8'");
-			
 			$insertQuery = sprintf("INSERT INTO `events` VALUES ('%s','%s','%s','%s','%s','%s','%s')", mysql_real_escape_string($_POST['destination']),mysql_real_escape_string($_POST['timedate']),mysql_real_escape_string($_POST['firstline']),mysql_real_escape_string($_POST['secline']),mysql_real_escape_string($_POST['thirdline']),mysql_real_escape_string($_POST['fourthline']),mysql_real_escape_string($_POST['fifthline']));
-			
 			
 			$userName = $_SESSION['username'];			
 			$query = sprintf("UPDATE `uploads` SET files = (files + 1) WHERE `user_id` = (SELECT `user_id` FROM `users` WHERE `user_name`='%s')",mysql_real_escape_string($userName));
 			
+			mysql_query("SET NAMES 'utf8'"); 
+			mysql_query("SET CHARACTER SET 'utf8'");
 			mysql_query($insertQuery);
 			mysql_query($query);
 			
