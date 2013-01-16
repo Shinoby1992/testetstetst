@@ -45,36 +45,15 @@ include('init.inc.php');
 				die();
 			}
 		}
-		for ( $counter = 0; $counter <= 9; $counter += 1) {
-			$fileName = $_POST['timedate'].'_0'.$counter.'.txt';
-			$linkvalid = fopen('https://dl.dropbox.com/u/23084518/'.$_POST['destination'].'/'.$fileName, 'r');
-			if (!$linkvalid) {
-				break;
-			}
-		}
-		$myFile = "testFile.txt";
-		$fh = fopen($myFile, 'w') or die("can't open file");
-		$lineone = $_POST['firstline']."\r\n";
-		$linetwo = $_POST['secline']."\r\n";
-		$linethree = $_POST['thirdline']."\r\n";
-		$linefour = $_POST['fourthline']."\r\n";
-		$linefife = $_POST['fifthline'];
-		fwrite($fh, $lineone);
-		fwrite($fh, $linetwo);
-		fwrite($fh, $linethree);
-		fwrite($fh, $linefour);
-		fwrite($fh, $linefife);
-		fclose($fh);
-		$fh = fopen($myFile, 'r');
-		$theData = fread($fh, filesize($myFile));
-		fclose($fh);
+	
 	    try {
 	        // Upload
 	        $uploader = new DropboxUploader('human.khoobsirat@googlemail.com', 'hu26sh10');
-		
-			$txt1="public/";		
-	        $uploader->upload($myFile, $txt1.$_POST['destination'],  $fileName);
-    
+			$txt1="public/";
+			
+			$insertQuery = sprintf("INSERT INTO `events` VALUES ('%s','%s','%s','%s','%s','%s','%s')", mysql_real_escape_string($_POST['destination']),mysql_real_escape_string($_POST['timedate']),mysql_real_escape_string($_POST['firstline']),mysql_real_escape_string($_POST['secline']),mysql_real_escape_string($_POST['thirdline']),mysql_real_escape_string($_POST['fourthline']),mysql_real_escape_string($_POST['fifthline']));
+			$result = mysql_query($query);
+			
 	        echo '<span style="color: green">Event wurde hinzugefügt!</span>';
 			
 			$userName = $_SESSION['username'];			
