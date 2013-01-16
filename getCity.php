@@ -5,8 +5,7 @@ mysql_select_db('app10036823');
 mysql_query("SET NAMES 'utf8'"); 
 mysql_query("SET CHARACTER SET 'utf8'");
 
-$citys = $_GET['city'];
-$selection = sprintf("SELECT DISTINCT `city` FROM `events` ORDER BY `events`.`city` ASC", mysql_real_escape_string($citys));
+$selection = sprintf("SELECT DISTINCT `city` FROM `events` ORDER BY `events`.`city` ASC");
 
 $sth = mysql_query($selection);
 while($r = mysql_fetch_assoc($sth)) {
