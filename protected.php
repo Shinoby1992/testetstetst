@@ -58,7 +58,6 @@ include('init.inc.php');
 			
 			$updateCitys = sprintf("INSERT INTO `usage`(`Stadt`) VALUES ('%s')", mysql_real_escape_string(ucfirst(strtolower($_POST['destination']))));
 			
-			
 			mysql_query("SET NAMES 'utf8'"); 
 			mysql_query("SET CHARACTER SET 'utf8'");
 			mysql_query($insertQuery);
