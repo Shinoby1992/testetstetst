@@ -61,6 +61,7 @@ include('init.inc.php');
 				foreach ($fehler as $fehlers){
 					echo "<li>{$fehlers}</li>";
 				}
+				echo check_date('21.02.1983');
 				die();
 			}
 		}
