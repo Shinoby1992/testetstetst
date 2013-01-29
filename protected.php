@@ -23,14 +23,11 @@ include('init.inc.php');
 			if (empty($_POST['timedate'])){
 				$fehler[] = 'Datum darf nicht fehlen.';
 			}
-			if(check_date($_POST['timedate'])= FALSE){
+			if(check_date($_POST['timedate'])== FALSE){
 				$fehler[] = 'Datum nicht Gültig oder Falsch eingegeben';
 			}
-			if (check_date('21.02.1983')= FALSE){
+			if (check_date('21.02.1983')== FALSE){
 				$fehler[] = '21.02.1983 Falsch eingegeben';
-			}
-			if (check_date('02.21.2005')= FALSE){
-				$fehler[] = '02.21.2005 Datum nicht Gültig oder Falsch eingegeben';
 			}
 			if (empty($_POST['destination'])){
 				$fehler[] = 'Stadt darf nicht fehlen.';
@@ -54,6 +51,7 @@ include('init.inc.php');
 				foreach ($fehler as $fehlers){
 					echo "<li>{$fehlers}</li>";
 				}
+				echo (int)check_date($_POST['timedate']);
 				die();
 			}
 		}
@@ -108,7 +106,11 @@ include('init.inc.php');
 	            $month = $array[1];
 	            $day = $array[2];
 	            $year = $array[0];
+				echo $month;
+				echo $day;
+				echo $year;
 	        }
+			
 	        if(checkdate($month, $day, $year)) {    //Validate Gregorian date
 	            return TRUE;
         
