@@ -23,19 +23,13 @@ include('init.inc.php');
 			if (empty($_POST['timedate'])){
 				$fehler[] = 'Datum darf nicht fehlen.';
 			}
-			
-			echo check_date($_POST['timedate']);
-			if(check_date($_POST['timedate'])){
+			if(check_date($_POST['timedate'] == false)){
 				$fehler[] = 'Datum nicht Gültig oder Falsch eingegeben';
 			}
-			
-			echo check_date('21.02.1983');
-			if (check_date('21.02.1983')){
+			if (check_date('21.02.1983' == false)){
 				$fehler[] = '21.02.1983 Falsch eingegeben';
 			}
-			
-			echo check_date('02.21.2005');
-			if (check_date('02.21.2005')){
+			if (check_date('02.21.2005' == false)){
 				$fehler[] = '02.21.2005 Datum nicht Gültig oder Falsch eingegeben';
 			}
 			
@@ -61,7 +55,6 @@ include('init.inc.php');
 				foreach ($fehler as $fehlers){
 					echo "<li>{$fehlers}</li>";
 				}
-				echo check_date('21.02.1983');
 				die();
 			}
 		}
