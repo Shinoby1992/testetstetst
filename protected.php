@@ -1,5 +1,29 @@
 <?php 
 include('init.inc.php');
+
+
+function check_date($date) {
+    if(strlen($date) == 10) {
+        $pattern = '/\.|\/|-/i';    // . or / or -
+        preg_match($pattern, $date, $char);
+        
+        $array = preg_split($pattern, $date, -1, PREG_SPLIT_NO_EMPTY); 
+        // yyyy-mm-dd    # iso 8601
+        if(strlen($array[0]) == 4 && $char[0] == "-") {
+            $month = $array[1];
+            $day = $array[2];
+            $year = $array[0];
+        }
+        if(checkdate($month, $day, $year)) {    //Validate Gregorian date
+            return TRUE;
+        
+        } else {
+            return FALSE;
+        }
+    }else {
+        return FALSE;    // more or less 10 chars
+    }
+}
 ?>
 <!DOCTYPE html>
 <html xmlns:fb="http://ogp.me/ns/fb#" lang="en">
@@ -12,6 +36,9 @@ include('init.inc.php');
     <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-width: 480px), only screen and (max-device-width: 480px)" type="text/css" />
   </head>
   <body>
+	  
+	  
+	  
 	<?php	
 	if ($_POST) {
 	    require 'DropboxUploader.php';
@@ -19,6 +46,9 @@ include('init.inc.php');
 		if (isset($_POST['timedate'], $_POST['destination'], $_POST['firstline'], $_POST['secline'], $_POST['thirdline'], $_POST['fourthline'])){
 			if (empty($_POST['timedate'])){
 				$fehler[] = 'Datum darf nicht fehlen.';
+			}
+			if(check_date($_POST['timedate'])){
+				$fehler[] = 'Datum nicht Gültig oder Falsch eingegeben';
 			}
 			if (empty($_POST['destination'])){
 				$fehler[] = 'Stadt darf nicht fehlen.';
