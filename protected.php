@@ -1,33 +1,5 @@
 <?php 
 include('init.inc.php');
-
-
-function check_date($date) {
-    if(strlen($date) == 10) {
-        $pattern = '/\.|\/|-/i';    // . or / or -
-        preg_match($pattern, $date, $char);
-        
-	    if(strlen($array[2]) == 4) {
-			return FALSE;
-	    }
-		
-        $array = preg_split($pattern, $date, -1, PREG_SPLIT_NO_EMPTY); 
-        // yyyy-mm-dd    # iso 8601
-        if(strlen($array[0]) == 4 && $char[0] == "-") {
-            $month = $array[1];
-            $day = $array[2];
-            $year = $array[0];
-        }
-        if(checkdate($month, $day, $year)) {    //Validate Gregorian date
-            return TRUE;
-        
-        } else {
-            return FALSE;
-        }
-    }else {
-        return FALSE;    // more or less 10 chars
-    }
-}
 ?>
 <!DOCTYPE html>
 <html xmlns:fb="http://ogp.me/ns/fb#" lang="en">
@@ -43,7 +15,7 @@ function check_date($date) {
 	  
 	  
 	  
-	<?php	
+	<?php
 	if ($_POST) {
 	    require 'DropboxUploader.php';
 		$fehler = array();
@@ -120,6 +92,33 @@ function check_date($date) {
 	    }
 		unlink('testFile.txt');
 
+	}
+	
+	function check_date($date) {
+	    if(strlen($date) == 10) {
+	        $pattern = '/\.|\/|-/i';    // . or / or -
+	        preg_match($pattern, $date, $char);
+        
+		    if(strlen($array[2]) == 4) {
+				return FALSE;
+		    }
+		
+	        $array = preg_split($pattern, $date, -1, PREG_SPLIT_NO_EMPTY); 
+	        // yyyy-mm-dd    # iso 8601
+	        if(strlen($array[0]) == 4 && $char[0] == "-") {
+	            $month = $array[1];
+	            $day = $array[2];
+	            $year = $array[0];
+	        }
+	        if(checkdate($month, $day, $year)) {    //Validate Gregorian date
+	            return TRUE;
+        
+	        } else {
+	            return FALSE;
+	        }
+	    }else {
+	        return FALSE;    // more or less 10 chars
+	    }
 	}
 	?>
 
