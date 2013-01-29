@@ -7,6 +7,10 @@ function check_date($date) {
         $pattern = '/\.|\/|-/i';    // . or / or -
         preg_match($pattern, $date, $char);
         
+	    if(strlen($array[2]) == 4) {
+			return FALSE;
+	    }
+		
         $array = preg_split($pattern, $date, -1, PREG_SPLIT_NO_EMPTY); 
         // yyyy-mm-dd    # iso 8601
         if(strlen($array[0]) == 4 && $char[0] == "-") {
@@ -50,6 +54,13 @@ function check_date($date) {
 			if(check_date($_POST['timedate'])){
 				$fehler[] = 'Datum nicht Gültig oder Falsch eingegeben';
 			}
+			if (check_date('21.02.1983')){
+				$fehler[] = '21.02.1983 Falsch eingegeben';
+			}
+			if (check_date('02.21.2005')){
+				$fehler[] = '02.21.2005 Datum nicht Gültig oder Falsch eingegeben';
+			}
+			
 			if (empty($_POST['destination'])){
 				$fehler[] = 'Stadt darf nicht fehlen.';
 			}
