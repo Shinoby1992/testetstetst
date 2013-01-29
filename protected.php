@@ -48,7 +48,6 @@ include('init.inc.php');
 				foreach ($fehler as $fehlers){
 					echo "<li>{$fehlers}</li>";
 				}
-				echo (int)check_date($_POST['timedate']);
 				die();
 			}
 		}
