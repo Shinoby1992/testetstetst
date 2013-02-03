@@ -4,7 +4,7 @@
   $dbname = str_replace("/", "", $mongo_url["path"]);
 
   # connect
-  $m   = new Mongo(getenv("mongodb://human.khoobsirat@googlemail.com:hu26sh10@linus.mongohq.com:10020/app10036823"));
+  $m   = new Mongo(getenv("mongodb://human.khoobsirat@googlemail.com:hu26sh10@linus.mongohq.com:10020"));
   $db  = $m->$dbname;
   $col = $db->access;
 
