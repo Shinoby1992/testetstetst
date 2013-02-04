@@ -1,23 +1,20 @@
 <?php
-	
-  # get the mongo db name out of the env
-  $mongo_url = parse_url(getenv("mongodb://humi:bumi@linus.mongohq.com:10020/app10036823"));
-  $dbname = str_replace("/", "", $mongo_url["path"]);
-  
-  # connect
-  $m   = new Mongo(getenv("mongodb://humi:bumi@linus.mongohq.com:10020/app10036823"));
-  $db  = $m->$dbname;
-  $col = $db->access;
+// connect
+$m = new MongoClient( "mongodb://humi:humi@linus.mongohq.com:10020" ); 
 
-  # insert a document
-  $visit = array( "ip" => $_SERVER["HTTP_X_FORWARDED_FOR"] );
-  $col->insert($visit);
+// select a database
+$db = $m->app10036823;
 
-  # print all existing documents
-  $data = $col->find();
-  foreach($data as $visit) {
-    echo "<li>" . $visit["ip"] . "</li>";
-  }
+// select a collection (analogous to a relational database's table)
+$collection = $db->events;
+
+// find everything in the collection
+$cursor = $collection->find();
+
+// iterate through the results
+foreach ($cursor as $document) {
+    echo $document["title"] . "\n";
+}
 
   # disconnect
   $m->close();
