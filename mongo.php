@@ -1,7 +1,7 @@
 <?php
 // connect
 $m = new MongoClient( "mongodb://humi:humi@linus.mongohq.com:10020" ); 
-
+echo $m;
 // select a database
 $db = $m->app10036823;
 
