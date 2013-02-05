@@ -1,10 +1,10 @@
 <?php
   # get the mongo db name out of the env
-  $mongo_url = parse_url(getenv("mongodb://humi:humi@linus.mongohq.com:10020/app10036823"));
+  $mongo_url = parse_url(getenv("mongodb://humi:humi@linus.mongohq.com:10021/HKApp1"));
   $dbname = str_replace("/", "", $mongo_url["path"]);
 
   # connect
-  $m   = new Mongo(getenv("mongodb://humi:humi@linus.mongohq.com:10020"));
+  $m   = new Mongo(getenv("mongodb://humi:humi@linus.mongohq.com:10021/HKApp1"));
   $db  = $m->$dbname;
   $col = $db->access;
 
