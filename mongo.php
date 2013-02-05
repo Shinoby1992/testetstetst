@@ -33,7 +33,7 @@
  
     // print out last collection
     if ( $collection_name != "" ) {
-      $collection = $db->selectCollection($events);
+      $collection = $db->selectCollection($collection_name);
       echo "<h2>Documents in ${collection_name}</h2>";
  
       // only print out the first 5 docs
