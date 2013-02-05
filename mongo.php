@@ -7,7 +7,7 @@
   try {
     // connect to MongoHQ assuming your MONGOHQ_URL environment
     // variable contains the connection string
-    $connection_url = getenv("MONGOHQ_URL");
+    $connection_url = getenv("mongodb://humi:humi@linus.mongohq.com:10021/HKApp1");
  
     // create the mongo connection object
     $m = new Mongo($connection_url);
