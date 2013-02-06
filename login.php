@@ -1,5 +1,5 @@
 <?php
-include('init.inc.php');
+//include('init.inc.php');
 
 $errors = array();
 
