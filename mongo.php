@@ -21,12 +21,15 @@
  
     echo "<h2>Collections</h2>";
     echo "<ul>";
- 
  	$collection = $db->events;
-	
- 	echo "<li>" .  $db->events . "</li>";
- 
+	echo "<li>" .  $db->events . "</li>";
     echo "</ul>";
+
+	$obj = $collection->findOne();
+	echo "<pre>";
+	print_r($obj);
+	echo "</pre>";
+
  
     // print out last collection
     if ( $collection_name != "" ) {
