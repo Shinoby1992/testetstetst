@@ -35,7 +35,8 @@
 	//echo "</pre>";
 	
 	$criteria = array(
-	    'checked' => 1
+	    'checked' => 1,
+		'city' => 'Frankfurt'
 	  );
 	  
 	$cursor = $collection->find($criteria);
