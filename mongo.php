@@ -1,4 +1,9 @@
-<?php header('Content-Type: application/json; charset=utf-8');
+<!-- PHP Mongo Docs: http://php.net/manual/en/class.mongodb.php -->
+<html>
+<body>
+<h1>MongoHQ Test</h1>
+<?php
+
   try {
     // connect to MongoHQ assuming your MONGOHQ_URL environment
     // variable contains the connection string
@@ -16,11 +21,63 @@
 	
 	// get Collection
 	$collection = $db->events;
+    echo "<h2>Collections</h2>";
+    echo "<ul>";
+	echo "<li>" .  $db->events . "</li>";
+    echo "</ul>";
 	
-	// get All Citys
+	//get query
+	//$obj = $collection->findOne();
+	//echo "<pre>";
+	//print_r($obj);
+	//echo "</pre>";
+	
 	$citys = $db->command(array("distinct" => "events", "key" => "city"));
-	echo json_encode($citys);
+	$cityarray = $citys['values'];
 	
+	//echo "<pre>";
+	//print_r($cityarray);
+	//echo "</pre>";
+	
+	echo "<h2>Show result as an array:</h2>";
+	echo "<pre>";
+	print_r($citys);
+	echo "</pre>";
+
+	echo "<h2>Show result as JSON:</h2>";
+	echo "<pre>";
+	echo json_encode($citys);
+	echo "</pre>";
+	
+	echo "<h2>Show result as an array:</h2>";
+	echo "<pre>";
+	print_r($cityarray);
+	echo "</pre>";
+
+	echo "<h2>Show result as JSON:</h2>";
+	echo "<pre>";
+	echo json_encode($cityarray);
+	echo "</pre>";
+	
+	
+
+ 
+    // print out last collection
+    if ( $collection_name != "" ) {
+      $collection = $db->selectCollection($collection_name);
+      echo "<h2>Documents in ${collection_name}</h2>";
+ 
+      // only print out the first 5 docs
+      $cursor = $collection->find();
+      $cursor->limit(5);
+      echo $cursor->count() . ' document(s) found. <br/>';
+      foreach( $cursor as $doc ) {
+        echo "<pre>";
+        var_dump($doc);
+        echo "</pre>";
+      }
+    }
+ 
     // disconnect from server
     $m->close();
   } catch ( MongoConnectionException $e ) {
@@ -31,3 +88,5 @@
     die('Error: ' . $e->getMessage());
   }
 ?>
+</body>
+</html>

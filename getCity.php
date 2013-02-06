@@ -1,21 +1,33 @@
 <?php header('Content-Type: application/json; charset=utf-8');
-$connect = mysql_connect('instance34712.db.xeround.com:3312','app10036823','hu26sh10');
-mysql_select_db('app10036823');
-
-mysql_query("SET NAMES 'utf8'"); 
-mysql_query("SET CHARACTER SET 'utf8'");
-
-$selection = sprintf("SELECT DISTINCT `city` FROM `events` ORDER BY `events`.`city` ASC");
-
-$sth = mysql_query($selection);
-while($r = mysql_fetch_assoc($sth)) {
-    $rows[] = $r;
-}
-$dict = array("citys" => $rows);
-
-echo json_encode($dict);
-mysql_close($connect);
+  try {
+    // connect to MongoHQ assuming your MONGOHQ_URL environment
+    // variable contains the connection string
+    $connection_url = getenv("MONGOHQ_URL");
+ 
+    // create the mongo connection object
+    $m = new Mongo($connection_url);
+ 
+    // extract the DB name from the connection path
+    $url = parse_url($connection_url);
+    $db_name = preg_replace('/\/(.*)/', '$1', $url['path']);
+ 
+    // use the database we connected to
+    $db = $m->selectDB($db_name);
+	
+	// get Collection
+	$collection = $db->events;
+	
+	// get All Citys
+	$citys = $db->command(array("distinct" => "events", "key" => "city"));
+	echo json_encode($citys);
+	
+    // disconnect from server
+    $m->close();
+  } catch ( MongoConnectionException $e ) {
+    die('Error connecting to MongoDB server');
+  } catch ( MongoException $e ) {
+    die('Mongo Error: ' . $e->getMessage());
+  } catch ( Exception $e ) {
+    die('Error: ' . $e->getMessage());
+  }
 ?>
-
-
-
