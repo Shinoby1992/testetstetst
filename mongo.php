@@ -32,7 +32,7 @@
 	$heute = date("Y-m-d");
 	echo "<li>" .  $heute . "</li>";
 	
-	$start = new MongoDate(strtotime("2013-02-02 00:00:00"));
+	$start = new MongoDate(strtotime("2013-02-06 00:00:00"));
 	$start2 = new MongoDate(strtotime($heute));
 	
 	echo "<li>" .  $start . "</li>";
