@@ -28,7 +28,7 @@ if (isset($_POST['username'], $_POST['password'])){
   	  // get Collection
   	  $collection = $db->users;
 	
-  	  $qry = array("user_name" => $name,"password" => $password);
+  	  $qry = array("user_name" => $_POST['username'],"password" => $_POST['password']);
   	  $result = $collection->findOne($qry);
   	  if($result){
   		header('Location: protected.php');
@@ -46,15 +46,7 @@ if (isset($_POST['username'], $_POST['password'])){
       die('Mongo Error: ' . $e->getMessage());
     } catch ( Exception $e ) {
       die('Error: ' . $e->getMessage());
-    }
-	
-	if (empty($errors)){
-		$_SESSION['username'] = htmlentities($_POST['username']);
-		
-		header('Location: protected.php');
-		die();
-	}
-	
+    }	
 }	
 ?>
 
