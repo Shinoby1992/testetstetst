@@ -21,6 +21,7 @@ function valid_credentials($user, $pass){
 	
   	  $qry = array("user_name" => $user,"password" => $pass);
   	  $result = $collection->findOne($qry);
-	  return ($result == '1') ? true : false;
+	
+	  return $result;
 }
 ?>
