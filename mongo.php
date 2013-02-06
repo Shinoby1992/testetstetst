@@ -35,8 +35,18 @@
 	$citys = $db->command(array("distinct" => "events", "key" => "city"));
 	$cityarray = $citys['values'];
 	
+	//echo "<pre>";
+	//print_r($cityarray);
+	//echo "</pre>";
+	
+	echo "<h2>Show result as an array:</h2>";
 	echo "<pre>";
-	print_r($cityarray);
+	print_r($citys);
+	echo "</pre>";
+
+	echo "<h2>Show result as JSON:</h2>";
+	echo "<pre>";
+	echo json_encode($citys);
 	echo "</pre>";
 	
 	
