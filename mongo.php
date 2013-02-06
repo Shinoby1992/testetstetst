@@ -4,6 +4,8 @@
 <h1>MongoHQ Test</h1>
 <?php
 
+  $cityid = 'Frankfurt';
+  
   try {
     // connect to MongoHQ assuming your MONGOHQ_URL environment
     // variable contains the connection string
@@ -32,8 +34,17 @@
 	//print_r($obj);
 	//echo "</pre>";
 	
-	$citys = $db->command(array("distinct" => "events", "key" => "city"));
-	$cityarray = $citys['values'];
+	$criteria = array(
+	    'checked' => 1,
+	    'city' => $cityid
+	  );
+	  
+	$cursor = $collection->find($criteria);
+	
+	
+	
+	//$citys = $db->command(array("distinct" => "events", "key" => "city"));
+	//$cityarray = $citys['values'];
 	
 	//echo "<pre>";
 	//print_r($cityarray);
@@ -41,25 +52,13 @@
 	
 	echo "<h2>Show result as an array:</h2>";
 	echo "<pre>";
-	print_r($citys);
+	print_r($cursor);
 	echo "</pre>";
 
 	echo "<h2>Show result as JSON:</h2>";
 	echo "<pre>";
-	echo json_encode($citys);
+	echo json_encode($cursor);
 	echo "</pre>";
-	
-	echo "<h2>Show result as an array:</h2>";
-	echo "<pre>";
-	print_r($cityarray);
-	echo "</pre>";
-
-	echo "<h2>Show result as JSON:</h2>";
-	echo "<pre>";
-	echo json_encode($cityarray);
-	echo "</pre>";
-	
-	
 
  
     // print out last collection
