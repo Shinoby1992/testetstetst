@@ -1,28 +1,16 @@
 <?php
+//check if the username exists in the database
+function user_exists($user){
+	$user = mysql_real_escape_string($user);
+	$total = mysql_query("SELECT COUNT(`user_id`) FROM `users` WHERE `user_name` = '{$user}'");
+	return (mysql_result($total, 0) == '1') ? true : false;
+}
 
+//check if the username and password matches
 function valid_credentials($user, $pass){
-    try {
-      // connect to MongoHQ assuming your MONGOHQ_URL environment
-      // variable contains the connection string
-      $connection_url = getenv("MONGOHQ_URL");
- 
-      // create the mongo connection object
-      $m = new Mongo($connection_url);
- 
-      // extract the DB name from the connection path
-      $url = parse_url($connection_url);
-      $db_name = preg_replace('/\/(.*)/', '$1', $url['path']);
- 
-      // use the database we connected to
-      $db = $m->selectDB($db_name);
-	
-  	  // get Collection
-  	  $collection = $db->users;
-	
-  	  $qry = array("user_name" => $user,"password" => $pass);
-  	  $result = $collection->findOne($qry);
-
-	
-	return $result;
+	$user = mysql_real_escape_string($user);
+	$pass = mysql_real_escape_string($pass);
+	$total = mysql_query("SELECT COUNT(`user_id`) FROM `users` WHERE `user_name` = '{$user}' AND `user_password` = '{$pass}'");
+	return (mysql_result($total, 0) == '1') ? true : false;
 }
 ?>
