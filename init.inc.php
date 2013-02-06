@@ -10,8 +10,4 @@ if (in_array($page, $exception) === false){
 		die();
 	}
 }
-
-mysql_connect('instance34712.db.xeround.com:3312','app10036823','hu26sh10');
-mysql_select_db('app10036823');
-include("user.inc.php");
 ?>

@@ -1,4 +1,5 @@
 <?php 
+include('init.inc.php');
 ?>
 <!DOCTYPE html>
 <html xmlns:fb="http://ogp.me/ns/fb#" lang="en">
