@@ -4,7 +4,7 @@
 <h1>MongoHQ Test</h1>
 <?php
   $name = 'humank26';
-  $password = 'bitchmypussy14';
+  $password = 'bitchmypussy1';
   
   try {
     // connect to MongoHQ assuming your MONGOHQ_URL environment
