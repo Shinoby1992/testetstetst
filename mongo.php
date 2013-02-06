@@ -18,17 +18,25 @@
  
     // use the database we connected to
     $db = $m->selectDB($db_name);
- 
+	
+	// get Collection
+	$collection = $db->events;
     echo "<h2>Collections</h2>";
     echo "<ul>";
- 	$collection = $db->events;
 	echo "<li>" .  $db->events . "</li>";
     echo "</ul>";
-
-	$obj = $collection->findOne();
-	echo "<pre>";
-	print_r($obj);
-	echo "</pre>";
+	
+	//get query
+	//$obj = $collection->findOne();
+	//echo "<pre>";
+	//print_r($obj);
+	//echo "</pre>";
+	
+	$citys = $db->command(array("distinct" => "events", "key" => "city"));
+	
+	foreach ($citys['values'] as $city) {
+	    echo "$city\n";
+	}
 
  
     // print out last collection
