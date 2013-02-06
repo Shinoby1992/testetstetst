@@ -36,7 +36,7 @@
 	
 	$criteria = array(
 	    'checked' => 1,
-	    'city' => $cityid
+	    'city' => 'Frankfurt'
 	  );
 	  
 	$cursor = $collection->find($criteria);
