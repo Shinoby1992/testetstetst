@@ -31,7 +31,9 @@
 	$criteria = array(
 	    'checked' => 1,
 		'city' => $cityid,
-	    'datum' => '$gte' => ISODate("2013-02-02T00:00:00.000Z")
+	    'datum' => array( 
+	          '$gte' => ISODate("2013-02-02T00:00:00.000Z")
+	       ),
 	  );
 	  
 	$cursor = $collection->find($criteria);
