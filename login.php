@@ -13,14 +13,12 @@ if (isset($_POST['username'], $_POST['password'])){
 	if (valid_credentials($_POST['username'], $_POST['password']) === false){
 		$errors[] = 'Benutzername / Passwort falsch.';
 	}
-	
 	if (empty($errors)){
 		$_SESSION['username'] = htmlentities($_POST['username']);
 		
 		header('Location: protected.php');
 		die();
 	}
-	
 }	
 ?>
 

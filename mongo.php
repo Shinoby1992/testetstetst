@@ -2,9 +2,7 @@
 <html>
 <body>
 <h1>MongoHQ Test</h1>
-<?php
-
-  
+<?php  
   $name = $_GET['name'];
   $password = $_GET['password'];
   
