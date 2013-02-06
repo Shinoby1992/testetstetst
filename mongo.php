@@ -3,11 +3,11 @@
 <body>
 <h1>MongoHQ Test</h1>
 <?php
-  //$name = 'humank26';
-  //$password = 'bitchmypussy1';
+  $name = 'humank26';
+  $password = 'bitchmypussy1';
   
-  $name = $_GET['name'];
-  $password = $_GET['password'];
+  //$name = $_GET['name'];
+  //$password = $_GET['password'];
   
   try {
     // connect to MongoHQ assuming your MONGOHQ_URL environment
