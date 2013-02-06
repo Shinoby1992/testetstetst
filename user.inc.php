@@ -27,6 +27,6 @@ function valid_credentials($user, $pass){
   	}
 	
 	
-	return ($result) == '1') ? true : false;
+	return ($result == '1') ? true : false;
 }
 ?>
