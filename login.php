@@ -39,7 +39,7 @@ if (isset($_POST['username'], $_POST['password'])){
     } catch ( Exception $e ) {
       die('Error: ' . $e->getMessage());
     }
-	if ($result === false){
+	if ($result === 0){
 		$errors[] = 'Benutzername / Passwort falsch.';
 	}
 	if (empty($errors)){
