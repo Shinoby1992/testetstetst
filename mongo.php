@@ -30,14 +30,8 @@
 	
 	date_default_timezone_set('UTC');
 	$heute = date("Y-m-d");
-	echo "<li>" .  $heute . "</li>";
-	
-	$start = new MongoDate(strtotime("2013-02-06 00:00:00"));
-	$start2 = new MongoDate(strtotime($heute));
-	
-	echo "<li>" .  $start . "</li>";
-	echo "<li>" .  $start2 . "</li>";
-	
+	$start = new MongoDate(strtotime($heute));
+		
 	$criteria = array(
 	    'checked' => 1,
 		'city' => $cityid,
