@@ -22,8 +22,9 @@
     echo "<h2>Collections</h2>";
     echo "<ul>";
  
- 	$collection_name = $db->events;
- 	echo "<li>" .  $collection_name . "</li>";
+ 	$collection = $db->events;
+	
+ 	echo "<li>" .  $db->events . "</li>";
  
     echo "</ul>";
  
