@@ -1,22 +1,56 @@
 <?php header('Content-Type: application/json; charset=utf-8');
-$connect = mysql_connect('instance34712.db.xeround.com:3312','app10036823','hu26sh10');
-mysql_select_db('app10036823');
+  $cityid = $_GET['city'];
+  try {
+    // connect to MongoHQ assuming your MONGOHQ_URL environment
+    // variable contains the connection string
+    $connection_url = getenv("MONGOHQ_URL");
+ 
+    // create the mongo connection object
+    $m = new Mongo($connection_url);
+ 
+    // extract the DB name from the connection path
+    $url = parse_url($connection_url);
+    $db_name = preg_replace('/\/(.*)/', '$1', $url['path']);
+ 
+    // use the database we connected to
+    $db = $m->selectDB($db_name);
+	
+	// get Collection
+	$collection = $db->events;
+	
+	// create Current Date in MongoDate format
+	date_default_timezone_set('UTC');
+	$heute = date("Y-m-d");
+	$start = new MongoDate(strtotime($heute));
+	
+	//Create criteria for find	
+	$criteria = array(
+	    'checked' => 1,
+		'city' => $cityid,
+	    'datum' => array( 
+	          '$gte' => $start
+	       ),
+	  );
+	
+	//find query
+	$cursor = $collection->find($criteria);
+	
+	//sort cursor
+	$cursor->sort(array('datum'=>1));
 
-mysql_query("SET NAMES 'utf8'"); 
-mysql_query("SET CHARACTER SET 'utf8'");
+	//save in array
+	foreach ($cursor as $doc) {
+		$rows[] = $doc;
+	}
+	echo json_encode($rows);
 
-$cityid = $_GET['city'];
-//$selection = sprintf("SELECT * FROM `events` WHERE `city` = '%s' and `datum` >= CURDATE() ORDER BY `events`.`datum` ASC", mysql_real_escape_string($cityid));
-$selection = sprintf("SELECT * FROM `events` WHERE `checked` = 1 and `city` = '%s' and `datum` >= CURDATE() ORDER BY `events`.`datum` ASC", mysql_real_escape_string($cityid));
-$sth = mysql_query($selection);
-while($r = mysql_fetch_assoc($sth)) {
-    $rows[] = $r;
-}
-$dict = array("events" => $rows);
-
-echo json_encode($dict);
-mysql_close($connect);
+    // disconnect from server
+    $m->close();
+  } catch ( MongoConnectionException $e ) {
+    die('Error connecting to MongoDB server');
+  } catch ( MongoException $e ) {
+    die('Mongo Error: ' . $e->getMessage());
+  } catch ( Exception $e ) {
+    die('Error: ' . $e->getMessage());
+  }
 ?>
-
-
-
