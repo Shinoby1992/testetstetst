@@ -1,4 +1,5 @@
 <?php
+include('init.inc.php');
 $errors = array();
 
 if (isset($_POST['username'], $_POST['password'])){
