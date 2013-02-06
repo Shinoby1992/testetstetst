@@ -1,4 +1,8 @@
-<?php header('Content-Type: application/json; charset=utf-8');
+<!-- PHP Mongo Docs: http://php.net/manual/en/class.mongodb.php -->
+<html>
+<body>
+<h1>MongoHQ Test</h1>
+<?php
 
   try {
     // connect to MongoHQ assuming your MONGOHQ_URL environment
@@ -53,3 +57,5 @@
     die('Error: ' . $e->getMessage());
   }
 ?>
+</body>
+</html>
