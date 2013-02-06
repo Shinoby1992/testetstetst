@@ -27,8 +27,8 @@
 	$qry = array("user_name" => $name,"password" => $password);
 	$result = $collection->findOne($qry);
 	if($result){
-		$success = "You are successully loggedIn";
-		echo "<li>" .  $success . "</li>";
+		header('Location: protected.php');
+		die();
 	}
 
     // disconnect from server
