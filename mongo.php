@@ -22,34 +22,23 @@
     $db = $m->selectDB($db_name);
 	
 	// get Collection
-	$collection = $db->events;
+	$collection = $db->usage;
+	
     echo "<h2>Collections</h2>";
     echo "<ul>";
-	echo "<li>" .  $db->events . "</li>";
+	echo "<li>" .  $db->usage . "</li>";
     echo "</ul>";
 	
-	date_default_timezone_set('UTC');
-	$heute = date("Y-m-d");
-	$start = new MongoDate(strtotime($heute));
-		
-	$criteria = array(
-	    'checked' => 1,
-		'city' => $cityid,
-	    'datum' => array( 
-	          '$gte' => $start
-	       ),
-	  );
+	//update Aufrufe
+	$collection->update(array('Stadt' => 'Dortmund'), array('$inc' => array('Aufrufe' => 1)), true);
+	
 	  
-	$cursor = $collection->find($criteria);
+	$cursor = $collection->find();
 	echo $cursor->count() . ' document(s) found. <br/>';
-
-	$cursor->sort(array('datum'=>1) );
 
 	foreach ($cursor as $doc) {
 		$rows[] = $doc;
 	}
-	
-	
 		
 	echo "<h2>Show result as an array:</h2>";
 	echo "<pre>";
