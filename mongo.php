@@ -27,7 +27,7 @@
     echo "<ul>";
 	echo "<li>" .  $db->events . "</li>";
     echo "</ul>";
-		
+	
 	$criteria = array(
 	    'checked' => 1,
 		'city' => $cityid,
