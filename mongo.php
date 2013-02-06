@@ -49,6 +49,16 @@
 	echo json_encode($citys);
 	echo "</pre>";
 	
+	echo "<h2>Show result as an array:</h2>";
+	echo "<pre>";
+	print_r($cityarray);
+	echo "</pre>";
+
+	echo "<h2>Show result as JSON:</h2>";
+	echo "<pre>";
+	echo json_encode($cityarray);
+	echo "</pre>";
+	
 	
 
  
