@@ -28,15 +28,13 @@
 	echo "<li>" .  $db->events . "</li>";
     echo "</ul>";
 		
-	//$criteria = array(
-	//    'checked' => 1,
-	//	'city' => $cityid
-	//  );
+	$criteria = array(
+	    'checked' => 1,
+		'city' => $cityid
+	  );
 	  
-	//$cursor = $collection->find($criteria);
-	//echo $cursor->count() . ' document(s) found. <br/>';
-	
-	$data = $collection->find(array('city' => $cityid, 'checked' => 1));
+	$cursor = $collection->find($criteria);
+	echo $cursor->count() . ' document(s) found. <br/>';
 	
 	//$citys = $db->command(array("distinct" => "events", "key" => "city"));
 	//$cityarray = $citys['values'];
