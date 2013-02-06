@@ -3,7 +3,7 @@
 <body>
 <h1>MongoHQ Test</h1>
 <?php
-
+  //$cityid = $_GET['city'];
   $cityid = 'Dortmund';
   
   try {
@@ -28,14 +28,14 @@
 	echo "<li>" .  $db->events . "</li>";
     echo "</ul>";
 	
+	$cutoff = new Date();
 	
 	$start = new MongoDate(strtotime("2013-02-02 00:00:00"));
-	
 	$criteria = array(
 	    'checked' => 1,
 		'city' => $cityid,
 	    'datum' => array( 
-	          '$gte' => $start
+	          '$gte' => $cutoff
 	       ),
 	  );
 	  
