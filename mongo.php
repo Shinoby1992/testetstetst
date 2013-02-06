@@ -30,7 +30,8 @@
 		
 	$criteria = array(
 	    'checked' => 1,
-		'city' => $cityid
+		'city' => $cityid,
+	    'datum' => '$gte' => ISODate("2013-02-02T00:00:00.000Z")
 	  );
 	  
 	$cursor = $collection->find($criteria);
@@ -40,13 +41,8 @@
 		$rows[] = $doc;
 	}
 	
-	//$citys = $db->command(array("distinct" => "events", "key" => "city"));
-	//$cityarray = $citys['values'];
 	
-	//echo "<pre>";
-	//print_r($cityarray);
-	//echo "</pre>";
-	
+		
 	echo "<h2>Show result as an array:</h2>";
 	echo "<pre>";
 	print_r($rows);
