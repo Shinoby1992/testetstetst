@@ -1,11 +1,6 @@
-<!-- PHP Mongo Docs: http://php.net/manual/en/class.mongodb.php -->
-<html>
-<body>
-<h1>MongoHQ Test</h1>
 <?php
-  //$cityid = $_GET['city'];
-  $cityid = 'Dortmund';
-  
+  $cityid = $_GET['city'];
+ 
   try {
     // connect to MongoHQ assuming your MONGOHQ_URL environment
     // variable contains the connection string
@@ -24,48 +19,8 @@
 	// get Collection
 	$collection = $db->usage;
 	
-    echo "<h2>Collections</h2>";
-    echo "<ul>";
-	echo "<li>" .  $db->usage . "</li>";
-    echo "</ul>";
-	
 	//update Aufrufe
 	$collection->update(array('Stadt' => 'Dortmund'), array('$inc' => array('Aufrufe' => 1)), true);
-	
-	  
-	$cursor = $collection->find();
-	echo $cursor->count() . ' document(s) found. <br/>';
-
-	foreach ($cursor as $doc) {
-		$rows[] = $doc;
-	}
-		
-	echo "<h2>Show result as an array:</h2>";
-	echo "<pre>";
-	print_r($rows);
-	echo "</pre>";
-
-	echo "<h2>Show result as JSON:</h2>";
-	echo "<pre>";
-	echo json_encode($rows);
-	echo "</pre>";
-
- 
-    // print out last collection
-    if ( $collection_name != "" ) {
-      $collection = $db->selectCollection($collection_name);
-      echo "<h2>Documents in ${collection_name}</h2>";
- 
-      // only print out the first 5 docs
-      $cursor = $collection->find();
-      $cursor->limit(5);
-      echo $cursor->count() . ' document(s) found. <br/>';
-      foreach( $cursor as $doc ) {
-        echo "<pre>";
-        var_dump($doc);
-        echo "</pre>";
-      }
-    }
  
     // disconnect from server
     $m->close();
@@ -77,5 +32,3 @@
     die('Error: ' . $e->getMessage());
   }
 ?>
-</body>
-</html>

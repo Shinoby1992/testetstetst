@@ -1,12 +1,34 @@
 <?php
-$connect = mysql_connect('instance34712.db.xeround.com:3312','app10036823','hu26sh10');
-mysql_select_db('app10036823');
-
-mysql_query("SET NAMES 'utf8'"); 
-mysql_query("SET CHARACTER SET 'utf8'");
-
-$cityid = $_GET['city'];
-$update = sprintf("UPDATE `usage` SET Aufrufe = (Aufrufe + 1) WHERE `Stadt` = '%s'", mysql_real_escape_string($cityid));
-$result = mysql_query($update);
-mysql_close($connect);
+  $cityid = $_GET['city'];
+ 
+  try {
+    // connect to MongoHQ assuming your MONGOHQ_URL environment
+    // variable contains the connection string
+    $connection_url = getenv("MONGOHQ_URL");
+ 
+    // create the mongo connection object
+    $m = new Mongo($connection_url);
+ 
+    // extract the DB name from the connection path
+    $url = parse_url($connection_url);
+    $db_name = preg_replace('/\/(.*)/', '$1', $url['path']);
+ 
+    // use the database we connected to
+    $db = $m->selectDB($db_name);
+	
+	// get Collection
+	$collection = $db->usage;
+	
+	//update Aufrufe
+	$collection->update(array('Stadt' => 'Dortmund'), array('$inc' => array('Aufrufe' => 1)), true);
+ 
+    // disconnect from server
+    $m->close();
+  } catch ( MongoConnectionException $e ) {
+    die('Error connecting to MongoDB server');
+  } catch ( MongoException $e ) {
+    die('Mongo Error: ' . $e->getMessage());
+  } catch ( Exception $e ) {
+    die('Error: ' . $e->getMessage());
+  }
 ?>
