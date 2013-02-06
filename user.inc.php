@@ -19,7 +19,7 @@ function valid_credentials($user, $pass){
   	  // get Collection
   	  $collection = $db->users;
 	
-  	  $qry = array("user_name" => $name,"password" => $password);
+  	  $qry = array("user_name" => $user,"password" => $pass);
   	  $result = $collection->findOne($qry);
   	  if($result){
   		$success = "You are successully loggedIn";
@@ -27,14 +27,6 @@ function valid_credentials($user, $pass){
   	}
 	
 	
-	$user = mysql_real_escape_string($user);
-	$pass = mysql_real_escape_string($pass);
-	$total = mysql_query("SELECT COUNT(`user_id`) FROM `users` WHERE `user_name` = '{$user}' AND `user_password` = '{$pass}'");
-	
-	
-	
-	
-	
-	return (mysql_result($total, 0) == '1') ? true : false;
+	return (mysql_result($result, 0) == '1') ? true : false;
 }
 ?>
