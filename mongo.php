@@ -35,13 +35,10 @@
 	//echo "</pre>";
 	
 	$criteria = array(
-	    'checked' => 1,
-	    'city' => 'Frankfurt'
+	    'checked' => 1
 	  );
 	  
 	$cursor = $collection->find($criteria);
-	
-	
 	
 	//$citys = $db->command(array("distinct" => "events", "key" => "city"));
 	//$cityarray = $citys['values'];
