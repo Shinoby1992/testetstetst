@@ -43,6 +43,8 @@
 	$cursor = $collection->find($criteria);
 	echo $cursor->count() . ' document(s) found. <br/>';
 
+	$cursor->sort(array('datum'=>1));
+
 	foreach ($cursor as $doc) {
 		$rows[] = $doc;
 	}
