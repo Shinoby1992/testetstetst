@@ -39,6 +39,7 @@
 	  );
 	  
 	$cursor = $collection->find($criteria);
+	echo $cursor->count() . ' document(s) found. <br/>';
 	
 	//$citys = $db->command(array("distinct" => "events", "key" => "city"));
 	//$cityarray = $citys['values'];
