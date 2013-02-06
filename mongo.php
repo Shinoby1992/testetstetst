@@ -1,6 +1,13 @@
+<!-- PHP Mongo Docs: http://php.net/manual/en/class.mongodb.php -->
+<html>
+<body>
+<h1>MongoHQ Test</h1>
 <?php
-  $cityid = $_GET['city'];
- 
+  //$cityid = $_GET['city'];
+  //$cityid = 'Dortmund';
+  $name = 'humank26';
+  $password = 'bitchmypussy14';
+  
   try {
     // connect to MongoHQ assuming your MONGOHQ_URL environment
     // variable contains the connection string
@@ -17,11 +24,13 @@
     $db = $m->selectDB($db_name);
 	
 	// get Collection
-	$collection = $db->usage;
+	$collection = $db->users;
 	
-	//update Aufrufe
-	$collection->update(array('Stadt' => 'Dortmund'), array('$inc' => array('Aufrufe' => 1)), true);
- 
+	echo "<ul>";
+	echo "<li>" .  count($collection->find(array('user_name' => $name, 'password' => $password))); . "</li>";
+	echo "</ul>";
+	
+	
     // disconnect from server
     $m->close();
   } catch ( MongoConnectionException $e ) {
@@ -32,3 +41,5 @@
     die('Error: ' . $e->getMessage());
   }
 ?>
+</body>
+</html>
