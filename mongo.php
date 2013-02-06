@@ -27,11 +27,13 @@
 	// get Collection
 	$collection = $db->users;
 	
-	echo "<ul>";
-	echo "<li>" .  $collection->find(array('user_name' => $name, 'password' => $password)) . "</li>";
-	echo "</ul>";
-	
-	
+	$qry = array("user_name" => $name,"password" => $password);
+	$result = $collection->findOne($qry);
+	if($result){
+		$success = "You are successully loggedIn";
+		echo "<li>" .  $success . "</li>";
+	}
+
     // disconnect from server
     $m->close();
   } catch ( MongoConnectionException $e ) {
