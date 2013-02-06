@@ -36,7 +36,7 @@
 	//$cursor = $collection->find($criteria);
 	//echo $cursor->count() . ' document(s) found. <br/>';
 	
-	$data = $collection->findOne(array('city' => $cityid, 'checked' => 1));
+	$data = $collection->find(array('city' => $cityid, 'checked' => 1));
 	
 	//$citys = $db->command(array("distinct" => "events", "key" => "city"));
 	//$cityarray = $citys['values'];
