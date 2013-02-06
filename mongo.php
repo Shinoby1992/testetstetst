@@ -35,6 +35,10 @@
 	  
 	$cursor = $collection->find($criteria);
 	echo $cursor->count() . ' document(s) found. <br/>';
+
+	foreach ($cursor as $doc) {
+	    var_dump($doc);
+	}
 	
 	//$citys = $db->command(array("distinct" => "events", "key" => "city"));
 	//$cityarray = $citys['values'];
