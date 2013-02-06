@@ -33,9 +33,12 @@
 	//echo "</pre>";
 	
 	$citys = $db->command(array("distinct" => "events", "key" => "city"));
+	$cityarray = $citys['values'];
+	
 	echo "<pre>";
-	print_r($citys);
+	print_r($cityarray);
 	echo "</pre>";
+	
 	
 
  
