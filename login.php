@@ -34,9 +34,6 @@ if (isset($_POST['username'], $_POST['password'])){
   		header('Location: protected.php');
   		die();
   	  }
-	  else{
-	  	
-	  }
 
       // disconnect from server
       $m->close();
