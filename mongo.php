@@ -26,11 +26,7 @@
 	
 	$qry = array("user_name" => $name,"password" => $password);
 	$result = $collection->findOne($qry);
-	
-	echo $result;
-	
-	
-	if (gettype($result) === true){
+	if($result){
 		$success = "You are successully loggedIn";
 		echo "<li>" .  $success . "</li>";
 	}
