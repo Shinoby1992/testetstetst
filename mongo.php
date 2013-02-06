@@ -24,8 +24,10 @@
 	// get Collection
 	$collection = $db->users;
 	
-	return count($collection->find(array('user_name' => $name, 'password' => $password)));
-
+	echo "<ul>";
+	echo "<li>" .  count($collection->find(array('user_name' => $name, 'password' => $password))); . "</li>";
+	echo "</ul>";
+	
 	
     // disconnect from server
     $m->close();
