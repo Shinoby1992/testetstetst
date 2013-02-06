@@ -27,7 +27,7 @@
 	$qry = array("user_name" => $name,"password" => $password);
 	$result = $collection->findOne($qry);
 	
-	echo gettype($result);
+	echo $result;
 	
 	
 	if (gettype($result) === true){
