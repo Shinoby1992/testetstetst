@@ -22,13 +22,9 @@
     echo "<h2>Collections</h2>";
     echo "<ul>";
  
-    // print out list of collections
-    $cursor = $db->listCollections();
-    $collection_name = "";
-    foreach( $cursor as $doc ) {
-      echo "<li>" .  $doc->getName() . "</li>";
-      $collection_name = $doc->getName();
-    }
+ 	$collection_name = $db->events;
+ 	echo "<li>" .  $collection_name . "</li>";
+ 
     echo "</ul>";
  
     // print out last collection
