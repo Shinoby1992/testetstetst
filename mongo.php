@@ -33,10 +33,10 @@
 	//echo "</pre>";
 	
 	$citys = $db->command(array("distinct" => "events", "key" => "city"));
+	echo "<pre>";
+	print_r($citys);
+	echo "</pre>";
 	
-	foreach ($citys['values'] as $city) {
-	    echo "$city\n";
-	}
 
  
     // print out last collection
