@@ -10,5 +10,5 @@ if (in_array($page, $exception) === false){
 		die();
 	}
 }
-//include("user.inc.php");
+include("user.inc.php");
 ?>
