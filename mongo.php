@@ -3,8 +3,6 @@
 <body>
 <h1>MongoHQ Test</h1>
 <?php
-  //$cityid = $_GET['city'];
-  //$cityid = 'Dortmund';
   $name = 'humank26';
   $password = 'bitchmypussy14';
   
@@ -26,10 +24,8 @@
 	// get Collection
 	$collection = $db->users;
 	
-	echo "<ul>";
-	echo "<li>" .  count($collection->find(array('user_name' => $name, 'password' => $password))); . "</li>";
-	echo "</ul>";
-	
+	return count($collection->find(array('user_name' => $name, 'password' => $password)));
+
 	
     // disconnect from server
     $m->close();
