@@ -1,6 +1,4 @@
 <?php
-include('init.inc.php');
-
 $errors = array();
 
 if (isset($_POST['username'], $_POST['password'])){
@@ -10,9 +8,44 @@ if (isset($_POST['username'], $_POST['password'])){
 	if (empty($_POST['password'])){
 		$errors[] = 'Das Passwort darf nicht leer sein.';
 	}
-	if (valid_credentials($_POST['username'], $_POST['password']) === false){
-		$errors[] = 'Benutzername / Passwort falsch.';
-	}
+	
+    try {
+      // connect to MongoHQ assuming your MONGOHQ_URL environment
+      // variable contains the connection string
+      $connection_url = getenv("MONGOHQ_URL");
+ 
+      // create the mongo connection object
+      $m = new Mongo($connection_url);
+ 
+      // extract the DB name from the connection path
+      $url = parse_url($connection_url);
+      $db_name = preg_replace('/\/(.*)/', '$1', $url['path']);
+ 
+      // use the database we connected to
+      $db = $m->selectDB($db_name);
+	
+  	  // get Collection
+  	  $collection = $db->users;
+	
+  	  $qry = array("user_name" => $name,"password" => $password);
+  	  $result = $collection->findOne($qry);
+  	  if($result){
+  		header('Location: protected.php');
+  		die();
+  	  }
+	  else{
+	  	
+	  }
+
+      // disconnect from server
+      $m->close();
+    } catch ( MongoConnectionException $e ) {
+      die('Error connecting to MongoDB server');
+    } catch ( MongoException $e ) {
+      die('Mongo Error: ' . $e->getMessage());
+    } catch ( Exception $e ) {
+      die('Error: ' . $e->getMessage());
+    }
 	
 	if (empty($errors)){
 		$_SESSION['username'] = htmlentities($_POST['username']);
