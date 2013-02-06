@@ -21,12 +21,8 @@ function valid_credentials($user, $pass){
 	
   	  $qry = array("user_name" => $user,"password" => $pass);
   	  $result = $collection->findOne($qry);
-  	  if($result){
-  		$success = "You are successully loggedIn";
-  		echo "<li>" .  $success . "</li>";
-  	}
+
 	
-	
-	return ($result == '1') ? true : false;
+	return $result;
 }
 ?>
