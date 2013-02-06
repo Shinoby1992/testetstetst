@@ -2,7 +2,7 @@
 <html>
 <body>
 <h1>MongoHQ Test</h1>
-<?php
+<?php header('Content-Type: application/json; charset=utf-8');
 
   try {
     // connect to MongoHQ assuming your MONGOHQ_URL environment
