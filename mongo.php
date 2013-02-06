@@ -4,7 +4,7 @@
 <h1>MongoHQ Test</h1>
 <?php
 
-  $cityid = 'Frankfurt';
+  $cityid = 'Dortmund';
   
   try {
     // connect to MongoHQ assuming your MONGOHQ_URL environment
