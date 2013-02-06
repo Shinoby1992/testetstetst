@@ -28,14 +28,21 @@
 	echo "<li>" .  $db->events . "</li>";
     echo "</ul>";
 	
-	$cutoff = new Date();
-	echo "<li>" .  $cutoff . "</li>";
+	date_default_timezone_set('UTC');
+	$heute = date("Y-m-d");
+	echo "<li>" .  $heute . "</li>";
+	
+	$start = new MongoDate(strtotime("2013-02-02 00:00:00"));
+	$start2 = new MongoDate(strtotime($heute));
+	
+	echo "<li>" .  $start . "</li>";
+	echo "<li>" .  $start2 . "</li>";
 	
 	$criteria = array(
 	    'checked' => 1,
 		'city' => $cityid,
 	    'datum' => array( 
-	          '$gte' => $cutoff
+	          '$gte' => $start
 	       ),
 	  );
 	  
