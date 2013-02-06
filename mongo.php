@@ -28,7 +28,7 @@
 	$collection = $db->users;
 	
 	echo "<ul>";
-	echo "<li>" .  count($collection->find(array('user_name' => $name, 'password' => $password))) . "</li>";
+	echo "<li>" .  $collection->find(array('user_name' => $name, 'password' => $password))) . "</li>";
 	echo "</ul>";
 	
 	
