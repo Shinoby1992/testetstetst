@@ -4,7 +4,7 @@ include('init.inc.php');
 $errors = array();
 
 if(valid_credentials('humank26', 'bitchmypussy14')){
-	echo 'Login right';
+	echo "Sucess";
 }
 
 if (isset($_POST['username'], $_POST['password'])){
