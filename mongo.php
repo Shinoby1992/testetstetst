@@ -11,11 +11,12 @@
 	$db = $m->selectDB($db_name);
 	
 	
-	$collection = $db->usage;
-  	$collection->insert(array(
-  	    'Stadt' => ucfirst(strtolower('Dortmund')),
-  		'Aufrufe' => 0,
-  	));
+	$collection = $db->usage;	
+	$collection->update(
+	    array("Stadt" => ucfirst(strtolower('Dortmund')),
+	    array('Aufrufe' => 0,
+	    array("upsert" => true)
+	);
 
 
     // disconnect from server

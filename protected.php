@@ -76,7 +76,7 @@ include('init.inc.php');
 		  	));
 			
 			$collection = $db->users;
-			$collection->update(array('user_name' => 'humank26'), array('$inc' => array('files' => 1)), true);
+			$collection->update(array('user_name' => $_SESSION['username']), array('$inc' => array('files' => 1)), true);
 
 			$collection = $db->usage;
 		  	$collection->insert(array(
