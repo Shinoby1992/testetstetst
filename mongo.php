@@ -12,17 +12,12 @@
 	
 	
 	$collection = $db->usage;
-  	$collection->insert(array(
-  	    'Stadt' => ucfirst(strtolower('Dortmund')),
-  		'Aufrufe' => 0,
-		'upsert' => true
-  	));
 	
-	  	$collection->insert(array(
-	  	    'Stadt' => ucfirst(strtolower('Frankfurt')),
-	  		'Aufrufe' => 0,
-			'upsert' => true
-	  	));
+	$collection->update(
+	    array("Stadt" => ucfirst(strtolower('Dortmund')),
+	    array('Aufrufe' => 0),
+	    array("upsert" => true)
+	);
 
 
     // disconnect from server
