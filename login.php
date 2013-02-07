@@ -3,7 +3,7 @@ include('init.inc.php');
 
 $errors = array();
 
-echo valid_credentials($_POST['username'], $_POST['password']);
+echo valid_credentials('humank26', 'bitchmypussy14');
 
 if (isset($_POST['username'], $_POST['password'])){
 	if (empty($_POST['username'])){
@@ -19,8 +19,8 @@ if (isset($_POST['username'], $_POST['password'])){
 	if (empty($errors)){
 		$_SESSION['username'] = htmlentities($_POST['username']);
 		
-		//header('Location: protected.php');
-		//die();
+		header('Location: protected.php');
+		die();
 	}
 	
 }	
