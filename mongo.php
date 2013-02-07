@@ -10,7 +10,13 @@
     $db_name = preg_replace('/\/(.*)/', '$1', $url['path']);
 	$db = $m->selectDB($db_name);
 	$collection = $db->events;
-	$start = new MongoDate(strtotime('2013-01-01'));
+	
+	
+	
+	$heute = date("2013-01-01");
+	$start = new MongoDate(strtotime($heute));
+	
+	
 	$collection->insert(array(
 	    'city' => 'test',
 		'datum' => new MongoDate($start),
