@@ -11,8 +11,7 @@
 	$db = $m->selectDB($db_name);
 	$collection = $db->events;
 	
-	$heute = date("2013-01-01");
-	$start = new MongoDate(strtotime($heute . "T00:00:00Z"));
+	$start = new MongoDate(strtotime('2008-02-01T00:00:00Z'));
 	
 	echo $start;
 	
