@@ -11,11 +11,5 @@ if (in_array($page, $exception) === false){
 	}
 }
 
-$connection_url = getenv("MONGOHQ_URL");
-$m = new Mongo($connection_url);
-$url = parse_url($connection_url);
-$db_name = preg_replace('/\/(.*)/', '$1', $url['path']);
-$db = $m->selectDB($db_name);
-
 include("user.inc.php");
 ?>
