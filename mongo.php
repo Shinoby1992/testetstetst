@@ -11,13 +11,13 @@
 	$db = $m->selectDB($db_name);
 	$collection = $db->events;
 	
-	$start = new MongoDate(strtotime('2008-02-01 00:00:00'));
+	$start = new MongoDate(strtotime('2008-02-01'));
 	
 	echo $start;
 	
 	$collection->insert(array(
 	    'city' => 'test',
-		'datum' => new MongoDate($start),
+		'datum' => $start,
 	    'page_name' => 'test',
 	    'event_id' => 'test',
 		'image_link' => 'test',
