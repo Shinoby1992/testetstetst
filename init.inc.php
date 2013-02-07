@@ -11,7 +11,11 @@ if (in_array($page, $exception) === false){
 	}
 }
 
-mysql_connect('instance34712.db.xeround.com:3312','app10036823','hu26sh10');
-mysql_select_db('app10036823');
+$connection_url = getenv("MONGOHQ_URL");
+$m = new Mongo($connection_url);
+$url = parse_url($connection_url);
+$db_name = preg_replace('/\/(.*)/', '$1', $url['path']);
+$db = $m->selectDB($db_name);
+
 include("user.inc.php");
 ?>

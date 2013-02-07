@@ -3,6 +3,8 @@ include('init.inc.php');
 
 $errors = array();
 
+echo valid_credentials($_POST['username'], $_POST['password']);
+
 if (isset($_POST['username'], $_POST['password'])){
 	if (empty($_POST['username'])){
 		$errors[] = 'Der Benutzername darf nicht leer sein.';
