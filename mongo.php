@@ -2,34 +2,25 @@
 <html>
 <body>
 <h1>MongoHQ Test</h1>
-<?php  
-  $name = $_GET['name'];
-  $password = $_GET['password'];
-  
+<?php    
   try {
-    // connect to MongoHQ assuming your MONGOHQ_URL environment
-    // variable contains the connection string
-    $connection_url = getenv("MONGOHQ_URL");
- 
-    // create the mongo connection object
-    $m = new Mongo($connection_url);
- 
-    // extract the DB name from the connection path
+	$connection_url = getenv("MONGOHQ_URL");
+	$m = new Mongo($connection_url);
     $url = parse_url($connection_url);
     $db_name = preg_replace('/\/(.*)/', '$1', $url['path']);
- 
-    // use the database we connected to
-    $db = $m->selectDB($db_name);
-	
-	// get Collection
-	$collection = $db->users;
-	
-	$qry = array("user_name" => $name,"password" => $password);
-	$result = $collection->findOne($qry);
-	if($result){
-		header('Location: protected.php');
-		die();
-	}
+	$db = $m->selectDB($db_name);
+	$collection = $db->events;
+	$start = new MongoDate(strtotime('2013-01-01'));
+	$collection->insert(array(
+	    'city' => 'test',
+		'datum' => new MongoDate(strtotime($start)),
+	    'page_name' => 'test',
+	    'event_id' => 'test',
+		'image_link' => 'test',
+		'address' => 'test',
+		'info' => 'test',
+	    'checked' => 0,
+	));
 
     // disconnect from server
     $m->close();

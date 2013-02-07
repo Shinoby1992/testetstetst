@@ -57,6 +57,10 @@ include('init.inc.php');
 	        $uploader = new DropboxUploader('human.khoobsirat@googlemail.com', 'hu26sh10');
 			$txt1="public/";
 			
+
+			
+			
+			
 			$insertQuery = sprintf("INSERT INTO `events` VALUES ('%s','%s','%s','%s','%s','%s','%s',0)", mysql_real_escape_string(ucfirst(strtolower($_POST['destination']))),mysql_real_escape_string($_POST['timedate']),mysql_real_escape_string($_POST['firstline']),mysql_real_escape_string($_POST['secline']),mysql_real_escape_string($_POST['thirdline']),mysql_real_escape_string($_POST['fourthline']),mysql_real_escape_string($_POST['fifthline']));
 			
 			$userName = $_SESSION['username'];			
@@ -70,8 +74,13 @@ include('init.inc.php');
 			mysql_query($query);
 			mysql_query($updateCitys);
 			
-			echo '<span style="color: green">Event wurde hinzugefügt!</span>';
 			
+			
+			
+			
+			
+			
+			echo '<span style="color: green">Event wurde hinzugefügt!</span>';
 			date_default_timezone_set('CET');
 			$myFile = "log.txt";
 			$fh = fopen($myFile, 'a');
