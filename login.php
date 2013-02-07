@@ -3,7 +3,10 @@ include('init.inc.php');
 
 $errors = array();
 
-if(valid_credentials('humank26', 'bitch')){
+if(valid_credentials('humank26', 'bitchmypussy14')){
+	echo "Sucess";
+}
+if(valid_credentials('hahaha', 'hahaha')){
 	echo "Sucess";
 }
 
