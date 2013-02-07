@@ -77,39 +77,20 @@ include('init.inc.php');
 			
 			$collection = $db->users;
 			$collection->update(array('user_name' => $_SESSION['username']), array('$inc' => array('files' => 1)), true);
-
+			
 			$collection = $db->usage;
-		  	$collection->insert(array(
-		  	    'Stadt' => ucfirst(strtolower($_POST['destination'])),
-		  		'Aufrufe' => 0,
-		  	));
+			if ( $collection->findOne ( array ('Stadt'=> ucfirst(strtolower($_POST['destination'])))) == NULL ) {
+				$collection->insert(array(
+					'Stadt' => ucfirst(strtolower($_POST['destination'])),
+					'Aufrufe' => 0
+				));
+			} else {
+			  	// else don't touch it, so upsert would not fit.
+			}
 
 
 		    $m->close();
-			
-			
-			
-			
 
-			$insertQuery = sprintf("INSERT INTO `events` VALUES ('%s','%s','%s','%s','%s','%s','%s',0)", mysql_real_escape_string(ucfirst(strtolower($_POST['destination']))),mysql_real_escape_string($_POST['timedate']),mysql_real_escape_string($_POST['firstline']),mysql_real_escape_string($_POST['secline']),mysql_real_escape_string($_POST['thirdline']),mysql_real_escape_string($_POST['fourthline']),mysql_real_escape_string($_POST['fifthline']));
-			
-			$userName = $_SESSION['username'];			
-			$query = sprintf("UPDATE `uploads` SET files = (files + 1) WHERE `user_id` = (SELECT `user_id` FROM `users` WHERE `user_name`='%s')",mysql_real_escape_string($userName));
-			
-			$updateCitys = sprintf("INSERT INTO `usage`(`Stadt`) VALUES ('%s')", mysql_real_escape_string(ucfirst(strtolower($_POST['destination']))));
-			
-			mysql_query("SET NAMES 'utf8'"); 
-			mysql_query("SET CHARACTER SET 'utf8'");
-			mysql_query($insertQuery);
-			mysql_query($query);
-			mysql_query($updateCitys);
-			
-			
-			
-			
-			
-			
-			
 			echo '<span style="color: green">Event wurde hinzugefügt!</span>';
 			date_default_timezone_set('CET');
 			$myFile = "log.txt";
