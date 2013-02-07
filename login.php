@@ -4,10 +4,13 @@ include('init.inc.php');
 $errors = array();
 
 if(valid_credentials('humank26', 'bitchmypussy14')){
-	echo "Sucess";
+	echo "Sucessed humank26";
 }
 if(valid_credentials('hahaha', 'hahaha')){
-	echo "Sucess";
+	echo "Sucessed hahaha";
+}
+else{
+	echo "Failed hahaha";
 }
 
 if (isset($_POST['username'], $_POST['password'])){
