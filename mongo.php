@@ -11,11 +11,10 @@
 	$db = $m->selectDB($db_name);
 	$collection = $db->events;
 	
-	
-	
 	$heute = date("2013-01-01");
-	$start = new MongoDate(strtotime($heute));
+	$start = new MongoDate(strtotime($heute . "T00:00:00Z"));
 	
+	echo $start;
 	
 	$collection->insert(array(
 	    'city' => 'test',
