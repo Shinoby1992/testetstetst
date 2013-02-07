@@ -9,22 +9,10 @@
     $url = parse_url($connection_url);
     $db_name = preg_replace('/\/(.*)/', '$1', $url['path']);
 	$db = $m->selectDB($db_name);
-	$collection = $db->events;
+	$collection = $db->users;
 	
-	$start = new MongoDate(strtotime('2008-02-01'));
-	
-	echo $start;
-	
-	$collection->insert(array(
-	    'city' => 'test',
-		'datum' => $start,
-	    'page_name' => 'test',
-	    'event_id' => 'test',
-		'image_link' => 'test',
-		'address' => 'test',
-		'info' => 'test',
-	    'checked' => 0,
-	));
+	$collection->update(array('user_name' => 'humank26'), array('$inc' => array('files' => 1)), true);
+
 
     // disconnect from server
     $m->close();

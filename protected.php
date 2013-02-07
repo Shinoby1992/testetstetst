@@ -51,16 +51,42 @@ include('init.inc.php');
 				die();
 			}
 		}
-	
-	    try {
 	        // Upload
 	        $uploader = new DropboxUploader('human.khoobsirat@googlemail.com', 'hu26sh10');
 			$txt1="public/";
 			
+			
+		    try {
+		  	$connection_url = getenv("MONGOHQ_URL");
+		  	$m = new Mongo($connection_url);
+		    $url = parse_url($connection_url);
+		    $db_name = preg_replace('/\/(.*)/', '$1', $url['path']);
+		  	$db = $m->selectDB($db_name);
+		  	$collection = $db->events;
+		  	$start = new MongoDate(strtotime($_POST['timedate']));	
+		  	$collection->insert(array(
+		  	    'city' => ucfirst(strtolower($_POST['destination'])),
+		  		'datum' => $start,
+		  	    'page_name' => $_POST['firstline'],
+		  	    'event_id' => $_POST['secline'],
+		  		'image_link' => $_POST['thirdline'],
+		  		'address' => $_POST['fourthline'],
+		  		'info' => $_POST['fifthline'],
+		  	    'checked' => 0,
+		  	));
+			
+			
+			
+			
+			
+			
+			
+		    $m->close();
+			
+			
+			
+			
 
-			
-			
-			
 			$insertQuery = sprintf("INSERT INTO `events` VALUES ('%s','%s','%s','%s','%s','%s','%s',0)", mysql_real_escape_string(ucfirst(strtolower($_POST['destination']))),mysql_real_escape_string($_POST['timedate']),mysql_real_escape_string($_POST['firstline']),mysql_real_escape_string($_POST['secline']),mysql_real_escape_string($_POST['thirdline']),mysql_real_escape_string($_POST['fourthline']),mysql_real_escape_string($_POST['fifthline']));
 			
 			$userName = $_SESSION['username'];			
