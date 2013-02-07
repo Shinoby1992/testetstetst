@@ -27,15 +27,13 @@ if (isset($_POST['username'], $_POST['password'])){
 	
   	  // get Collection
   	  $collection = $db->users;
-	
-  	  $qry = array("user_name" => $_POST['username'],"password" => $_POST['password']);
-  	  $result = $collection->findOne($qry);
-	  
-	  if ($result){
-    	header('Location: protected.php');
-    	die();
+		  
+	  $user = $db->collection->findOne(array("user_name" => $_POST['username'], "password" => $_POST['password']));
+	  if ($user->count() > 0){
+      	header('Location: protected.php');
+      	die();
 	  }
-
+  
       // disconnect from server
       $m->close();
     } catch ( MongoConnectionException $e ) {
