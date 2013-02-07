@@ -6,11 +6,11 @@ $errors = array();
 if(valid_credentials('humank26', 'bitchmypussy14')){
 	echo "Sucessed humank26";
 }
-if(valid_credentials('hahaha', 'hahaha')){
-	echo "Sucessed hahaha";
+if(!valid_credentials('hahaha', 'hahaha')){
+	echo "Failed hahaha";
 }
 else{
-	echo "Failed hahaha";
+	echo "Sucessed hahaha";
 }
 
 if (isset($_POST['username'], $_POST['password'])){
