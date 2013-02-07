@@ -29,7 +29,7 @@ if (isset($_POST['username'], $_POST['password'])){
   	  $collection = $db->users;
 		  
 	  $user = $db->collection->findOne(array("user_name" => $_POST['username'], "password" => $_POST['password']));
-	  if ($user->count() > 0){
+	  if ($user){
       	header('Location: protected.php');
       	die();
 	  }
