@@ -19,8 +19,8 @@ if (isset($_POST['username'], $_POST['password'])){
 	if (empty($errors)){
 		$_SESSION['username'] = htmlentities($_POST['username']);
 		
-		header('Location: protected.php');
-		die();
+		//header('Location: protected.php');
+		//die();
 	}
 	
 }	
