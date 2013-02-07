@@ -12,12 +12,24 @@
 	
 	
 	$collection = $db->usage;
+	if ( $collection->findOne ( array ('Stadt'=>'Dortmund') ) == NULL ) {
+		$collection->insert(array(
+			'Stadt' => ucfirst(strtolower('Dortmund')),
+			'Aufrufe' => 0
+		));
+	} else {
+	  	// else don't touch it, so upsert would not fit.
+	}
 	
-	$collection->update(
-	    array("Stadt" => ucfirst(strtolower('Dortmund')),
-	    array('Aufrufe' => 0),
-	    array("upsert" => true)
-	);
+	if ( $collection->findOne ( array ('Stadt'=>'Frankfurt') ) == NULL ) {
+		$collection->insert(array(
+			'Stadt' => ucfirst(strtolower('Frankfurt')),
+			'Aufrufe' => 0
+		));
+	} else {
+	  	// else don't touch it, so upsert would not fit.
+	}
+
 
 
     // disconnect from server
