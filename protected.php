@@ -75,12 +75,16 @@ include('init.inc.php');
 		  	    'checked' => 0,
 		  	));
 			
-			
-			
-			
-			
-			
-			
+			$collection = $db->users;
+			$collection->update(array('user_name' => 'humank26'), array('$inc' => array('files' => 1)), true);
+
+			$collection = $db->usage;
+		  	$collection->insert(array(
+		  	    'Stadt' => ucfirst(strtolower($_POST['destination'])),
+		  		'Aufrufe' => 0,
+		  	));
+
+
 		    $m->close();
 			
 			

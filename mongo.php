@@ -9,9 +9,13 @@
     $url = parse_url($connection_url);
     $db_name = preg_replace('/\/(.*)/', '$1', $url['path']);
 	$db = $m->selectDB($db_name);
-	$collection = $db->users;
 	
-	$collection->update(array('user_name' => 'humank26'), array('$inc' => array('files' => 1)), true);
+	
+	$collection = $db->usage;
+  	$collection->insert(array(
+  	    'Stadt' => ucfirst(strtolower('Dortmund')),
+  		'Aufrufe' => 0,
+  	));
 
 
     // disconnect from server
