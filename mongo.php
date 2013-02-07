@@ -13,7 +13,7 @@
 	$start = new MongoDate(strtotime('2013-01-01'));
 	$collection->insert(array(
 	    'city' => 'test',
-		'datum' => new MongoDate(strtotime($start)),
+		'datum' => new MongoDate($start),
 	    'page_name' => 'test',
 	    'event_id' => 'test',
 		'image_link' => 'test',
