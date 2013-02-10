@@ -283,7 +283,7 @@ $(document).pngFix( );
 		<!-- start id-form -->
 		<table border="0" cellpadding="0" cellspacing="0"  id="id-form">
 
-		<form method="POST" enctype="multipart/form-data">
+		<form method="Post" action="formularsend.php">
 		<tr>
 			<th valign="top">Stadt:</th>
 			<td><input type="text" id="destination" name="destination" class="inp-form-error" /></td>
