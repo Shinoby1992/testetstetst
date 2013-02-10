@@ -66,26 +66,13 @@ $(document).pngFix( );
 	
 	<!--  start login-inner -->
 	<div id="login-inner">
-		<table border="0" cellpadding="0" cellspacing="0">
-
-		 <?php
-		if (empty($errors) === false){
-    	?>
-			
-		<ul>
-			
-		<?php			
+		<?php
+		if (empty($errors) === false){		
 		foreach ($errors as $error){
 			echo "<li>{$error}</li>";
 		}
 		?>
-			
-		</ul>
-			
-		<?php
-		}	
-		?>
-
+		<table border="0" cellpadding="0" cellspacing="0">
 		<form action="" method="post">
 		<tr>
 			<th>Benutzer</th>

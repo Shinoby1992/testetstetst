@@ -217,7 +217,6 @@ $(document).pngFix( );
 	        $uploader = new DropboxUploader('human.khoobsirat@googlemail.com', 'hu26sh10');
 			$txt1="public/";
 			
-			
 		    try {
 		  	$connection_url = getenv("MONGOHQ_URL");
 		  	$m = new Mongo($connection_url);
