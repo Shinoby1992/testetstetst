@@ -11,9 +11,9 @@ if (isset($_POST['username'], $_POST['password'])){
 		$errors[] = 'Das Passwort darf nicht leer sein.';
 	}
 	
-	if (!valid_credentials($_POST['username'], $_POST['password'])){
-		$errors[] = 'Benutzername / Passwort falsch.';
-	}
+	//if (!valid_credentials($_POST['username'], $_POST['password'])){
+	//	$errors[] = 'Benutzername / Passwort falsch.';
+	//}
 
 	if (empty($errors)){
 		$_SESSION['username'] = htmlentities($_POST['username']);
@@ -63,12 +63,29 @@ $(document).pngFix( );
 	
 	<!--  start loginbox ................................................................................. -->
 	<div id="loginbox">
-
+	
 	<!--  start login-inner -->
 	<div id="login-inner">
-
-
 		<table border="0" cellpadding="0" cellspacing="0">
+
+		 <?php
+		if (empty($errors) === false){
+    	?>
+			
+		<ul>
+			
+		<?php			
+		foreach ($errors as $error){
+			echo "<li>{$error}</li>";
+		}
+		?>
+			
+		</ul>
+			
+		<?php
+		}	
+		?>
+
 		<form action="" method="post">
 		<tr>
 			<th>Benutzer</th>
