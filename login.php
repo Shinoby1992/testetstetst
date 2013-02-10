@@ -11,9 +11,9 @@ if (isset($_POST['username'], $_POST['password'])){
 		$errors[] = 'Das Passwort darf nicht leer sein.';
 	}
 	
-	//if (!valid_credentials($_POST['username'], $_POST['password'])){
-	//	$errors[] = 'Benutzername / Passwort falsch.';
-	//}
+	if (!valid_credentials($_POST['username'], $_POST['password'])){
+		$errors[] = 'Benutzername / Passwort falsch.';
+	}
 
 	if (empty($errors)){
 		$_SESSION['username'] = htmlentities($_POST['username']);
