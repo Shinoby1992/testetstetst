@@ -350,7 +350,6 @@ $(document).pngFix( );
 		</td>
 		<td></td>
 		</tr>
-
 		</form>
 	</table>
 	<!-- end id-form  -->
