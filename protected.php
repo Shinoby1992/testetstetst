@@ -34,7 +34,10 @@ include('init.inc.php');
 				}
 				die();
 			}
-		}
+			else{
+
+
+		
 	        // Upload
 	        $uploader = new DropboxUploader('human.khoobsirat@googlemail.com', 'hu26sh10');
 			$txt1="public/";
@@ -88,8 +91,9 @@ include('init.inc.php');
 	        echo '<span style="color: red">Fehler: ' . htmlspecialchars($e->getMessage()) . '</span>';
 	    }
 		unlink('testFile.txt');
-
+		}
 	}
+}
 	
 	function check_date($date) {
 	    if(strlen($date) == 10) {
