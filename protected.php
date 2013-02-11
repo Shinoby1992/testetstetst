@@ -73,7 +73,8 @@ include('init.inc.php');
 
 		    $m->close();
 
-			echo '<span style="color: green">Event wurde hinzugefügt!</span>';
+			$_SESSION['uploaded'] = 1;
+
 			date_default_timezone_set('CET');
 			$myFile = "log.txt";
 			$fh = fopen($myFile, 'a');
@@ -405,6 +406,27 @@ $(document).pngFix( );
 			die();
 		}
 		?>
+
+		<?php
+			if ($_SESSION['uploaded'] = 1) {
+				$_SESSION['uploaded'] = 0;
+		?>
+				<!--  start message-red -->
+				<div id="message-green">
+					<table border="0" width="100%" cellpadding="0" cellspacing="0">
+					<tr>
+					echo "<td class=\"red-left\">Glückwunsch!: <a href=\"\">Event wurde hinzugefügt</a></td>";
+					
+					<td class="green-right"><a class="close-green"><img src="images/table/icon_close_green.gif"   alt="" /></a></td>
+					</tr>
+					</table>
+				</div>
+				<!--  end message-red -->
+		<?php
+			}
+		?>
+
+
 		<!--  start step-holder -->
 		<div id="step-holder">
 			<div class="step-no">1</div>
