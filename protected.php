@@ -395,7 +395,7 @@ $(document).pngFix( );
 			<?php
 				//echo "<td class="red-left">Fehler. <a href="">{$fehlers}</a></td>";
 			?>
-			<td class="red-left">Fehler. <a href="">{$fehlers}</a></td>;
+			<td class="red-left">Fehler. <a href="">$fehlers</a></td>;
 			<td class="red-right"><a class="close-red"><img src="images/table/icon_close_red.gif"   alt="" /></a></td>
 		</tr>
 		</table>
