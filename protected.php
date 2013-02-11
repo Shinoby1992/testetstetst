@@ -415,8 +415,7 @@ $(document).pngFix( );
 				<div id="message-green">
 					<table border="0" width="100%" cellpadding="0" cellspacing="0">
 					<tr>
-					echo "<td class=\"red-left\">Glückwunsch!: <a href=\"\">Event wurde hinzugefügt</a></td>";
-					
+					<td class="red-left">Glückwunsch!: <a href="">Event wurde hinzugefügt</a></td>;
 					<td class="green-right"><a class="close-green"><img src="images/table/icon_close_green.gif"   alt="" /></a></td>
 					</tr>
 					</table>
