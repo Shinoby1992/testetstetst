@@ -32,7 +32,7 @@ include('init.inc.php');
 				foreach ($fehler as $fehlers){
 					echo "<li>{$fehlers}</li>";
 				}
-				die();
+				
 			}
 			else{
 
