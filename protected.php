@@ -380,6 +380,9 @@ $(document).pngFix( );
 	<!--  start content-table-inner -->
 	<div id="content-table-inner">
 
+	<table border="0" width="100%" cellpadding="0" cellspacing="0">
+	<tr valign="top">
+	<td>
 	<!--  start table-content  -->
 			<div id="table-content">
 			
@@ -395,13 +398,6 @@ $(document).pngFix( );
 				<!--  end message-yellow -->
 
 			</div>
-
-
-
-	<table border="0" width="100%" cellpadding="0" cellspacing="0">
-	<tr valign="top">
-	<td>
-
 
 
 		<!--  start step-holder -->
