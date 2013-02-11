@@ -411,16 +411,16 @@ $(document).pngFix( );
 			if ($_SESSION['uploaded'] == 1) {
 				$_SESSION['uploaded'] = 0;
 		?>
-				<!--  start message-red -->
+				<!--  start message-green -->
 				<div id="message-green">
-					<table border="0" width="100%" cellpadding="0" cellspacing="0">
-					<tr>
-					<td class="red-left">Glückwunsch!: <a href="">Event wurde hinzugefügt</a></td>;
+				<table border="0" width="100%" cellpadding="0" cellspacing="0">
+				<tr>
+					<td class="green-left">Glückwunsch <a href="">Event wurde hinzugefügt</a></td>
 					<td class="green-right"><a class="close-green"><img src="images/table/icon_close_green.gif"   alt="" /></a></td>
-					</tr>
-					</table>
+				</tr>
+				</table>
 				</div>
-				<!--  end message-red -->
+				<!--  end message-green -->
 		<?php
 			}
 		?>
