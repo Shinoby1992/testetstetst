@@ -408,7 +408,7 @@ $(document).pngFix( );
 		?>
 
 		<?php
-			if ($_SESSION['uploaded'] = 1) {
+			if ($_SESSION['uploaded'] == 1) {
 				$_SESSION['uploaded'] = 0;
 		?>
 				<!--  start message-red -->
@@ -425,8 +425,6 @@ $(document).pngFix( );
 		<?php
 			}
 		?>
-
-
 		<!--  start step-holder -->
 		<div id="step-holder">
 			<div class="step-no">1</div>
