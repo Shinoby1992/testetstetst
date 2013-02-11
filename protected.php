@@ -404,12 +404,6 @@ $(document).pngFix( );
 			}
 		}
 		?>
-
-
-
-
-
-
 		<!--  start step-holder -->
 		<div id="step-holder">
 			<div class="step-no">1</div>
