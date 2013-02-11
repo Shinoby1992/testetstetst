@@ -32,10 +32,7 @@ include('init.inc.php');
 
 				
 			}
-			else{
-
-
-		
+			else{		
 	        // Upload
 	        $uploader = new DropboxUploader('human.khoobsirat@googlemail.com', 'hu26sh10');
 			$txt1="public/";
@@ -376,15 +373,36 @@ $(document).pngFix( );
 			<th class="topright"></th>
 			<th rowspan="3" class="sized"><img src="images/shared/side_shadowright.jpg" width="20" height="300" alt="" /></th>
 		</tr>
+
 <tr>
 	<td id="tbl-border-left"></td>
 	<td>
 	<!--  start content-table-inner -->
 	<div id="content-table-inner">
 
+	<!--  start table-content  -->
+			<div id="table-content">
+			
+				<!--  start message-yellow -->
+				<div id="message-yellow">
+				<table border="0" width="100%" cellpadding="0" cellspacing="0">
+				<tr>
+					<td class="yellow-left">You have a new message. <a href="">Go to Inbox.</a></td>
+					<td class="yellow-right"><a class="close-yellow"><img src="images/table/icon_close_yellow.gif"   alt="" /></a></td>
+				</tr>
+				</table>
+				</div>
+				<!--  end message-yellow -->
+
+			</div>
+
+
+
 	<table border="0" width="100%" cellpadding="0" cellspacing="0">
 	<tr valign="top">
 	<td>
+
+
 
 		<!--  start step-holder -->
 		<div id="step-holder">
