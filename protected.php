@@ -29,9 +29,7 @@ include('init.inc.php');
 				$fehler[] = 'Geben Sie mindestens eine Information an';
 			}			
 			if (empty($fehler) === false){
-				foreach ($fehler as $fehlers){
-					echo "<li>{$fehlers}</li>";
-				}
+
 				
 			}
 			else{
