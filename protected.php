@@ -456,7 +456,7 @@ $(document).pngFix( );
 		</tr>
 		<tr>
 			<th valign="top">Adresse:</th>
-			<td><input type="text" id="fourthline" name="fourthline" class="inp-form-error" /></td>
+			<td><input type="text" id="fourthline" name="fourthline" class="inp-form" /></td>
 			<td>
 			<div class="error-left"></div>
 			<div class="error-inner">Muss angegeben werden</div>
