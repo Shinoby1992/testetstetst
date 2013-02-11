@@ -402,8 +402,8 @@ $(document).pngFix( );
 		<!--  end message-red -->
 		<?php
 			}
+			die();
 		}
-		die();
 		?>
 		<!--  start step-holder -->
 		<div id="step-holder">
