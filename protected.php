@@ -393,7 +393,7 @@ $(document).pngFix( );
 		<table border="0" width="100%" cellpadding="0" cellspacing="0">
 		<tr>
 			<?php
-				echo "<td class=\"red-left\">Fehler. <a href=\"\">{$fehlers}</a></td>";
+				echo "<td class=\"red-left\">Fehler: <a href=\"\">{$fehlers}</a></td>";
 			?>
 			<td class="red-right"><a class="close-red"><img src="images/table/icon_close_red.gif"   alt="" /></a></td>
 		</tr>
@@ -403,6 +403,7 @@ $(document).pngFix( );
 		<?php
 			}
 		}
+		die();
 		?>
 		<!--  start step-holder -->
 		<div id="step-holder">
