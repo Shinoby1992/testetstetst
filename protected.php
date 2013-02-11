@@ -383,9 +383,7 @@ $(document).pngFix( );
 	<table border="0" width="100%" cellpadding="0" cellspacing="0">
 	<tr valign="top">
 	<td>
-	<!--  start table-content  -->
-			<div id="table-content">
-			</div>
+
 							<!--  start message-red -->
 				<div id="message-red">
 				<table border="0" width="100%" cellpadding="0" cellspacing="0">
