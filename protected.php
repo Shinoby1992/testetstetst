@@ -386,14 +386,14 @@ $(document).pngFix( );
 
 		<?php 
 		if (empty($fehler) === false){
-			foreach ($fehler as $fehlers){			
+			foreach ($fehler as $fehlers){
 		?>
 		<!--  start message-red -->
 		<div id="message-red">
 		<table border="0" width="100%" cellpadding="0" cellspacing="0">
 		<tr>
 			<?php
-				echo "<td class="red-left">Fehler. <a href="">{$fehlers}</a></td>"
+				//echo "<td class="red-left">Fehler. <a href="">{$fehlers}</a></td>";
 			?>
 			<td class="red-right"><a class="close-red"><img src="images/table/icon_close_red.gif"   alt="" /></a></td>
 		</tr>
