@@ -51,7 +51,7 @@ $(document).pngFix( );
 <div id="login-holder">
 
 <div id="logo-changing">
-	<a href="index.html"><img src="images/shared/logo2.png" width="120" height="120" alt="" /></a>
+	<a href="index.php"><img src="images/shared/logo2.png" width="120" height="120" alt="" /></a>
 </div>
 	
 	<!-- start logo -->
