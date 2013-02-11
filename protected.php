@@ -424,7 +424,7 @@ $(document).pngFix( );
 		<form method="post" action="">
 		<tr>
 			<th valign="top">Stadt:</th>
-			<td><input type="text" id="destination" name="destination" class="inp-form-error" /></td>
+			<td><input type="text" id="destination" name="destination" class="inp-form" /></td>
 			<td>
 			<div class="error-left"></div>
 			<div class="error-inner">Muss angegeben werden</div>
@@ -432,7 +432,7 @@ $(document).pngFix( );
 		</tr>
 		<tr>
 			<th valign="top">Datum:</th>
-			<td><input type="text" id="timedate" name="timedate" class="inp-form-error" /></td>
+			<td><input type="text" id="timedate" name="timedate" class="inp-form" /></td>
 			<td>
 			<div class="error-left"></div>
 			<div class="error-inner">Muss angegeben werden</div>
@@ -440,7 +440,7 @@ $(document).pngFix( );
 		</tr>
 		<tr>
 			<th valign="top">Facebook Seite:</th>
-			<td><input type="text" id="firstline" name="firstline" class="inp-form-error" /></td>
+			<td><input type="text" id="firstline" name="firstline" class="inp-form" /></td>
 			<td>
 			<div class="error-left"></div>
 			<div class="error-inner">Muss angegeben werden</div>
@@ -448,7 +448,7 @@ $(document).pngFix( );
 		</tr>
 		<tr>
 			<th valign="top">Facebook EventID:</th>
-			<td><input type="text" id="secline" name="secline" class="inp-form-error" /></td>
+			<td><input type="text" id="secline" name="secline" class="inp-form" /></td>
 			<td>
 			<div class="error-left"></div>
 			<div class="error-inner">Muss angegeben werden</div>
@@ -473,7 +473,7 @@ $(document).pngFix( );
 		</tr>
 		<tr>
 			<th>Link zum Flyer</th>
-			<td><input type="text" id="thirdline" name="thirdline" class="inp-form-error" /></td>
+			<td><input type="text" id="thirdline" name="thirdline" class="inp-form" /></td>
 			<td>
 			<div class="error-left"></div>
 			<div class="error-inner">Muss angegeben werden</div>
