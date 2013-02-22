@@ -1,5 +1,5 @@
 <?php header('Content-Type: application/json; charset=utf-8');
-  date_default_timezone_set('America/Los_Angeles');
+  date_default_timezone_set('America/Bahia');
   $cityid = $_GET['city'];
   try {
     // connect to MongoHQ assuming your MONGOHQ_URL environment
@@ -22,6 +22,7 @@
 	// create Current Date in MongoDate format
 	
 	$heute = date("Y-m-d");
+	echo $heute;
 
 if (date_default_timezone_get()) {
     echo 'date_default_timezone_set: ' . date_default_timezone_get() . '<br />';
