@@ -1,5 +1,4 @@
 <?php header('Content-Type: application/json; charset=utf-8');
-  date_default_timezone_set('America/Bahia');
   $cityid = $_GET['city'];
   try {
     // connect to MongoHQ assuming your MONGOHQ_URL environment
