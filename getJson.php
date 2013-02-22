@@ -25,11 +25,6 @@
 	$start = new MongoDate(strtotime($heute));
 	echo $start;
 
-	$test = new DateTime('02/22/2013');
-	echo $test;
-	$test2 = new MongoDate(strtotime($test));
-	echo $test2;
-
 	//Create criteria for find	
 	$criteria = array(
 	    'checked' => 1,
