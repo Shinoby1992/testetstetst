@@ -21,9 +21,7 @@
 	
 	// create Current Date in MongoDate format
 	$heute = date("Y-m-d");
-	echo $heute;
 	$start = new MongoDate(strtotime($heute));
-	echo $start;
 
 	//Create criteria for find	
 	$criteria = array(
