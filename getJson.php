@@ -1,4 +1,5 @@
 <?php header('Content-Type: application/json; charset=utf-8');
+  
   $cityid = $_GET['city'];
   try {
     // connect to MongoHQ assuming your MONGOHQ_URL environment
@@ -19,9 +20,10 @@
 	$collection = $db->events;
 	
 	// create Current Date in MongoDate format
+	date_default_timezone_set('UTC');
 	$heute = date("Y-m-d");
 	$start = new MongoDate(strtotime($heute));
-
+	
 	//Create criteria for find	
 	$criteria = array(
 	    'checked' => 1,
