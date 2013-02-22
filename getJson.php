@@ -21,6 +21,7 @@
 	// create Current Date in MongoDate format
 	date_default_timezone_set('AMT');
 	$heute = date("Y-m-d");
+	echo $heute;
 	$start = new MongoDate(strtotime($heute));
 	
 	//Create criteria for find	
