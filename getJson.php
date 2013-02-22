@@ -20,11 +20,16 @@
 	$collection = $db->events;
 	
 	// create Current Date in MongoDate format
-	
 	$heute = date("Y-m-d");
 	echo $heute;
 	$start = new MongoDate(strtotime($heute));
-	
+	echo $start;
+
+	$test = new DateTime('02/22/2013');
+	echo $test;
+	$test2 = new MongoDate(strtotime($test));
+	echo $test2;
+
 	//Create criteria for find	
 	$criteria = array(
 	    'checked' => 1,
