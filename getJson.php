@@ -19,7 +19,7 @@
 	$collection = $db->events;
 	
 	// create Current Date in MongoDate format
-	date_default_timezone_set('UTC');
+	date_default_timezone_set('CET');
 	$heute = date("Y-m-d");
 	$start = new MongoDate(strtotime($heute));
 	
