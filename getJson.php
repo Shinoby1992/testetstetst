@@ -19,10 +19,12 @@
 	$collection = $db->events;
 	
 	// create Current Date in MongoDate format
-	date_default_timezone_set('CET');
+	date_default_timezone_set('EST');
 	$heute = date(DATE_W3C);
-	$start = new MongoDate($heute);
+	$start = new MongoDate(strtotime($heute));
 	
+	echo $start;
+
 	//Create criteria for find	
 	$criteria = array(
 	    'checked' => 1,
