@@ -20,7 +20,7 @@
 	$collection = $db->usage;
 	
 	//update Aufrufe
-	$collection->update(array('Stadt' => 'Dortmund'), array('$inc' => array('Aufrufe' => 1)), true);
+	$collection->update(array('Stadt' => $cityid), array('$inc' => array('Aufrufe' => 1)), true);
  
     // disconnect from server
     $m->close();
