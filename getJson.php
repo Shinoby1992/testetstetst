@@ -22,7 +22,7 @@
 	$heute = date("Y-m-d");
 	$start = new MongoDate(strtotime($heute));
 
-	$zeitzone = +1;
+	$zeitzone = -4;
 	$format = 'd.m.Y, H:i';
 	$timestamp = time();
 	$timestamp += (3600*intval($zeitzone)); 
