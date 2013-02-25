@@ -20,8 +20,11 @@
 	
 	// create Current Date in MongoDate format
 	date_default_timezone_set('EST');
-	$heute = date("Y-m-d");
-	$start = new MongoDate(strtotime($heute));
+	$heute = date(DATE_W3C);
+	$start = new MongoDate($heute);
+
+	echo $heute;
+	echo $start;
 	
 	//Create criteria for find	
 	$criteria = array(
