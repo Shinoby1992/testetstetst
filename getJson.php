@@ -1,13 +1,15 @@
 <?php header('Content-Type: application/json; charset=utf-8');
 
-function utc_date($timestamp, $timezone = '0', $format = 'Y-m-d', $summertime = false) { 
-	$timestamp += (3600*intval($timezone)); 
-    if($summertime === true) 
+function utc_date($timestamp, $timezone = '0', $format = 'd.m.Y, H:i', $summertime = false) 
     { 
-	    $timestamp += 3600; 
+        $timestamp += (3600*intval($timezone)); 
+        if($summertime === true) 
+        { 
+            $timestamp += 3600; 
+        } 
+        return gmdate($format, $timestamp); 
     } 
-    return gmdate($format, $timestamp); 
-}
+
   $cityid = $_GET['city'];
   try {
     // connect to MongoHQ assuming your MONGOHQ_URL environment
@@ -30,8 +32,6 @@ function utc_date($timestamp, $timezone = '0', $format = 'Y-m-d', $summertime = 
 	// create Current Date in MongoDate format
 	$heute = date("Y-m-d");
 	$start = new MongoDate(strtotime($heute));
-
-
 
 	$time = time(); 
 	$zeitzone = +1 //Zeitzone Mitteleuropa 
