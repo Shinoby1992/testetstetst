@@ -23,7 +23,7 @@
 	$start = new MongoDate(strtotime($heute));
 
 	$zeitzone = -4;
-	$format = 'd.m.Y, H:i';
+	$format = 'Y-m-d';
 	$timestamp = time();
 	$timestamp += (3600*intval($zeitzone)); 
 	echo gmdate($format, $timestamp);
