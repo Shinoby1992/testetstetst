@@ -1,4 +1,13 @@
 <?php header('Content-Type: application/json; charset=utf-8');
+
+function utc_date($timestamp, $timezone = '0', $format = 'Y-m-d', $summertime = false) { 
+	$timestamp += (3600*intval($timezone)); 
+    if($summertime === true) 
+    { 
+	    $timestamp += 3600; 
+    } 
+    return gmdate($format, $timestamp); 
+}
   $cityid = $_GET['city'];
   try {
     // connect to MongoHQ assuming your MONGOHQ_URL environment
@@ -19,12 +28,15 @@
 	$collection = $db->events;
 	
 	// create Current Date in MongoDate format
-	date_default_timezone_set('PST');
 	$heute = date("Y-m-d");
 	$start = new MongoDate(strtotime($heute));
-	
-	echo $heute;
-	echo $start;
+
+
+
+	$time = time(); 
+	$zeitzone = +1 //Zeitzone Mitteleuropa 
+
+	echo utc_date($time,$zeitzone);
 
 	//Create criteria for find	
 	$criteria = array(
