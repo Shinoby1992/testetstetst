@@ -1,15 +1,6 @@
 <?php header('Content-Type: application/json; charset=utf-8');
   $cityid = $_GET['city'];
   try {
-  	function utc_date($timestamp, $timezone = '0', $format = 'd.m.Y, H:i', $summertime = false) 
-    { 
-        $timestamp += (3600*intval($timezone)); 
-        if($summertime === true) 
-        { 
-            $timestamp += 3600; 
-        } 
-        return gmdate($format, $timestamp); 
-    } 
     // connect to MongoHQ assuming your MONGOHQ_URL environment
     // variable contains the connection string
     $connection_url = getenv("MONGOHQ_URL");
@@ -31,9 +22,12 @@
 	$heute = date("Y-m-d");
 	$start = new MongoDate(strtotime($heute));
 
-	$time = time(); 
-	$zeitzone = +1 //Zeitzone Mitteleuropa 
-	echo utc_date($time,$zeitzone);
+	$zeitzone = +1
+	$format = 'd.m.Y, H:i',
+	$timestamp = time();
+	$timestamp += (3600*intval($zeitzone)); 
+	echo gmdate($format, $timestamp);
+
 
 	//Create criteria for find	
 	$criteria = array(
