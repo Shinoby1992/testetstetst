@@ -23,6 +23,9 @@
 	$heute = date("Y-m-d");
 	$start = new MongoDate(strtotime($heute));
 	
+	echo $heute;
+	echo $start;
+
 	//Create criteria for find	
 	$criteria = array(
 	    'checked' => 1,
