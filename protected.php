@@ -3,7 +3,7 @@ include('init.inc.php');
 	if ($_POST) {
 	    require 'DropboxUploader.php';
 		$fehler = array();
-		if (isset($_POST['timedate'], $_POST['destination'], $_POST['firstline'], $_POST['secline'], $_POST['thirdline'], $_POST['fourthline'])){
+		if (isset($_POST['timedate'], $_POST['destination'], $_POST['secline'], $_POST['thirdline'], $_POST['fourthline'])){
 			if (empty($_POST['timedate'])){
 				$fehler[] = 'Datum darf nicht fehlen.';
 			}
@@ -12,9 +12,6 @@ include('init.inc.php');
 			}
 			if (empty($_POST['destination'])){
 				$fehler[] = 'Stadt darf nicht fehlen.';
-			}
-			if (empty($_POST['firstline'])){
-				$fehler[] = 'Veranstaltungsseite darf nicht fehlen.';
 			}
 			if (empty($_POST['secline'])){
 				$fehler[] = 'Veranstaltungs ID darf nicht fehlen.';
@@ -49,7 +46,6 @@ include('init.inc.php');
 		  	$collection->insert(array(
 		  	    'city' => ucfirst(strtolower($_POST['destination'])),
 		  		'datum' => $start,
-		  	    'page_name' => $_POST['firstline'],
 		  	    'event_id' => $_POST['secline'],
 		  		'image_link' => $_POST['thirdline'],
 		  		'address' => $_POST['fourthline'],
