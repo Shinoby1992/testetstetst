@@ -46,6 +46,7 @@ include('init.inc.php');
 		  	$collection->insert(array(
 		  	    'city' => ucfirst(strtolower($_POST['destination'])),
 		  		'datum' => $start,
+		  		'page_name' => $_POST['firstline'],
 		  	    'event_id' => $_POST['secline'],
 		  		'image_link' => $_POST['thirdline'],
 		  		'address' => $_POST['fourthline'],
