@@ -14,9 +14,6 @@
     // use the database we connected to
     $db = $m->selectDB($db_name);
 	
-	// get Collection
-	$collection = $db->events;
-	
 	// get All Citys
 	$citys = $db->command(array("distinct" => "events", "key" => "city"));
 	echo json_encode($citys);
