@@ -26,7 +26,9 @@ $reduce = new MongoCode("function(k, vals) { ".
 $scitys = $db->command(array(
     "mapreduce" => "events", 
     "map" => $map,
-    "reduce" => $reduce));
+    "reduce" => $reduce,
+    "query" => array("type" => "sale"),
+    "out" => array("merge" => "eventCounts")));
 
 echo json_encode($scitys);
 
