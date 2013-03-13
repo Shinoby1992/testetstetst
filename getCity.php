@@ -23,7 +23,6 @@
 echo $cursor->count() . ' document(s) found. <br/>';  
   foreach ($cursor as $obj) {
     echo 'Stadt: ' . $obj['city'] . '<br/>';
-    echo '<br/>';
   }
 
 	// get All Citys
