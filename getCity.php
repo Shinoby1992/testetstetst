@@ -20,11 +20,10 @@
 
     $cursor->sort(array('city' => 1));
 
-echo $cursor->count() . ' document(s) found. <br/>';  
-  foreach ($cursor as $obj) {
-    echo 'Stadt: ' . $obj['city'] . '<br/>';
-  }
-
+    foreach ($cursor as $obj) {
+      $rows[] = $obj['city'];
+    }
+    echo json_encode($rows);
 	// get All Citys
 	//$citys = $cursor->command(array("distinct" => "events", 
    //                           "key" => "city"));
