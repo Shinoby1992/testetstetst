@@ -14,20 +14,20 @@
     // use the database we connected to
     $db = $m->selectDB($db_name);
 	
-    $collection = $db->events;
+    //$collection = $db->events;
 
-    $cursor = $collection->find();
+    //$cursor = $collection->find();
 
-    $cursor->sort(array('city' => 1));
+    //$cursor->sort(array('city' => 1));
 
-    foreach ($cursor as $obj) {
-      $rows[] = $obj['city'];
-    }
-    echo json_encode($rows);
+    //foreach ($cursor as $obj) {
+    //  $rows[] = $obj['city'];
+    //}
+    //echo json_encode($rows);
 	// get All Citys
-	//$citys = $cursor->command(array("distinct" => "events", 
-   //                           "key" => "city"));
-	//echo json_encode($citys);
+	  $citys = $cursor->command(array("distinct" => "events", 
+                              "key" => "city"));
+	  echo json_encode($citys);
 	
     // disconnect from server
     $m->close();
