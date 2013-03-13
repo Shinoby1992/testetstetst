@@ -23,9 +23,9 @@
     echo json_encode($cursor);
 
 	// get All Citys
-	$citys = $cursor->command(array("distinct" => "", 
-                              "key" => "city"));
-	echo json_encode($citys);
+	//$citys = $cursor->command(array("distinct" => "events", 
+   //                           "key" => "city"));
+	//echo json_encode($citys);
 	
     // disconnect from server
     $m->close();
