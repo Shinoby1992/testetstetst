@@ -24,13 +24,14 @@
 
 	  // get All Citys
 	  $citys = $db->command(array("distinct" => "events", "key" => "city"));
-      asort($citys);
 
-
-
-
-
+      echo 'BEFORE ================================' . PHP_EOL;
 	  echo json_encode($citys);
+
+      ksort($citys); 
+      echo 'AFTER  ================================' . PHP_EOL;
+      echo json_encode($citys);
+
 	
     // disconnect from server
     $m->close();
