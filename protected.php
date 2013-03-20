@@ -74,7 +74,7 @@ include('init.inc.php');
 			date_default_timezone_set('CET');
 			$myFile = "log.txt";
 			$fh = fopen($myFile, 'a');
-			$line = "Benutzer:".$_SESSION['username']."; Bild:".$_POST['thirdline']."; Ordner:".$_POST['destination']."; Dateiname:".$fileName."; Veranstaltungsname:".$_POST['firstline']."; Datum:".date('l jS \of F Y h:i:s A').";\r\n";
+			$line = "Benutzer:".$_SESSION['username']."; Bild:".$_POST['thirdline']."; Ordner:".$_POST['destination']."; Dateiname:".$fileName."; Datum:".date('l jS \of F Y h:i:s A').";\r\n";
 			fwrite($fh, $line);
 			fclose($fh);
 			$uploader->upload($myFile, $txt1."logs",  $myFile);
@@ -450,14 +450,6 @@ $(document).pngFix( );
 		<tr>
 			<th valign="top">Datum:</th>
 			<td><input type="text" id="timedate" name="timedate" class="inp-form" /></td>
-			<td>
-			<div class="error-left"></div>
-			<div class="error-inner">Muss angegeben werden</div>
-			</td>
-		</tr>
-		<tr>
-			<th valign="top">Facebook Seite:</th>
-			<td><input type="text" id="firstline" name="firstline" class="inp-form" /></td>
 			<td>
 			<div class="error-left"></div>
 			<div class="error-inner">Muss angegeben werden</div>
