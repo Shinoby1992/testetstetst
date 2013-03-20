@@ -13,14 +13,6 @@
  
     // use the database we connected to
     $db = $m->selectDB($db_name);
-	
-    //$collection = $db->events;
-    //$cursor = $collection->find();
-    //$cursor->sort(array('city' => 1));
-    //foreach ($cursor as $obj) {
-    //  $rows[] = $obj['city'];
-    //}
-    //echo json_encode($rows);
 
 	  // get All Citys
 	  $citys = $db->command(array("distinct" => "events", "key" => "city"));
