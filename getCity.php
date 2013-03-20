@@ -27,9 +27,9 @@
 
 
 
-      var_dump($citys);
+
       ksort($citys['values']);
-      var_dump($citys);
+      
 
 
       echo json_encode($citys);
