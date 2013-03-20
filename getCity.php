@@ -24,14 +24,7 @@
 
 	  // get All Citys
 	  $citys = $db->command(array("distinct" => "events", "key" => "city"));
-
-
-
-
-      ksort($citys['values']);
-      
-
-
+      sort($citys['values']);
       echo json_encode($citys);
 
 	
