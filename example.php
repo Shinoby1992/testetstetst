@@ -66,7 +66,8 @@ $naitik = $facebook->api('/naitik');
 	  <?php echo $user_profile['location']['city']; ?>
 	  <?php echo $user_profile['location']['street']; ?>
 	  
-	  <?php echo $user_profile2['data']; ?>
+	  
+	  <?php echo count($user_profile2['data']); ?>
 	  
 
       <h3>Your User Object (/me)</h3>
