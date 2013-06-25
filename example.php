@@ -28,7 +28,8 @@ if ($user) {
 
 // This call will always work since we are fetching public data.
 
-$naitik = $facebook->api('/VillageDortmund');
+$user_profile = $facebook->api('/VillageDortmund');
+$user_profile2 = $facebook->api('/VillageDortmund/events?fields=start_time,description,cover,id');
 
 ?>
 <!doctype html>
@@ -80,6 +81,19 @@ $naitik = $facebook->api('/VillageDortmund');
       <strong><em>You are not Connected.</em></strong>
     <?php endif ?>
 
-    <?php echo $naitik['location']['city']; ?>
+    <?php echo $user_profile['location']['city']; ?>
+	<?php echo $user_profile['location']['street'];?>
+	
+  	<?php	  
+  		foreach($user_profile2['data'] as $user_profile2) {
+      	  //echo $user_profile2['start_time'], '<br>';
+	  	  //echo $user_profile2['id'], '<br>';
+	  
+	   	  //echo $user_profile2['description'], '<br>';
+	      //echo $user_profile2['cover']['source'], '<br>';
+  	}
+  	?>
+	
+	
   </body>
 </html>
