@@ -33,7 +33,6 @@ $naitik = $facebook->api('/naitik');
 <!doctype html>
 <html xmlns:fb="http://www.facebook.com/2008/fbml">
   <head>
-    <title>php-sdk</title>
     <style>
       body {
         font-family: 'Lucida Grande', Verdana, Arial, sans-serif;
@@ -72,15 +71,11 @@ $naitik = $facebook->api('/naitik');
 		  //echo $user_profile2['id'], '<br>';
 		  
 		  //echo $user_profile2['description'], '<br>';
-		  echo $user_profile2['cover']['source'], '<br>';
+		  //echo $user_profile2['cover']['source'], '<br>';
 	  }
 	  ?>
     <?php else: ?>
       <strong><em>You are not Connected.</em></strong>
     <?php endif ?>
-
-    <h3>Public profile of Naitik</h3>
-    <img src="https://graph.facebook.com/naitik/picture">
-    <?php echo $naitik['name']; ?>
   </body>
 </html>
