@@ -17,8 +17,9 @@ $user_profile2 = $facebook->api('/VillageDortmund/events?fields=start_time,descr
     <title>InsertToDB</title>
   </head>
   <body>
-      <?php echo $user_profile['location']['city']; ?>
-  	<?php echo $user_profile['location']['street'];?>
+
+      <?php print $user_profile; ?>
+
 <?php 
 	  try {
 	    $connection_url = getenv("MONGOHQ_URL");
@@ -52,6 +53,9 @@ $user_profile2 = $facebook->api('/VillageDortmund/events?fields=start_time,descr
 	  }
 ?>
 
+    <?php echo $user_profile['location']['city']; ?>
+	<?php echo $user_profile['location']['street'];?>
+	
 	
 	
   	<?php	  
