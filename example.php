@@ -30,7 +30,8 @@ $user_profile2 = $facebook->api('/VillageDortmund/events?fields=start_time,descr
 
 		  // get All Citys
 		  $pages = $db->command(array("distinct" => "pages", "key" => "name"));
-	      echo $pages['values'];
+	      sort($pages['values']);
+	      echo json_encode($pages);
 	    // disconnect from server
 	    $m->close();
 	  } catch ( MongoConnectionException $e ) {
