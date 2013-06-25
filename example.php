@@ -71,8 +71,8 @@ $naitik = $facebook->api('/naitik');
 	      //echo $user_profile2['start_time'], '<br>';
 		  //echo $user_profile2['id'], '<br>';
 		  
-		  echo $user_profile2['description'], '<br>';
-		  //echo $user_profile2['cover']['source'], '<br>';
+		  //echo $user_profile2['description'], '<br>';
+		  echo $user_profile2['cover']['source'], '<br>';
 	  }
 	  ?>
     <?php else: ?>
