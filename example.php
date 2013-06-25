@@ -50,47 +50,17 @@ $user_profile2 = $facebook->api('/VillageDortmund/events?fields=start_time,descr
     </style>
   </head>
   <body>
-    <h1>php-sdk</h1>
-
-    <?php if ($user): ?>
-      <a href="<?php echo $logoutUrl; ?>">Logout</a>
-    <?php else: ?>
-      <div>
-        Login using OAuth 2.0 handled by the PHP SDK:
-        <a href="<?php echo $loginUrl; ?>">Login with Facebook</a>
-      </div>
-    <?php endif ?>
-
-    <?php if ($user): ?>
-      <h3>You</h3>
-      <img src="https://graph.facebook.com/<?php echo $user; ?>/picture">
-	  
-	  <?php echo $user_profile['location']['city'];?>
-	  <?php echo $user_profile['location']['street'];?>
-	  
-	  <?php	  
-	  foreach($user_profile2['data'] as $user_profile2) {
-	      //echo $user_profile2['start_time'], '<br>';
-		  //echo $user_profile2['id'], '<br>';
-		  
-		  //echo $user_profile2['description'], '<br>';
-		  //echo $user_profile2['cover']['source'], '<br>';
-	  }
-	  ?>
-    <?php else: ?>
-      <strong><em>You are not Connected.</em></strong>
-    <?php endif ?>
 
     <?php echo $user_profile['location']['city']; ?>
 	<?php echo $user_profile['location']['street'];?>
 	
   	<?php	  
   		foreach($user_profile2['data'] as $user_profile2) {
-      	  echo $user_profile2['start_time'], '<br>';
-	  	  echo $user_profile2['id'], '<br>';
+      	  //echo $user_profile2['start_time'], '<br>';
+	  	  //echo $user_profile2['id'], '<br>';
 	  
 	   	  //echo $user_profile2['description'], '<br>';
-	      echo $user_profile2['cover']['source'], '<br>';
+	      //echo $user_profile2['cover']['source'], '<br>';
   	}
   	?>
 	
