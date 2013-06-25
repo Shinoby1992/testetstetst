@@ -7,7 +7,7 @@ $facebook = new Facebook(array(
   'secret' => '653bd1649461dd10ac338a030b9d0d79',
 ));
 
-$user_profile = $facebook->api('/rushhourdortmund');
+$user_profile = $facebook->api('/VillageDortmund');
 $user_profile2 = $facebook->api('/VillageDortmund/events?fields=start_time,description,cover,id');
 
 ?>
