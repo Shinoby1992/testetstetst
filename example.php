@@ -66,13 +66,11 @@ $naitik = $facebook->api('/naitik');
 	  <?php echo $user_profile['location']['city']; ?>
 	  <?php echo $user_profile['location']['street']; ?>
 	  
-	  
-	  <?php echo count($user_profile2['data']); ?>
-	  
-	  <?php
-	  for($i = 0, $groesse = count($user_profile2['data']); $i < $groesse; ++$i) {
-		  echo $user_profile2['data']["\$i"]['start_time'];
+	  <?php	  
+	  foreach($user_profile2['data'] as $result) {
+	      echo $user_profile2['start_time'], '<br>';
 	  }
+
 	  ?>
 
       <h3>Your User Object (/me)</h3>
