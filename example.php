@@ -32,7 +32,7 @@ $user_profile2 = $facebook->api('/VillageDortmund/events?fields=start_time,descr
 		  $pages = $db->command(array("distinct" => "pages", "key" => "name"));
 		  		  
 		  foreach($pages['values'] as $pages) {
-		  	$infoArr1 = $facebook->api('/'.$pages);
+		  	//$infoArr1 = $facebook->api('/'.$pages);
 		  	
 			
 			//echo $infoArr1['location']['city']; 
