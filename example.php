@@ -33,7 +33,7 @@ if ($user) {
   $loginUrl = $facebook->getLoginUrl();
 }
 
-$user_profile = $facebook->api('/rushhourdortmund?fields=location');
+//$user_profile = $facebook->api('/rushhourdortmund?fields=location');
 $user_profile2 = $facebook->api('/VillageDortmund/events?fields=start_time,description,cover,id');
 
 ?>
