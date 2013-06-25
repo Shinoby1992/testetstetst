@@ -70,10 +70,8 @@ $naitik = $facebook->api('/naitik');
 	  <?php echo count($user_profile2['data']); ?>
 	  
 	  <?php
-	  $daten = array();
 	  for($i = 0, $groesse = count($user_profile2['data']); $i < $groesse; ++$i) {
-	      $daten[$i] = $user_profile2['data'][''$i'']['start_time'];
-		  echo $daten[$i];
+		  echo $user_profile2['data'][''$i'']['start_time'];
 	  }
 	  ?>
 
