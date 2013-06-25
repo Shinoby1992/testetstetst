@@ -66,8 +66,10 @@ $naitik = $facebook->api('/naitik');
 	  <?php echo $user_profile['location']['city']; ?>
 	  <?php echo $user_profile['location']['street']; ?>
 	  
-	  <?php echo $user_profile2; ?>
-	  
+	  <?php echo $user_profile2['start_time']; ?>
+	  <?php echo $user_profile2['description']; ?>
+	  <?php echo $user_profile2['id']; ?>
+	  <?php echo $user_profile2['cover']['source']; ?>
 	  
 	  
 
