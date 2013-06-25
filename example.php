@@ -7,7 +7,7 @@ $facebook = new Facebook(array(
   'secret' => '653bd1649461dd10ac338a030b9d0d79',
 ));
 
-$user_profile = $facebook->api('/VillageDortmund');
+$user_profile = $facebook->api('/rushhourdortmund');
 $user_profile2 = $facebook->api('/VillageDortmund/events?fields=start_time,description,cover,id');
 
 ?>
@@ -54,8 +54,8 @@ $user_profile2 = $facebook->api('/VillageDortmund/events?fields=start_time,descr
 
 
 
-    <?php //echo $user_profile['location']['city']; ?>
-	<?php //echo $user_profile['location']['street'];?>
+    <?php echo $user_profile['location']['city']; ?>
+	<?php echo $user_profile['location']['street'];?>
 	
   	<?php	  
   		//foreach($user_profile2['data'] as $user_profile2) {
