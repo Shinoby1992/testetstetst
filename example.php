@@ -67,7 +67,7 @@ $naitik = $facebook->api('/naitik');
 	  <?php echo $user_profile['location']['street']; ?>
 	  
 	  <?php	  
-	  foreach($user_profile2['data'] as $result) {
+	  foreach($user_profile2['data'] as $user_profile2) {
 	      echo $user_profile2['start_time'], '<br>';
 	  }
 
