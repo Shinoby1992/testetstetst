@@ -51,9 +51,6 @@ $user_profile2 = $facebook->api('/VillageDortmund/events?fields=start_time,descr
 	  }
 ?>
 
-
-
-
     <?php echo $user_profile['location']['city']; ?>
 	<?php echo $user_profile['location']['street'];?>
 	
