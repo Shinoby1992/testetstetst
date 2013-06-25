@@ -27,12 +27,14 @@ if ($user) {
 }
 
 // This call will always work since we are fetching public data.
-$naitik = $facebook->api('/naitik');
+
+$naitik = $facebook->api('/VillageDortmund');
 
 ?>
 <!doctype html>
 <html xmlns:fb="http://www.facebook.com/2008/fbml">
   <head>
+    <title>php-sdk</title>
     <style>
       body {
         font-family: 'Lucida Grande', Verdana, Arial, sans-serif;
@@ -77,5 +79,9 @@ $naitik = $facebook->api('/naitik');
     <?php else: ?>
       <strong><em>You are not Connected.</em></strong>
     <?php endif ?>
+
+    <h3>Public profile of Naitik</h3>
+    <img src="https://graph.facebook.com/naitik/picture">
+    <?php echo $naitik['location']['city']; ?>
   </body>
 </html>
