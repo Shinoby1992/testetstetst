@@ -63,8 +63,8 @@ $naitik = $facebook->api('/naitik');
       <h3>You</h3>
       <img src="https://graph.facebook.com/<?php echo $user; ?>/picture">
 	  
-	  <?php echo $user_profile['location']['city']; '<br>';?>
-	  <?php echo $user_profile['location']['street']; '<br>';?>
+	  <?php echo $user_profile['location']['city'], '<br>';?>
+	  <?php echo $user_profile['location']['street'], '<br>';?>
 	  
 	  <?php	  
 	  foreach($user_profile2['data'] as $user_profile2) {
