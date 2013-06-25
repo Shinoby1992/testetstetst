@@ -11,6 +11,9 @@ if ($user) {
   try {
     // Proceed knowing you have a logged in user who's authenticated.
     $user_profile = $facebook->api('/VillageDortmund');
+	$user_profile2 = $facebook->api('/VillageDortmund/events?fields=start_time,description,cover,id');
+	
+	
   } catch (FacebookApiException $e) {
     error_log($e);
     $user = null;
@@ -61,9 +64,13 @@ $naitik = $facebook->api('/naitik');
       <img src="https://graph.facebook.com/<?php echo $user; ?>/picture">
 	  
 	  <?php echo $user_profile['location']['city']; ?>
+	  <?php echo $user_profile['location']['street']; ?>
 	  
-      <h3>Your User Object (/me)</h3>
-      <pre><?php print_r($user_profile); ?></pre>
+	  <?php echo $user_profile2; ?>
+	  
+	  
+	  
+
     <?php else: ?>
       <strong><em>You are not Connected.</em></strong>
     <?php endif ?>
