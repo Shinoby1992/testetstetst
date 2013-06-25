@@ -6,27 +6,6 @@ $facebook = new Facebook(array(
   'appId'  => '465444696840864',
   'secret' => '653bd1649461dd10ac338a030b9d0d79',
 ));
-$user = $facebook->getUser();
-if ($user) {
-  try {
-    // Proceed knowing you have a logged in user who's authenticated.
-    $user_profile = $facebook->api('/VillageDortmund');
-	$user_profile2 = $facebook->api('/VillageDortmund/events?fields=start_time,description,cover,id');
-	
-	
-  } catch (FacebookApiException $e) {
-    error_log($e);
-    $user = null;
-  }
-}
-// Login or logout url will be needed depending on current user state.
-if ($user) {
-  $logoutUrl = $facebook->getLogoutUrl();
-} else {
-  $loginUrl = $facebook->getLoginUrl();
-}
-
-// This call will always work since we are fetching public data.
 
 $user_profile = $facebook->api('/VillageDortmund');
 $user_profile2 = $facebook->api('/VillageDortmund/events?fields=start_time,description,cover,id');
@@ -35,7 +14,7 @@ $user_profile2 = $facebook->api('/VillageDortmund/events?fields=start_time,descr
 <!doctype html>
 <html xmlns:fb="http://www.facebook.com/2008/fbml">
   <head>
-    <title>php-sdk</title>
+    <title>InsertToDB</title>
     <style>
       body {
         font-family: 'Lucida Grande', Verdana, Arial, sans-serif;
