@@ -11,7 +11,7 @@ if ($user) {
   try {
     // Proceed knowing you have a logged in user who's authenticated.
     $user_profile = $facebook->api('/VillageDortmund');
-	$user_profile2 = $facebook->api('/VillageDortmund/events?fields=start_time,description,cover,id');
+	$user_profile2 = $facebook->api('/VillageDortmund/events');
 	
 	
   } catch (FacebookApiException $e) {
