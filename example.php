@@ -60,7 +60,7 @@ $naitik = $facebook->api('/naitik');
       <h3>You</h3>
       <img src="https://graph.facebook.com/<?php echo $user; ?>/picture">
 	  
-	  <?php echo $user_profile['description']; ?>
+	  <?php echo $user_profile['location']['city']; ?>
 	  
       <h3>Your User Object (/me)</h3>
       <pre><?php print_r($user_profile); ?></pre>
