@@ -74,10 +74,6 @@ $naitik = $facebook->api('/naitik');
 		  echo $user_profile2['cover']['source'], '<br>';
 	  }
 	  ?>
-
-      <h3>Your User Object (/me)</h3>
-      <pre><?php print_r($user_profile2); ?></pre>
-
     <?php else: ?>
       <strong><em>You are not Connected.</em></strong>
     <?php endif ?>
