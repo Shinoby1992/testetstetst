@@ -17,7 +17,7 @@ $user_profile2 = $facebook->api('/VillageDortmund/events?fields=start_time,descr
     <title>InsertToDB</title>
   </head>
   <body>
-      <?php print_r($user_profile); ?>
+      <?php echo $user_profile; ?>
 
 <?php 
 	  try {
