@@ -9,13 +9,6 @@ $facebook = new Facebook(array(
 
 // Get User ID
 $user = $facebook->getUser();
-
-// We may or may not have this data based on whether the user is logged in.
-//
-// If we have a $user id here, it means we know the user is logged into
-// Facebook, but we don't know if the access token is valid. An access
-// token is invalid if the user logged out of Facebook.
-
 if ($user) {
   try {
     // Proceed knowing you have a logged in user who's authenticated.
@@ -59,19 +52,12 @@ if ($user) {
         <h3>You</h3>
         <img src="https://graph.facebook.com/<?php echo $user; ?>/picture">
 
-        <h3>Your User Object (/me)</h3>
-        <pre><?php print_r($user_profile); ?></pre>
+	    <?php echo $user_profile['location']['city']; ?>
+		<?php echo $user_profile['location']['street'];?>
+
       <?php else: ?>
         <strong><em>You are not Connected.</em></strong>
       <?php endif ?>
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-      <?php echo $user_profile; ?>
 
 <?php 
 	  try {
@@ -106,10 +92,6 @@ if ($user) {
 	  }
 ?>
 
-    <?php echo $user_profile['location']['city']; ?>
-	<?php echo $user_profile['location']['street'];?>
-	
-	
 	
   	<?php	  
   		//foreach($user_profile2['data'] as $user_profile2) {
