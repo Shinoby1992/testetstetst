@@ -13,7 +13,7 @@ if ($user) {
   try {
     // Proceed knowing you have a logged in user who's authenticated.
     $user_profile = $facebook->api('/rushhourdortmund');
-	$user_profile2 = $facebook->api('/VillageDortmund/events?fields=start_time,description,cover,id');
+	$user_profile2 = $facebook->api('/rushhourdortmund/events?fields=start_time,description,cover,id');
 	
   } catch (FacebookApiException $e) {
     error_log($e);
@@ -106,27 +106,6 @@ if ($user) {
 	  } catch ( Exception $e ) {
 	    die('Error: ' . $e->getMessage());
 	  }
-?>
-
-	
-  	<?php	  
-  		//foreach($user_profile2['data'] as $user_profile2) {
-      	  //echo $user_profile2['start_time'], '<br>';
-	  	  //echo $user_profile2['id'], '<br>';
-	  
-	   	  //echo $user_profile2['description'], '<br>';
-	      //echo $user_profile2['cover']['source'], '<br>';
-  	//}
-  	?>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+?>	
   </body>
 </html>
