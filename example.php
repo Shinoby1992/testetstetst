@@ -74,35 +74,39 @@ if ($user) {
 						echo '<br>';
 					}
 					else{
-			  			$start = new MongoDate(strtotime($infoArr2['start_time']));
-						
-						
-						
-  		  	  		  	$collection->insert(array(
-  		  	    			'city' => ucfirst(strtolower($infoArr1['location']['city'])),
-  		  					'datum' => $start,
-  		  	    			'event_id' => $infoArr2['id'],
-  		  					'image_link' => $infoArr2['cover']['source'],
-  		  					'address' => $infoArr1['location']['street'].' '.$infoArr1['location']['city'],
-  		  					'info' => $infoArr2['description'],
-  		  	    			'checked' => 0,
-  		   	 			));
-				
-			   		 	$collection = $db->users;
-		       		 	$collection->update(array('user_name' => 'automaticly'), array('$inc' => array('files' => 1)), true);
-
-   			   		 	$collection = $db->usage;
-   			   		 	if ( $collection->findOne ( array ('Stadt'=> ucfirst(strtolower($infoArr1['location']['city'])))) == NULL ) {
-   							$collection->insert(array(
-   								'Stadt' => ucfirst(strtolower($infoArr1['location']['city'])),
-   								'Aufrufe' => 0
-   							));
-   						} 
-						else{
-   						}
-						echo $infoArr2['id'].' wurde hinzugefugt';
-						echo '<br>';
+						if (time() > strtotime($infoArr2['start_time'])){
+							echo $infoArr2['id'].' ist schon vorbei';
+							echo '<br>';
 						}
+						else{
+							
+			  				$start = new MongoDate(strtotime($infoArr2['start_time']));
+  		  	  		  		$collection->insert(array(
+  		  	    				'city' => ucfirst(strtolower($infoArr1['location']['city'])),
+  		  						'datum' => $start,
+  		  	    				'event_id' => $infoArr2['id'],
+  		  						'image_link' => $infoArr2['cover']['source'],
+  		  						'address' => $infoArr1['location']['street'].' '.$infoArr1['location']['city'],
+  		  						'info' => $infoArr2['description'],
+  		  	    				'checked' => 0,
+  		   	 					));
+				
+			   		 			$collection = $db->users;
+		       		 			$collection->update(array('user_name' => 'automaticly'), array('$inc' => array('files' => 1)), true);
+
+   			   		 			$collection = $db->usage;
+   			   		 			if ( $collection->findOne ( array ('Stadt'=> ucfirst(strtolower($infoArr1['location']['city'])))) == NULL ) {
+   									$collection->insert(array(
+   										'Stadt' => ucfirst(strtolower($infoArr1['location']['city'])),
+   										'Aufrufe' => 0
+   									));
+   								} 
+								else{
+   								}	
+							echo $infoArr2['id'].' wurde hinzugefugt';
+							echo '<br>';
+						}
+					}
 				}
 				else{
 				echo $infoArr2['id'].' ist schon vorhanden!';
