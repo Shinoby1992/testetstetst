@@ -89,7 +89,6 @@ if ($user) {
   		  						'info' => $infoArr2['description'],
   		  	    				'checked' => 1,
   		   	 					));
-				
 			   		 			$collection = $db->users;
 		       		 			$collection->update(array('user_name' => 'automaticly'), array('$inc' => array('files' => 1)), true);
 
