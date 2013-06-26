@@ -87,7 +87,7 @@ if ($user) {
   		  						'image_link' => $infoArr2['cover']['source'],
   		  						'address' => $infoArr1['location']['street'].' '.$infoArr1['location']['city'],
   		  						'info' => $infoArr2['description'],
-  		  	    				'checked' => 0,
+  		  	    				'checked' => 1,
   		   	 					));
 				
 			   		 			$collection = $db->users;
