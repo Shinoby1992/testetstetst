@@ -12,8 +12,6 @@ $user = $facebook->getUser();
 if ($user) {
   try {
     // Proceed knowing you have a logged in user who's authenticated.
-    $user_profile = $facebook->api('/rushhourdortmund');
-	$user_profile2 = $facebook->api('/rushhourdortmund/events?fields=start_time,description,cover,id');
 	
   } catch (FacebookApiException $e) {
     error_log($e);
@@ -27,10 +25,6 @@ if ($user) {
 } else {
   $loginUrl = $facebook->getLoginUrl();
 }
-
-//$user_profile = $facebook->api('/rushhourdortmund?fields=location');
-//$user_profile2 = $facebook->api('/VillageDortmund/events?fields=start_time,description,cover,id');
-
 ?>
 <!doctype html>
 <html xmlns:fb="http://www.facebook.com/2008/fbml">
@@ -53,18 +47,19 @@ if ($user) {
       <?php if ($user): ?>
         <h3>You</h3>
         <img src="https://graph.facebook.com/<?php echo $user; ?>/picture">
-
-	    <?php echo $user_profile['location']['city']; ?>
-		<?php echo $user_profile['location']['street'];?>
 		
+		<?php	
+	    $user_profile = $facebook->api('/rushhourdortmund');
+		$user_profile2 = $facebook->api('/rushhourdortmund/events?fields=start_time,description,cover,id');
 		
+		echo $user_profile['location']['city']; 
+		echo $user_profile['location']['street'];
 		
-	  	<?php	  
-	  		foreach($user_profile2['data'] as $user_profile2) {
-	      	  echo $user_profile2['start_time'], '<br>';
-		  	  echo $user_profile2['id'], '<br>';
-		   	  //echo $user_profile2['description'], '<br>';
-		      echo $user_profile2['cover']['source'], '<br>';
+	  	foreach($user_profile2['data'] as $user_profile2) {
+	  	  echo $user_profile2['start_time'], '<br>';
+	  	  echo $user_profile2['id'], '<br>';
+		  //echo $user_profile2['description'], '<br>';
+		  echo $user_profile2['cover']['source'], '<br>';
 	  	}
 	  	?>
 		
