@@ -32,13 +32,13 @@ if ($user) {
     <title>InsertToDB</title>
   </head>
   <body>
-      <h1>php-sdk</h1>
+      <h1>InsertVeranstaltungAutomatic</h1>
 
       <?php if ($user): ?>
         <a href="<?php echo $logoutUrl; ?>">Logout</a>
       <?php else: ?>
         <div>
-          Login using OAuth 2.0 handled by the PHP SDK:
+          Login:
           <a href="<?php echo $loginUrl; ?>">Login with Facebook</a>
         </div>
       <?php endif ?>
@@ -48,59 +48,49 @@ if ($user) {
         <h3>You</h3>
         <img src="https://graph.facebook.com/<?php echo $user; ?>/picture">
 		
-		<?php	
-	    $user_profile = $facebook->api('/rushhourdortmund');
-		$user_profile2 = $facebook->api('/rushhourdortmund/events?fields=start_time,description,cover,id');
-		
-		echo $user_profile['location']['city']; 
-		echo $user_profile['location']['street'];
-		
-	  	foreach($user_profile2['data'] as $user_profile2) {
-	  	  echo $user_profile2['start_time'], '<br>';
-	  	  echo $user_profile2['id'], '<br>';
-		  //echo $user_profile2['description'], '<br>';
-		  echo $user_profile2['cover']['source'], '<br>';
-	  	}
-	  	?>
-		
-		
-		
+      <?php	
+  	  try {
+  	    $connection_url = getenv("MONGOHQ_URL");
+  	    $m = new Mongo($connection_url);
+  	    $url = parse_url($connection_url);
+  	    $db_name = preg_replace('/\/(.*)/', '$1', $url['path']);
+ 
+  	    // use the database we connected to
+  	    $db = $m->selectDB($db_name);
 
+  		// get All Citys
+  	  	$pages = $db->command(array("distinct" => "pages", "key" => "name"));
+		  		  
+  		foreach($pages['values'] as $pages) {
+  		  	$infoArr1 = $facebook->api('/'.$pages);
+  			$infoArr2 = $facebook->api('/'.$pages.'/events?fields=start_time,description,cover,id');
+  		  
+			echo $user_profile['location']['city'], '<br>';; 
+			echo $user_profile['location']['street'], '<br>';;
+		  	foreach($user_profile2['data'] as $user_profile2) {
+		  	  echo $user_profile2['start_time'], '<br>';
+		  	  echo $user_profile2['id'], '<br>';
+			  //echo $user_profile2['description'], '<br>';
+			  echo $user_profile2['cover']['source'], '<br>';
+			  echo '<br>';
+		  	}
+		  }
+  	    // disconnect from server
+  	    $m->close();
+  	  } catch ( MongoConnectionException $e ) {
+  	    die('Error connecting to MongoDB server');
+  	  } catch ( MongoException $e ) {
+  	    die('Mongo Error: ' . $e->getMessage());
+  	  } catch ( Exception $e ) {
+  	    die('Error: ' . $e->getMessage());
+  	  }
+	  	?>
       <?php else: ?>
         <strong><em>You are not Connected.</em></strong>
       <?php endif ?>
 
 <?php 
-	  try {
-	    $connection_url = getenv("MONGOHQ_URL");
-	    $m = new Mongo($connection_url);
-	    $url = parse_url($connection_url);
-	    $db_name = preg_replace('/\/(.*)/', '$1', $url['path']);
- 
-	    // use the database we connected to
-	    $db = $m->selectDB($db_name);
 
-		  // get All Citys
-		  $pages = $db->command(array("distinct" => "pages", "key" => "name"));
-		  		  
-		  foreach($pages['values'] as $pages) {
-		  	//$infoArr1 = $facebook->api('/'.$pages);
-		  	
-			
-			//echo $infoArr1['location']['city']; 
-		  
-		  }
-		  
-		  
-	    // disconnect from server
-	    $m->close();
-	  } catch ( MongoConnectionException $e ) {
-	    die('Error connecting to MongoDB server');
-	  } catch ( MongoException $e ) {
-	    die('Mongo Error: ' . $e->getMessage());
-	  } catch ( Exception $e ) {
-	    die('Error: ' . $e->getMessage());
-	  }
 ?>	
   </body>
 </html>
