@@ -19,7 +19,7 @@ $user = $facebook->getUser();
 if ($user) {
   try {
     // Proceed knowing you have a logged in user who's authenticated.
-    $user_profile = $facebook->api('/VillageDortmund');
+    $user_profile = $facebook->api('/rushhourdortmund');
   } catch (FacebookApiException $e) {
     error_log($e);
     $user = null;
