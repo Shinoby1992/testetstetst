@@ -23,7 +23,7 @@ if ($user) {
 if ($user) {
   $logoutUrl = $facebook->getLogoutUrl();
 } else {
-  $loginUrl = $facebook->getLoginUrl();
+  $loginUrl = $facebook->getLoginUrl(array('req_perms' => 'user_events'));
 }
 ?>
 <!doctype html>
