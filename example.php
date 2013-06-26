@@ -94,7 +94,7 @@ if ($user) {
    				}
 			}else{
 				echo $infoArr2['id'].' ist schon vorhanden!';
-				echo <br>;
+				
 			}			  
 		  	}
 		  }
