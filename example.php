@@ -66,45 +66,48 @@ if ($user) {
   			$infoArr2 = $facebook->api('/'.$pages.'/events?fields=start_time,description,cover,id');
 
 		  	foreach($infoArr2['data'] as $infoArr2) {							  
-			  $collection = $db->events;
+				$collection = $db->events;
 			  
-			if ($collection->findOne(array('event_id'=> $infoArr2['id'])) == NULL ){			
-				if ($infoArr2['cover']['source'] == NULL){
-					echo $infoArr2['id'].' hat kein Bild';
-					echo '<br>';
+				if ($collection->findOne(array('event_id'=> $infoArr2['id'])) == NULL ){			
+					if ($infoArr2['cover']['source'] == NULL){
+						echo $infoArr2['id'].' hat kein Bild';
+						echo '<br>';
+					}
+					else{
+			  			$start = new MongoDate(strtotime($infoArr2['start_time']));
+						
+						
+						
+  		  	  		  	$collection->insert(array(
+  		  	    			'city' => ucfirst(strtolower($infoArr1['location']['city'])),
+  		  					'datum' => $start,
+  		  	    			'event_id' => $infoArr2['id'],
+  		  					'image_link' => $infoArr2['cover']['source'],
+  		  					'address' => $infoArr1['location']['street'].' '.$infoArr1['location']['city'],
+  		  					'info' => $infoArr2['description'],
+  		  	    			'checked' => 0,
+  		   	 			));
+				
+			   		 	$collection = $db->users;
+		       		 	$collection->update(array('user_name' => 'automaticly'), array('$inc' => array('files' => 1)), true);
+
+   			   		 	$collection = $db->usage;
+   			   		 	if ( $collection->findOne ( array ('Stadt'=> ucfirst(strtolower($infoArr1['location']['city'])))) == NULL ) {
+   							$collection->insert(array(
+   								'Stadt' => ucfirst(strtolower($infoArr1['location']['city'])),
+   								'Aufrufe' => 0
+   							));
+   						} 
+						else{
+   						}
+						echo $infoArr2['id'].' wurde hinzugefugt';
+						echo '<br>';
+						}
 				}
 				else{
-			  
-			  $start = new MongoDate(strtotime($infoArr2['start_time']));	
-  		  	  $collection->insert(array(
-  		  	    'city' => ucfirst(strtolower($infoArr1['location']['city'])),
-  		  		'datum' => $start,
-  		  	    'event_id' => $infoArr2['id'],
-  		  		'image_link' => $infoArr2['cover']['source'],
-  		  		'address' => $infoArr1['location']['street'].' '.$infoArr1['location']['city'],
-  		  		'info' => $infoArr2['description'],
-  		  	    'checked' => 0,
-  		   	 	));
-				
-			   $collection = $db->users;
-		       $collection->update(array('user_name' => 'automaticly'), array('$inc' => array('files' => 1)), true);
-
-   			   $collection = $db->usage;
-   			   if ( $collection->findOne ( array ('Stadt'=> ucfirst(strtolower($infoArr1['location']['city'])))) == NULL ) {
-   				$collection->insert(array(
-   					'Stadt' => ucfirst(strtolower($infoArr1['location']['city'])),
-   					'Aufrufe' => 0
-   				));
-   				} else {
-   			  		// else don't touch it, so upsert would not fit.
-   				}
-				echo $infoArr2['id'].' wurde hinzugefugt';
-				echo '<br>';
-				}
-			}else{
 				echo $infoArr2['id'].' ist schon vorhanden!';
 				echo '<br>';
-			}			  
+				}			  
 		  	}
 		  }
   	    // disconnect from server
