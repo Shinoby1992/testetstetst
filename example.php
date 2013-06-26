@@ -65,8 +65,10 @@ if ($user) {
   		  	$infoArr1 = $facebook->api('/'.$pages);
   			$infoArr2 = $facebook->api('/'.$pages.'/events?fields=start_time,description,cover,id');
 
-		  	foreach($infoArr2['data'] as $infoArr2) {			  
+		  	foreach($infoArr2['data'] as $infoArr2) {							  
 			  $collection = $db->events;
+			  
+				if ($collection->findOne(array('event_id'=> $infoArr2['id'])) == NULL ){
 			  $start = new MongoDate(strtotime($infoArr2['start_time']));	
   		  	  $collection->insert(array(
   		  	    'city' => ucfirst(strtolower($infoArr1['location']['city'])),
@@ -89,7 +91,11 @@ if ($user) {
    				));
    				} else {
    			  		// else don't touch it, so upsert would not fit.
-   				}			  
+   				}
+			}else{
+				echo $infoArr2['id'].' ist schon vorhanden!';
+				echo <br>;
+			}			  
 		  	}
 		  }
   	    // disconnect from server
