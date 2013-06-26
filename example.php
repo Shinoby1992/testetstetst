@@ -68,11 +68,25 @@ if ($user) {
 			echo $infoArr1['location']['city'], '<br>';; 
 			echo $infoArr1['location']['street'], '<br>';;
 		  	foreach($infoArr2['data'] as $infoArr2) {
-		  	  echo $infoArr2['start_time'], '<br>';
-		  	  echo $infoArr2['id'], '<br>';
+		  	  //echo $infoArr2['start_time'], '<br>';
+		  	  //echo $infoArr2['id'], '<br>';
 			  //echo $infoArr2['description'], '<br>';
-			  echo $infoArr2['cover']['source'], '<br>';
+			  //echo $infoArr2['cover']['source'], '<br>';
+			  //echo '<br>';
+			  
+			  
+			  $collection = $db->events;
+			  $start = new MongoDate(strtotime($infoArr2['start_time']));	
+			  echo $start;
 			  echo '<br>';
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+			  
 		  	}
 		  }
   	    // disconnect from server
