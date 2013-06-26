@@ -47,6 +47,7 @@ if ($user) {
       <?php if ($user): ?>
         <h3>You</h3>
         <img src="https://graph.facebook.com/<?php echo $user; ?>/picture">
+		<br>
 		
       <?php	
   	  try {
