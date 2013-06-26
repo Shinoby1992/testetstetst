@@ -64,29 +64,32 @@ if ($user) {
   		foreach($pages['values'] as $pages) {
   		  	$infoArr1 = $facebook->api('/'.$pages);
   			$infoArr2 = $facebook->api('/'.$pages.'/events?fields=start_time,description,cover,id');
-  		  
-			echo $infoArr1['location']['city'], '<br>';; 
-			echo $infoArr1['location']['street'], '<br>';;
-		  	foreach($infoArr2['data'] as $infoArr2) {
-		  	  //echo $infoArr2['start_time'], '<br>';
-		  	  //echo $infoArr2['id'], '<br>';
-			  //echo $infoArr2['description'], '<br>';
-			  //echo $infoArr2['cover']['source'], '<br>';
-			  //echo '<br>';
-			  
-			  
+
+		  	foreach($infoArr2['data'] as $infoArr2) {			  
 			  $collection = $db->events;
 			  $start = new MongoDate(strtotime($infoArr2['start_time']));	
-			  echo $start;
-			  echo '<br>';
-			  
-			  
-			  
-			  
-			  
-			  
-			  
-			  
+  		  	  $collection->insert(array(
+  		  	    'city' => ucfirst(strtolower($infoArr1['location']['city'])),
+  		  		'datum' => $start,
+  		  	    'event_id' => $infoArr2['id'],
+  		  		'image_link' => $infoArr2['cover']['source'],
+  		  		'address' => $infoArr1['location']['street'].' '.$infoArr1['location']['city'],
+  		  		'info' => $infoArr2['description'],
+  		  	    'checked' => 0,
+  		   	 	));
+				
+			   $collection = $db->users;
+		       $collection->update(array('user_name' => 'automaticly'), array('$inc' => array('files' => 1)), true);
+
+   			   $collection = $db->usage;
+   			   if ( $collection->findOne ( array ('Stadt'=> ucfirst(strtolower($infoArr1['location']['city'])))) == NULL ) {
+   				$collection->insert(array(
+   					'Stadt' => ucfirst(strtolower($infoArr1['location']['city'])),
+   					'Aufrufe' => 0
+   				));
+   				} else {
+   			  		// else don't touch it, so upsert would not fit.
+   				}			  
 		  	}
 		  }
   	    // disconnect from server
