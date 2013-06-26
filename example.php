@@ -62,6 +62,8 @@ if ($user) {
   	  	$pages = $db->command(array("distinct" => "pages", "key" => "name"));
 		  		  
   		foreach($pages['values'] as $pages) {
+			echo $pages;
+			echo '<br>';
   		  	$infoArr1 = $facebook->api('/'.$pages);
   			$infoArr2 = $facebook->api('/'.$pages.'/events?fields=start_time,description,cover,id');
 
@@ -70,12 +72,12 @@ if ($user) {
 			  
 				if ($collection->findOne(array('event_id'=> $infoArr2['id'])) == NULL ){			
 					if ($infoArr2['cover']['source'] == NULL){
-						echo $pages.' '.$infoArr2['id'].' hat kein Bild';
+						echo $infoArr2['id'].' hat kein Bild';
 						echo '<br>';
 					}
 					else{
 						if (time() > strtotime($infoArr2['start_time'])){
-							echo $pages.' '.$infoArr2['id'].' ist schon vorbei';
+							echo $infoArr2['id'].' ist schon vorbei';
 							echo '<br>';
 						}
 						else{
@@ -101,13 +103,13 @@ if ($user) {
    								} 
 								else{
    								}	
-							echo $pages.' '.$infoArr2['id'].' wurde hinzugefugt';
+							echo $infoArr2['id'].' wurde hinzugefugt';
 							echo '<br>';
 						}
 					}
 				}
 				else{
-				echo $pages.' '.$infoArr2['id'].' ist schon vorhanden!';
+				echo $infoArr2['id'].' ist schon vorhanden!';
 				echo '<br>';
 				}			  
 		  	}
