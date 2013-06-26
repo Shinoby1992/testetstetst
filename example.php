@@ -68,7 +68,13 @@ if ($user) {
 		  	foreach($infoArr2['data'] as $infoArr2) {							  
 			  $collection = $db->events;
 			  
-				if ($collection->findOne(array('event_id'=> $infoArr2['id'])) == NULL ){
+			if ($collection->findOne(array('event_id'=> $infoArr2['id'])) == NULL ){			
+				if ($infoArr2['cover']['source'] == NULL){
+					echo $infoArr2['id'].' hat kein Bild';
+					echo '<br>';
+				}
+				else{
+			  
 			  $start = new MongoDate(strtotime($infoArr2['start_time']));	
   		  	  $collection->insert(array(
   		  	    'city' => ucfirst(strtolower($infoArr1['location']['city'])),
@@ -92,6 +98,9 @@ if ($user) {
    				} else {
    			  		// else don't touch it, so upsert would not fit.
    				}
+				echo $infoArr2['id'].' wurde hinzugefugt';
+				echo '<br>';
+				}
 			}else{
 				echo $infoArr2['id'].' ist schon vorhanden!';
 				echo '<br>';
