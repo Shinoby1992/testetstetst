@@ -65,13 +65,13 @@ if ($user) {
   		  	$infoArr1 = $facebook->api('/'.$pages);
   			$infoArr2 = $facebook->api('/'.$pages.'/events?fields=start_time,description,cover,id');
   		  
-			echo $user_profile['location']['city'], '<br>';; 
-			echo $user_profile['location']['street'], '<br>';;
-		  	foreach($user_profile2['data'] as $user_profile2) {
-		  	  echo $user_profile2['start_time'], '<br>';
-		  	  echo $user_profile2['id'], '<br>';
-			  //echo $user_profile2['description'], '<br>';
-			  echo $user_profile2['cover']['source'], '<br>';
+			echo $infoArr1['location']['city'], '<br>';; 
+			echo $infoArr1['location']['street'], '<br>';;
+		  	foreach($infoArr2['data'] as $infoArr2) {
+		  	  echo $infoArr2['start_time'], '<br>';
+		  	  echo $infoArr2['id'], '<br>';
+			  //echo $infoArr2['description'], '<br>';
+			  echo $infoArr2['cover']['source'], '<br>';
 			  echo '<br>';
 		  	}
 		  }
