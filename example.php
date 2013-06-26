@@ -79,7 +79,6 @@ if ($user) {
 							echo '<br>';
 						}
 						else{
-							
 			  				$start = new MongoDate(strtotime($infoArr2['start_time']));
   		  	  		  		$collection->insert(array(
   		  	    				'city' => ucfirst(strtolower($infoArr1['location']['city'])),
