@@ -70,12 +70,12 @@ if ($user) {
 			  
 				if ($collection->findOne(array('event_id'=> $infoArr2['id'])) == NULL ){			
 					if ($infoArr2['cover']['source'] == NULL){
-						echo $infoArr2['id'].' hat kein Bild';
+						echo $pages.' '.$infoArr2['id'].' hat kein Bild';
 						echo '<br>';
 					}
 					else{
 						if (time() > strtotime($infoArr2['start_time'])){
-							echo $infoArr2['id'].' ist schon vorbei';
+							echo $pages.' '.$infoArr2['id'].' ist schon vorbei';
 							echo '<br>';
 						}
 						else{
@@ -101,13 +101,13 @@ if ($user) {
    								} 
 								else{
    								}	
-							echo $infoArr2['id'].' wurde hinzugefugt';
+							echo $pages.' '.$infoArr2['id'].' wurde hinzugefugt';
 							echo '<br>';
 						}
 					}
 				}
 				else{
-				echo $infoArr2['id'].' ist schon vorhanden!';
+				echo $pages.' '.$infoArr2['id'].' ist schon vorhanden!';
 				echo '<br>';
 				}			  
 		  	}
