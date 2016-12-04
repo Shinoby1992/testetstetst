@@ -329,7 +329,8 @@ $(document).pngFix( );
 		<div class="nav">
 		<div class="table">
 		                    
-		<ul class="current"><li><a href="#nogo"><b>Veranstaltung</b><!--[if IE 7]><!--></a><!--<![endif]-->
+		<ul class="current"><li><a href="#nogo"><b>Gerät Freischalten
+		</b><!--[if IE 7]><!--></a><!--<![endif]-->
 		<!--[if lte IE 6]><table><tr><td><![endif]-->
 		<div class="select_sub show">
 			<ul class="sub">
