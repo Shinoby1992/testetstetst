@@ -1,5 +1,0 @@
-suites:
-    main:
-        namespace: ASecurity
-        psr4_prefix: ASecurity
-        src_path: app
