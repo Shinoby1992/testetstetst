@@ -5,6 +5,8 @@
     "type": "project",
     "require": {
         "php": ">=5.5.9",
+		"ext-mongo": "*",
+		"ext-gd": "*",
         "laravel/framework": "5.2.*@dev",
         "proengsoft/laravel-jsvalidation": "~1.1",
         "laravel/socialite": "^2.0",
