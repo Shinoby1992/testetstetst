@@ -29,6 +29,7 @@ return array(
     'Symfony\\Component\\ClassLoader\\' => array($vendorDir . '/symfony/class-loader'),
     'SuperClosure\\' => array($vendorDir . '/jeremeamia/SuperClosure/src'),
     'Psy\\' => array($vendorDir . '/psy/psysh/src/Psy'),
+    'Psr\\Log\\' => array($vendorDir . '/psr/log/Psr/Log'),
     'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-message/src'),
     'Proengsoft\\JsValidation\\Tests\\' => array($vendorDir . '/proengsoft/laravel-jsvalidation/tests'),
     'Proengsoft\\JsValidation\\' => array($vendorDir . '/proengsoft/laravel-jsvalidation/src'),
