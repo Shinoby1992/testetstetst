@@ -1,2 +1,0 @@
-<?php
-// For testing purpose
