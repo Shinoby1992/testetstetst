@@ -36,10 +36,7 @@
 				<input type="hidden" name="no_note" value="1" />
 		<div class="input-group col-md-4">
 		    <select name="amount" class="form-control">
-		    <option value="5.00"><?php echo $this->settings->info->payment_symbol ?>5.00</option>
-		    <option value="10.00"><?php echo $this->settings->info->payment_symbol ?>10.00</option>
-		    <option value="30.00"><?php echo $this->settings->info->payment_symbol ?>30.00</option>
-		    <option value="100.00"><?php echo $this->settings->info->payment_symbol ?>100.00</option>
+		    <option value="20.00"><?php echo $this->settings->info->payment_symbol ?>20.00</option>
 		    </select>
 		  </div>
 		  <button type="submit" class="btn btn-primary"><?php echo lang("ctn_249") ?></button>
