@@ -28,14 +28,12 @@
 
 		    <?php if(!empty($featuredprod)) {
 		        $prodName = $this->ts_functions->getProductName($featuredprod[0]['prod_id']);
-		        $image_a = explode('.',$featuredprod[0]['prod_image']);
-		        $dis_img = 'small/'.$image_a[0].'_thumb.'.$image_a[1];
 		    ?>
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<div class="ts_single_theme_box">
 					<div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
 						<div class="ts_single_theme_box_img">
-							<a href="<?php echo $basepath;?>item/<?php echo $prodName.$featuredprod[0]['prod_uniqid'];?>"><img src="<?php echo $basepath;?>repo/images/<?php echo $dis_img;?>" title="<?php echo $featuredprod[0]['prod_name'];?>" class="img-responsive"></a>
+							<a href="<?php echo $basepath;?>item/<?php echo $prodName.$featuredprod[0]['prod_uniqid'];?>"><img src="<?php echo $basepath;?>repo/images/<?php echo $featuredprod[0]['prod_image'];?>" title="<?php echo $featuredprod[0]['prod_name'];?>" class="img-responsive"></a>
 						</div>
 					</div>
 					<div class="col-lg-7 col-md-7 col-sm-6 col-xs-12">
@@ -81,10 +79,7 @@
 							    <a href="<?php echo $basepath;?>shop/add_to_cart/products/<?php echo $featuredprod[0]['prod_uniqid'];?>" class="ts_btn"> <?php echo $this->ts_functions->getlanguage('freetext','commontext','solo');?> </a>
 							<?php } ?>
 
-						<?php if( strpos($featuredprod[0]['prod_demourl'],'/') != '-1' ) { ?>
 							<a href="<?php echo $basepath;?>item/<?php echo $prodName.'live_demo/'.$featuredprod[0]['prod_uniqid'];?>" class="ts_btn" target="_blank"><?php echo $this->ts_functions->getlanguage('livedemotab','homepage','solo');?></a>
-						<?php } ?>
-							
 						</div>
 					</div>
 					<div class="rs_tag_box"><?php echo $this->ts_functions->getlanguage('featuredbox','homepage','solo');?></div>
@@ -125,13 +120,11 @@
                 <div class="LatestThemeDiv">
                     <?php foreach($productdetails as $soloProd) {
                         $prodName = $this->ts_functions->getProductName($soloProd['prod_id']);
-                        $image_a = explode('.',$soloProd['prod_image']);
-		        		$dis_img = 'small/'.$image_a[0].'_thumb.'.$image_a[1];
                     ?>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
                         <div class="ts_theme_boxes">
                             <div class="ts_theme_boxes_img">
-                                <a href="<?php echo $basepath;?>item/<?php echo $prodName.$soloProd['prod_uniqid'];?>"><img src="<?php echo $basepath;?>repo/images/<?php echo $dis_img;?>" title="<?php echo $soloProd['prod_name'];?>" /></a>
+                                <a href="<?php echo $basepath;?>item/<?php echo $prodName.$soloProd['prod_uniqid'];?>"><img src="<?php echo $basepath;?>repo/images/<?php echo $soloProd['prod_image'];?>" title="<?php echo $soloProd['prod_name'];?>" /></a>
                             </div>
                             <!--<span><?php echo $soloProd['cate_name'];?></span>-->
                             <div class="ts_theme_boxes_info">

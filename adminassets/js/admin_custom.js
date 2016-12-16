@@ -349,7 +349,7 @@ Project:	Themeportal
 		    /******** update revenue model ENDS ********/
 		},
 		ProductJS : function() {
-		    $('#p_name').on('keyup',function(){
+		    $('input[name="p_name"]').on('keyup',function(){
 		        var curLength = ($(this).val()).length;
 		        if( curLength > 79 ) {
 		            $(this).val(
@@ -359,7 +359,7 @@ Project:	Themeportal
 		        }
 		        $('.name_counter').text(80 - curLength);
 		    });
-		    $('#p_urlname').on('keyup',function(){
+		    $('input[name="p_urlname"]').on('keyup',function(){
 		        var curLength = ($(this).val()).length;
 		        if( curLength > 79 ) {
 		            $(this).val(
@@ -416,83 +416,6 @@ Project:	Themeportal
 	};
 
 	themeportal.init();
-	
-	/*********** Dropzone STARTS *****************/
-		
-		if($('#file_upload_type').length > 0) {
-		
-			var basepath = $('#basepath').val();
-			if( $('#vendorpage').length > 0 ) {
-				var serverUrl = basepath+"vendorboard/upload_prod_files";
-				var cancel_btn = $('#cancelbtntext').val();
-				var cancel_text = $('#uploadcanceltext').val();
-				var ext_error = $('#extensionerror').val();
-				var up_suc_msg = $('#uploadsuctext').val();
-				var up_error_msg = $('#uploaderrortext').val();
-			}
-			else {
-				var serverUrl = basepath+"products/upload_prod_files";
-				var cancel_btn = 'Cancel';
-				var cancel_text = 'Do you want to cancel this upload?';
-				var ext_error = 'Please, check the file extension, it should match the above field.';
-				var up_suc_msg = 'File uploaded successfully.';
-				var up_error_msg = 'Error in uploading file.';
-			}
-			
-			$("div#tp_upload_section").dropzone({
-				paramName: "file",
-				url: serverUrl,
-				addRemoveLinks:true,
-				dictCancelUpload: cancel_btn,
-				dictCancelUploadConfirmation: cancel_text,
-				dictRemoveFile: cancel_btn,
-				sending: function(file, xhr, formData) {
-					var up_file = $('#file_upload_type').val();
-					var up_file_arr = up_file.split('@#');
-					formData.append("prod_id",$('#prod_id').val());
-					formData.append("prod_type",$('#prod_type').val());
-					formData.append("prod_name",up_file_arr[0]);
-				},
-				init: function() {
-					$('.dz-default').show();
-				},
-				accept: function(file, done) {
-					var file_name = file.name;
-					var up_file = $('#file_upload_type').val();
-					var up_file_arr = up_file.split('@#');
-					
-					var type_arr = up_file_arr[1];
-				
-					var ext = file_name.split('.');
-			
-					if( type_arr.indexOf(ext[1]) == '-1' ) {
-						$('.ts_message_popup_text').text( ext_error );
-						$('.ts_message_popup').addClass('ts_popup_error');
-						removeMessage();
-						this.removeAllFiles();
-					}
-					else {
-						done();	
-					}
-				},
-				success:function(file,response){
-					this.removeAllFiles();
-					console.log(response);
-					if( response == '1' ) {
-						$('.ts_message_popup_text').text( up_suc_msg );
-						$('.ts_message_popup').addClass('ts_popup_success');
-					}
-					else {
-						$('.ts_message_popup_text').text( up_error_msg );
-						$('.ts_message_popup').addClass('ts_popup_error');					
-					}
-					removeMessage();
-				}
-			});
-			
-			Dropzone.autoDiscover = false;
-		}
-	/*********** Dropzone ENDS *****************/
 
 })(jQuery);
 
@@ -593,37 +516,6 @@ function updateSettings(commonclass) {
         }
 
     }
-    else if( commonclass == 'add_sub_cate_form' ) {
-        // Sub Category Section
-        $(this).removeAttr('onlick');
-        var err = 0;
-        $('.add_sub_cate_form').each(function(){
-            if($.trim($(this).val()) == '') {
-                err++;
-            }
-        });
-
-        var c_urlname = $.trim($('input[name="sub_cateurlname"]').val());
-        if(/^[a-zA-Z0-9- ]*$/.test(c_urlname) == false) {
-            $('.ts_message_popup_text').text("Sub Category URL name should not contain special characters.");
-            $('.ts_message_popup').addClass('ts_popup_error');
-            err++;
-
-            removeMessage();
-            return false;
-        }
-
-        if(err == 0) {
-            $('#add_sub_cate_form').submit();
-        }
-        else {
-            $(this).attr('onlick',"updateSettings('add_sub_cate_form')");
-            $('.ts_message_popup_text').text('Please, fill in the details.');
-            $('.ts_message_popup').addClass('ts_popup_error');
-            removeMessage();
-        }
-
-    }
     else {
         var allData = {};
         var dataArr = {};
@@ -659,14 +551,10 @@ function updateSettings(commonclass) {
 /*********** Add / Update Products START  *********************/
 
 function addproductsbutton($this){
-	//var btn_html = $($this).html();
-    //$($this).html('WAIT <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>');
-    
     var errCount = 0;
-    var dataArr = {};
-    
-    var p_name = $.trim($('#p_name').val());
-    var p_urlname = $.trim($('#p_urlname').val());
+    var oldprod_id = $('#oldprod_id').val();
+    var p_name = $.trim($('input[name="p_name"]').val());
+    var p_urlname = $.trim($('input[name="p_urlname"]').val());
     if(/^[a-zA-Z0-9- ]*$/.test(p_urlname) == false) {
         $('.ts_message_popup_text').text("URL Name should not contain special characters.");
         $('.ts_message_popup').addClass('ts_popup_error');
@@ -690,308 +578,30 @@ function addproductsbutton($this){
         removeMessage();
         return false;
     }
-    
-    $('.productfields').each(function(){
-    	var id_val = $.trim($(this).val());
-    	if( id_val == '' || id_val == '0' ) {
-    		errCount++;
-    	}
-    	dataArr[ $(this).attr('id') ] = id_val;
-    });
-    
-    if( errCount != 0 ) {
-        $('.ts_message_popup_text').text("Star (*) mark fields are mandatory.");
-        $('.ts_message_popup').addClass('ts_popup_error');
 
-        removeMessage();
-        return false;
-    }
-    var errCount = 0;
-    if( $('#p_free:checked').length == 0 ) {
-    
-    	if( $('#p_price').length > 0 ) {
-			var id_val = $.trim($('#p_price').val());
-			if( id_val == '' || id_val == '0' ) {
-				$('.ts_message_popup_text').text("Please mention the price or check it as FREE.");
-				$('.ts_message_popup').addClass('ts_popup_error');
-
-				removeMessage();
-				return false;
-			}
-			else {
-				dataArr[ 'p_price' ] = id_val;
-			}
-		}
-		
-		if( $('.priceSettings').length > 0 ) {
-			var plan_str = '';
-			$('.priceSettings').each(function(){
-				if( !$(this).is(':checked') ) {
-					errCount++;
-				}
-				else {
-					plan_str += $(this).val() + ',';
-				}
-			});
-			
-			if ( $('.priceSettings').length == errCount ) {
-				$('.ts_message_popup_text').text("Please select a plan or check it as FREE.");
-				$('.ts_message_popup').addClass('ts_popup_error');
-
-				removeMessage();
-				return false;
-			}
-			dataArr[ 'plan_str' ] = plan_str;
-		}
-		dataArr[ 'is_free' ] = '0';
+    if( oldprod_id != '0' ) {
+        $($this).html('WAIT <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>');
+        $('#modify_products_form').submit();
     }
     else {
-    	dataArr[ 'is_free' ] = '1';
-    }
-  	
-  	var basepath = $('#basepath').val();
-	dataArr [ 'prod_id' ] = $('#oldprod_id').val();
-	
-	$('.rest_fields').each(function(){
-    	dataArr[ $(this).attr('id') ] = $.trim($(this).val());
-    });
-    
-	var errCount = 0;	
-	$.each( dataArr , function(key,value){
-		if( (value.split('<script')).length > 1 ) {
-    		$('.ts_message_popup_text').text("Input values are not valid.");
-			$('.ts_message_popup').addClass('ts_popup_error');
-			
-			errCount++;
-			removeMessage();
-			return false;
-    	}
-    	
-    	if( key == 'p_demourl' || key == 'p_downlink' ) {
-    		if( value != '' ) {
-				if( (value.split('://')).length == 1 ) {
-					$('.ts_message_popup_text').text("Please, use valid links.");
-					$('.ts_message_popup').addClass('ts_popup_error');
-					
-					errCount++;
-					removeMessage();
-					return false;
-				}
-			}
-    	}
-    	
-    	if( key == 'p_price' ) {
-    		if( $('#p_free:checked').length == 0 ) {
-				if( isNaN(value) ) {
-					$('.ts_message_popup_text').text("Price should be numeric only.");
-					$('.ts_message_popup').addClass('ts_popup_error');
-					
-					errCount++;
-					removeMessage();
-					return false;
-				}
-			}
-    	}
-	});
-	
-	if( $('#vendorpage').length > 0 ) {
-		var serverUrl = basepath+"vendorboard/add_products_1";
-	}
-	else {
-		var serverUrl = basepath+"products/add_products_1";
-	}
-	
-	if( errCount == 0 ) {
-		$.post(serverUrl,dataArr,function(data, status) {
-			if( isNaN(data) ){
-				$('.ts_message_popup_text').text('Server error. Page will reload in 3 seconds.');
-				$('.ts_message_popup').addClass('ts_popup_error');
-				removeMessage();
-				setTimeout(function(){
-					//window.location.reload(1);
-				}, 3000);
-			}
-			else {
-				if( $('#vendorpage').length > 0 ) {
-					window.location.href = basepath+'vendorboard/add_products_2/'+data;
-				}
-				else {
-					window.location.href = basepath+'products/add_products_2/'+data;
-				}
-			
-			}
-			
-		
-		});
-    }
-}
+        $('.productfields').each(function(){
+            if( $.trim($(this).val()) == '' || $.trim($(this).val()) == '0' ) {
+                errCount++;
+            }
+        });
+        if( errCount == 0 ) {
+            $($this).html('WAIT <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>');
+            $('#modify_products_form').submit();
+        }
+        else {
+            $('.ts_message_popup_text').text("Fields can’t be empty or 0.");
+            $('.ts_message_popup').addClass('ts_popup_error');
 
-function addproductsbutton_vendors($this){
-	//var btn_html = $($this).html();
-    //$($this).html('WAIT <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>');
-    
-    var errCount = 0;
-    var dataArr = {};
-    
-    var p_name = $.trim($('#p_name').val());
-    var p_urlname = $.trim($('#p_urlname').val());
-    if(/^[a-zA-Z0-9- ]*$/.test(p_urlname) == false) {
-        $('.ts_message_popup_text').text($('#urlnameerror').val());
-        $('.ts_message_popup').addClass('ts_popup_error');
-
-        removeMessage();
-        return false;
+            removeMessage();
+        }
     }
+    return false;
 
-    if(p_name.length > 80) {
-        $('.ts_message_popup_text').text($('#prodnameerror').val());
-        $('.ts_message_popup').addClass('ts_popup_error');
-
-        removeMessage();
-        return false;
-    }
-
-    if(p_urlname.length > 80) {
-        $('.ts_message_popup_text').text($('#urllengtherror').val());
-        $('.ts_message_popup').addClass('ts_popup_error');
-
-        removeMessage();
-        return false;
-    }
-    
-    $('.productfields').each(function(){
-    	var id_val = $.trim($(this).val());
-    	if( id_val == '' || id_val == '0' ) {
-    		errCount++;
-    	}
-    	dataArr[ $(this).attr('id') ] = id_val;
-    });
-    
-    if( errCount != 0 ) {
-        $('.ts_message_popup_text').text($('#starfielderror').val());
-        $('.ts_message_popup').addClass('ts_popup_error');
-
-        removeMessage();
-        return false;
-    }
-    var errCount = 0;
-    if( $('#p_free:checked').length == 0 ) {
-    
-    	if( $('#p_price').length > 0 ) {
-			var id_val = $.trim($('#p_price').val());
-			if( id_val == '' || id_val == '0' ) {
-				$('.ts_message_popup_text').text($('#freetexterror').val());
-				$('.ts_message_popup').addClass('ts_popup_error');
-
-				removeMessage();
-				return false;
-			}
-			else {
-				dataArr[ 'p_price' ] = id_val;
-			}
-		}
-		
-		if( $('.priceSettings').length > 0 ) {
-			var plan_str = '';
-			$('.priceSettings').each(function(){
-				if( !$(this).is(':checked') ) {
-					errCount++;
-				}
-				else {
-					plan_str += $(this).val() + ',';
-				}
-			});
-			
-			if ( $('.priceSettings').length == errCount ) {
-				$('.ts_message_popup_text').text($('#freetext2error').val());
-				$('.ts_message_popup').addClass('ts_popup_error');
-
-				removeMessage();
-				return false;
-			}
-			dataArr[ 'plan_str' ] = plan_str;
-		}
-		dataArr[ 'is_free' ] = '0';
-    }
-    else {
-    	dataArr[ 'is_free' ] = '1';
-    }
-  	
-  	var basepath = $('#basepath').val();
-	dataArr [ 'prod_id' ] = $('#oldprod_id').val();
-	
-	$('.rest_fields').each(function(){
-    	dataArr[ $(this).attr('id') ] = $.trim($(this).val());
-    });
-    
-	var errCount = 0;	
-	$.each( dataArr , function(key,value){
-		if( (value.split('<script')).length > 1 ) {
-    		$('.ts_message_popup_text').text($('#inputvalueserror').val());
-			$('.ts_message_popup').addClass('ts_popup_error');
-			
-			errCount++;
-			removeMessage();
-			return false;
-    	}
-    	
-    	if( key == 'p_demourl' || key == 'p_downlink' ) {
-    		if( value != '' ) {
-				if( (value.split('://')).length == 1 ) {
-					$('.ts_message_popup_text').text($('#validlinkerror').val());
-					$('.ts_message_popup').addClass('ts_popup_error');
-					
-					errCount++;
-					removeMessage();
-					return false;
-				}
-			}
-    	}
-    	
-    	if( key == 'p_price' ) {
-    		if( $('#p_free:checked').length == 0 ) {
-				if( isNaN(value) ) {
-					$('.ts_message_popup_text').text($('#pricenumberrror').val());
-					$('.ts_message_popup').addClass('ts_popup_error');
-					
-					errCount++;
-					removeMessage();
-					return false;
-				}
-			}
-    	}
-	});
-	
-	if( $('#vendorpage').length > 0 ) {
-		var serverUrl = basepath+"vendorboard/add_products_1";
-	}
-	else {
-		var serverUrl = basepath+"products/add_products_1";
-	}
-	
-	if( errCount == 0 ) {
-		$.post(serverUrl,dataArr,function(data, status) {
-			if( isNaN(data) ){
-				$('.ts_message_popup_text').text('Server error. Page will reload in 3 seconds.');
-				$('.ts_message_popup').addClass('ts_popup_error');
-				removeMessage();
-				setTimeout(function(){
-					//window.location.reload(1);
-				}, 3000);
-			}
-			else {
-				if( $('#vendorpage').length > 0 ) {
-					window.location.href = basepath+'vendorboard/add_products_2/'+data;
-				}
-				else {
-					window.location.href = basepath+'products/add_products_2/'+data;
-				}
-			
-			}
-			
-		
-		});
-    }
 }
 /*********** Add / Update Products ENDS  *********************/
 
@@ -1027,8 +637,8 @@ function updatethevalue($this,type){
     dataArr [ 'id' ] = id;
     dataArr [ 'type' ] = type;
     dataArr [ 'vlu' ] = vlu;
+    console.log(dataArr);
     $.post(basepath+"settings/updatethevalue",dataArr,function(data, status) {
-    console.log(data);
         if(data == '1'){
             $('.ts_message_popup_text').text('Data updated successfully.');
             $('.ts_message_popup').addClass('ts_popup_success');
@@ -1058,14 +668,6 @@ function openEmailIntePopup(emAppId) {
     $('#connectemails').modal('show');
 }
 
-// Disconnect Popup
-function openDisconnectPopup(emAppId) {
-	var basepath = $('#basepath').val();
-    $('#dis_message').text('Do you want to disconnect '+emAppId + ' ? ');
-    $('.dis_btn').attr('onclick',"window.location='"+ basepath +"backend/email_integrations/"+emAppId+"'");
-    $('#dis_connectemails').modal('show');
-}
-
 function emailintegration_fun(emAppId) {
     var dataArr = {} ;
     var err = 0;
@@ -1088,9 +690,8 @@ function emailintegration_fun(emAppId) {
         dataArr['emAppId'] = emAppId;
 
         $.post(basepath+"backend/email_integrations_ajx",dataArr,function(data, status) {
-          	
-          	
-          	if( data == '404') {
+
+          if( data == '404') {
                 $('.ts_message_popup_text').text('We can not connect to '+emAppId);
                 $('.ts_message_popup').addClass('ts_popup_error');
                 removeMessage();
@@ -1103,7 +704,6 @@ function emailintegration_fun(emAppId) {
             else {
                 window.location.reload(1);
             }
-            
 
         });
     }
@@ -1522,56 +1122,3 @@ function updatePageContent($this) {
     }
 
 /************** Update Withdrawal Details ENDS *****************/
-/************* Get Sub Categories STARTS ****************/
-    function getSubCategories($this){
-        var cateId = $($this).val();
-        if( cateId != '0') {
-            var allData = {};
-            var basepath = $('#basepath').val();
-            allData [ 'cateId' ] = cateId;
-            if( $('#vendorpage').length > 0 ) {
-				var serverUrl = basepath+"vendorboard/getSubCategories";
-            }
-            else {
-            	var serverUrl = basepath+"backend/getSubCategories";
-            }
-            
-            $.post(serverUrl,allData,function(data, status) {
-			console.log(data);
-				if( $('#vendorpage').length > 0 ) {
-					if(data == '0'){
-						$('.ts_message_popup_text').text($('#checksubcateerror').val());
-						$('.ts_message_popup').addClass('ts_popup_error');
-					}
-					else {
-						$('.ts_message_popup_text').text($('#checksubcatetext').val());
-						$('.ts_message_popup').addClass('ts_popup_success');
-						$('#p_subcategory').html(data);
-					}
-				}
-				else {
-					if(data == '0'){
-						$('.ts_message_popup_text').text('Something went wrong.');
-						$('.ts_message_popup').addClass('ts_popup_error');
-					}
-					else {
-						$('.ts_message_popup_text').text("Check sub category now.");
-						$('.ts_message_popup').addClass('ts_popup_success');
-						$('#p_subcategory').html(data);
-					}
-				}
-				removeMessage();
-			});
-        }
-        else {
-        	if( $('#vendorpage').length > 0 ) {
-            	$('.ts_message_popup_text').text($('#checksubcatetext').val());
-            }
-            else {
-            	$('.ts_message_popup_text').text('Please, select a Category first.');
-            }
-            $('.ts_message_popup').addClass('ts_popup_error');
-            removeMessage();
-        }
-    }
-/************* Get Sub Categories ENDS ****************/

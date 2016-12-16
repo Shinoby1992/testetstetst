@@ -206,48 +206,31 @@ class Home extends CI_Controller {
             $data['headlineText'] = $this->ts_functions->getlanguage('freetext','menus','solo');
         }
         else {
-            $cateOriginalname = $category;
             $catename = str_replace('-',' ',$category);
             $catename = preg_replace('! +!', ' ', $catename);
             $categoryCheck = $this->DatabaseModel->access_database('ts_categories','select','',array('cate_urlname'=>$catename));
-            $categoryCheck_original = $this->DatabaseModel->access_database('ts_categories','select','',array('cate_urlname'=>$cateOriginalname));
-
-            $sub_categoryCheck = $this->DatabaseModel->access_database('ts_subcategories','select','',array('sub_urlname'=>$catename));
-            $sub_categoryCheck_original = $this->DatabaseModel->access_database('ts_subcategories','select','',array('sub_urlname'=>$cateOriginalname));
-
             $join_array = array('ts_categories','ts_categories.cate_id = ts_products.prod_cateid');
 
-            if(!empty($categoryCheck) || !empty($categoryCheck_original)) {
+            if(!empty($categoryCheck)) {
                 //$productdetails = $this->DatabaseModel->access_database('ts_products','','', array('prod_status'=>1 , 'prod_cateid'=>$categoryCheck[0]['cate_id']),$join_array);
-
-                $finalCateArr = !empty($categoryCheck) ? $categoryCheck : $categoryCheck_original;
-
-                $productdetails = $this->DatabaseModel->select_data('*' , 'ts_products' , array('prod_status'=>1 , 'prod_cateid'=>$finalCateArr[0]['cate_id']) , $limit , $join_array);
+                $productdetails = $this->DatabaseModel->select_data('*' , 'ts_products' , array('prod_status'=>1 , 'prod_cateid'=>$categoryCheck[0]['cate_id']) , $limit , $join_array);
 
                 $data['productdetails'] = $productdetails;
-				$cond = array('prod_status'=>1 , 'prod_cateid'=>$finalCateArr[0]['cate_id']);
-                $data['headlineText'] = $finalCateArr[0]['cate_name'];
-            }
-            elseif(!empty($sub_categoryCheck) || !empty($sub_categoryCheck_original)) {
-                $finalSubCateArr = !empty($sub_categoryCheck) ? $sub_categoryCheck : $sub_categoryCheck_original;
-
-                $productdetails = $this->DatabaseModel->select_data('*' , 'ts_products' , array('prod_status'=>1 , 'prod_subcateid'=>$finalSubCateArr[0]['sub_id']) , $limit , $join_array);
-
-                $data['productdetails'] = $productdetails;
-				$cond = array('prod_status'=>1 , 'prod_subcateid'=>$finalSubCateArr[0]['sub_id']);
-                $data['headlineText'] = $finalSubCateArr[0]['sub_name'];
+				$cond = array('prod_status'=>1 , 'prod_cateid'=>$categoryCheck[0]['cate_id']);
+                $data['headlineText'] = $categoryCheck[0]['cate_name'];
             }
             else {
                 // Search text
                 $category = urldecode($category);
+
                 $this->db->select('*');
                 $this->db->from('ts_products');
                 $this->db->join('ts_categories', 'ts_categories.cate_id = ts_products.prod_cateid');
-                $this->db->like('ts_products.prod_urlname',$category);
-                $this->db->or_like('ts_products.prod_name',$category);
-                $this->db->or_like('ts_products.prod_tags',$category);
-	            $this->db->having('prod_status',1);
-				$this->db->limit($limit[0],$limit[1]);
+                $this->db->where('prod_status',1);
+				$this->db->limit($limit);
+                $this->db->like('prod_urlname',$category);
+                $this->db->or_like('prod_name',$category);
+                $this->db->or_like('prod_tags',$category);
                 $rs=$this->db->get();
                 $productdetails = $rs->result_array();
 
@@ -258,11 +241,11 @@ class Home extends CI_Controller {
 
         }
 
-		$productCount = $this->DatabaseModel->select_data('COUNT(prod_id) as count_prod' , 'ts_products' , $cond);
+				$productCount = $this->DatabaseModel->select_data('COUNT(prod_id) as count_prod' , 'ts_products' , $cond);
 
-		$count_all_prod = (!empty($productCount))?$productCount['0']['count_prod']:0;
+				$count_all_prod = (!empty($productCount))?$productCount['0']['count_prod']:0;
 
-		$data['pagination_buttons'] = $this->site_pagination->pagination($count_all_prod, $limitFrom , 12);
+				$data['pagination_buttons'] = $this->site_pagination->pagination($count_all_prod, $limitFrom , 12);
 
 
         $data['categoryList'] = $this->DatabaseModel->access_database('ts_categories','select','',array('cate_status'=>1));
@@ -423,45 +406,6 @@ class Home extends CI_Controller {
         }
     }
     /************** Image Gallery ENDS **********************/
-    
-    /************** Download Preview for Text STARTS **********************/
-    function download_preview_text($pid=''){
-        if($pid != '') {
-        	$prod_details = $this->DatabaseModel->access_database('ts_products','select','',array('prod_id'=>$pid));
-			if( empty($prod_details) ) {
-				redirect(base_url());
-			}
-            $imgRes = $this->DatabaseModel->access_database('ts_prodgallery','select', '' , array('prodgallery_pid'=>$pid) );
-            if(!empty($imgRes)) {
-            	$filename = $imgRes[0]['prodgallery_img'];
-                $productname = $this->ts_functions->getProductName($prod_details[0]['prod_id']);
-                $productname = rtrim($productname,'/');
-                $productname = $productname.'_preview';
-
-                $path=dirname(__FILE__);
-                $abs_path=explode('/application/',$path);
-                $source_path = $abs_path[0].'/repo/gallery/p_'.$prod_details[0]['prod_id'].'/';
-                $destination_path = $abs_path[0].'/repo/temp/';
-
-                copy ( $source_path.$filename , $destination_path.$filename );
-                rename ( $destination_path.$filename , $destination_path.$productname.'.zip' );
-
-                header('Content-Type: application/zip');
-                header('Content-Disposition: attachment; filename="'.$productname.'.zip');
-                readfile($destination_path.$productname.'.zip');		// push it out
-
-                unlink($destination_path.$productname.'.zip');
-                exit();
-            }
-            else {
-                redirect(base_url());
-            }
-        }
-        else {
-            redirect(base_url());
-        }
-    }
-    /************** Download Preview for Text ENDS **********************/
 
     /*** Vendor Contact Page STARTS ***/
 

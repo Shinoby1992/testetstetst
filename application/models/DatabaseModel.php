@@ -23,16 +23,6 @@ class DatabaseModel extends CI_Model {
 			$rs=$this->db->get();
 			return $rs->result_array();
 		}
-		elseif($mode=='wherein'){
-		    $this->db->select("*");
-		    $this->db->from($tablename);
-            $this->db->where_in($join_array , $data_array);
-            if($where_array!='')
-				$this->db->where($where_array);
-
-            $rs=$this->db->get();
-			return $rs->result_array();
-		}
 		elseif($mode=='insert'){
 			$this->db->insert($tablename,$data_array);
 			return $this->db->insert_id();
@@ -110,12 +100,7 @@ class DatabaseModel extends CI_Model {
 			if($where_array!='')
 				$this->db->where($where_array);
 
-            if($data_array!='')
-                $this->db->like($data_array);
-
-            if($join_array!='')
-                $this->db->where_in($join_array[0] , json_decode($join_array[1]));
-
+            $this->db->like($data_array);
 			$rs=$this->db->get();
 			return $rs->result_array();
 		}

@@ -86,54 +86,6 @@
             </div>
              <!-- Sendinblue -->
 
-             <!-- Freshmail -->
-            <div class="common_form hideme" id="Freshmail_form" >
-
-                <div class="form-group" >
-                    <div class="col-lg-3 col-md-3">
-                        <label>API Key</label>
-                    </div>
-                    <div class="col-lg-9 col-md-9">
-                        <input type="text" class="form-control Freshmail_cls" id="Freshmail_apikey" />
-                    </div>
-                </div>
-
-                <div class="form-group" >
-                    <div class="col-lg-3 col-md-3">
-                        <label>API Secret</label>
-                    </div>
-                    <div class="col-lg-9 col-md-9">
-                        <input type="text" class="form-control Freshmail_cls" id="Freshmail_apisecret" />
-                    </div>
-                </div>
-            </div>
-             <!-- Freshmail -->
-             
-              <!-- ActiveCampaign -->
-            <div class="common_form hideme" id="ActiveCampaign_form" >
-            
-				<div class="form-group" >
-					<div class="col-lg-3 col-md-3">
-						<label>API Url</label>
-					</div>
-					<div class="col-lg-9 col-md-9">
-						<input type="text" placeholder="API Url" id="ActiveCampaign_apiurl" class="form-control ActiveCampaign_cls"/>
-						 <a class="input_help_info" href="http://www.activecampaign.com/help/using-the-api/" target="_blank" >Find your API URL here</a>
-					 </div>
-                </div>
-                
-                <div class="form-group" >
-					<div class="col-lg-3 col-md-3">
-						<label>API Key</label>
-					</div>
-					<div class="col-lg-9 col-md-9">
-						<input type="text" placeholder="API Key" id="ActiveCampaign_apikey" class="form-control ActiveCampaign_cls"/>
-						<a class="input_help_info" href="http://www.activecampaign.com/help/using-the-api/" target="_blank">Find your API Key here</a>
-					</div>
-				</div>
-				
-			</div>
-             <!-- ActiveCampaign -->
 		  </div>
       </div>
       <div class="modal-footer">
@@ -143,36 +95,6 @@
     </div>
   </div>
 </div>
-
-
-<div class="modal fade theme_modal" id="dis_connectemails" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Disconnect</h4>
-      </div>
-      <div class="modal-body">
-		  <div class="add_user_form">
-           
-				<div class="form-group" >
-					<div class="col-lg-12 col-md-12">
-						<p id="dis_message" style="color: red;text-align: center;"> </p>
-					</div>
-                </div>
-                
-		  </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default close_btn" data-dismiss="modal">No, Leave it</button>
-        <button type="button" class="btn theme_btn dis_btn" onclick="">Yes, I want to</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
 <div class="main_body">
 	<!-- user content section -->
 	<div class="theme_wrapper">
@@ -216,43 +138,6 @@
 											</div>
 										</div>
 									</div>
-									
-									
-									<div class="panel panel-default">
-										<div class="panel-heading" role="tab">
-											<h4 class="panel-title">
-												<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#accordion3" aria-expanded="false" aria-controls="accordion3">
-												  Disconnect
-												</a>
-											</h4>
-										</div>
-            <div id="accordion3" class="panel-collapse collapse" role="tabpanel">
-                <div class="panel-body">
-												<div class="col-lg-10 col-md-10 col-lg-offset-1 col-md-offset-1">
-												    <div class="th_mail_btn">
-
-				<?php
-					if( count($connect_resp) > 0 ) {
-						foreach ($connect_resp as $solo_connect_respond) {
-						?>
-								<div class="mail_icon_wrapper">
-								<a href="javascript:;" class="mail_icon" id="<?php echo $solo_connect_respond;?>">
-									<img src="<?php echo $basepath; ?>adminassets/images/email_icons/<?php echo $solo_connect_respond.'.png';?>" alt="" />
-
-									<span class="mailchimp_connect" onclick="openDisconnectPopup('<?php echo $solo_connect_respond;?>')">Disconnect</span>
-								</a>
-								<p><?php echo $solo_connect_respond;?></p>
-								</div>
-					   <?php  }
-					}
-				?>
-												</div>
-										        </div>
-											</div>
-            </div>
-									</div>
-									
-									
 									<div class="panel panel-default">
 										<div class="panel-heading" role="tab">
 											<h4 class="panel-title">

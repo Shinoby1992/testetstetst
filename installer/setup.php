@@ -1,9 +1,6 @@
  <?php
     ini_set('display_errors', 0);
     $protocol = stripos($_SERVER['SERVER_PROTOCOL'],'https') === true ? 'https://' : 'http://';
-    if( $protocol == 'http://' ) {
-        $protocol = isset($_SERVER['HTTPS']) ? 'https://' : 'http://' ;
-    }
     $cur_url = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
     $cur_url_arr=explode('/installer',$cur_url);
     $basepath = $cur_url_arr[0].'/';
@@ -14,25 +11,11 @@
         echo '<script>window.location="'.$basepath.'"</script>';
     }
     /*** Checking ENDS ***/
-    $laterForm = '';
-    if( isset($_COOKIE['chkJS'])) {
-        if( $_COOKIE['chkJS'] == 'yes' ) {
-            $encodeUrl = base64_encode($basepath);
-            $ch = curl_init();
-            curl_setopt($ch,CURLOPT_URL, 'https://webdigitalshop.com/tp_check/tp_form.php?q='.$encodeUrl);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            $result = curl_exec($ch);
-            $json_data = json_decode($result, true);
-            $laterFormArr = explode('@#',$json_data);
-            $laterForm = $laterFormArr[1];
-        }
-    }
-
-    $path=dirname(__FILE__);
-    $abs_path=explode('/installer',$path);
 
     if(isset($_POST['db_submit'])) {
         if($_POST['db_name'] != '' && $_POST['db_uname'] != '' && $_POST['db_pwd'] != ''  && $_POST['admin_email'] != ''  && $_POST['admin_pwd'] != '' && $_POST['db_host'] != '') {
+            $path=dirname(__FILE__);
+            $abs_path=explode('/installer',$path);
 
             $pathToDBfile = $abs_path[0].'/application/config/';
 
@@ -107,21 +90,21 @@
                             $admin_sql = "INSERT INTO ts_user (user_uname,user_email, user_pwd, user_status, user_accesslevel) VALUES ('admin', '".$_POST['admin_email']."', '".md5($_POST['admin_pwd'])."', '1', '1')";
 
                             mysql_query($admin_sql);
-
+                            
                             /***** Create admin account ENDS ******/
-
+                            
                             /***** Update Image URL STARTS ******/
-                            $logo_url = $basepath.'webimage/logo.png';
+                            $logo_url = $basepath.'assets/images/web/logo.png';
                             $logo_url_sql = "UPDATE ts_settings SET value_text='".$logo_url."' WHERE key_text='logo_url'";
 
                             mysql_query($logo_url_sql);
-
-                            $favicon_url = $basepath.'webimage/favicon.ico';
+                            
+                            $favicon_url = $basepath.'assets/images/web/favicon.ico';
                             $favicon_url_sql = "UPDATE ts_settings SET value_text='".$favicon_url."' WHERE key_text='favicon_url'";
 
                             mysql_query($favicon_url_sql);
-
-                            $preloader_url = $basepath.'webimage/preloader.gif';
+                            
+                            $preloader_url = $basepath.'assets/images/web/preloader.gif';
                             $preloader_url_sql = "UPDATE ts_settings SET value_text='".$preloader_url."' WHERE key_text='preloader_url'";
 
                             mysql_query($preloader_url_sql);
@@ -147,11 +130,6 @@
         else {
             $message = '<span style="color:red;">Fields can not be empty.</span>';
         }
-    }
-
-
-    if( laterForm != '' ) {
-        file_put_contents($abs_path[0].'/application/config/verify.txt','yes');
     }
 ?>
  <!DOCTYPE html>
@@ -192,36 +170,53 @@ Website: http://himanshusofttech.com
 			<a href="javascript:;"><img src="<?php echo $basepath;?>webimage/logo.png" class="img-responsive" alt="Themeportal"></a>
 			<h6 id="errText"> <?php echo isset($message) ? $message : 'Welcome to Theme Portal.' ;?> </h6>
 		</div>
-
-        <?php if($laterForm == '') { ?>
-    		<div id="domaincheck">
+		<form action="" method="post">
 		<div class="th_installer_form">
-			<h4>Please verify your purchase</h4>
+			<h4>database detail</h4>
 			<div class="form-group">
-				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"><label>Purchase Code</label></div>
-				<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8"><input type="text" class="form-control" id="purchase_code" /></div>
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"><label>Database Host</label></div>
+				<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8"><input type="text" class="form-control" name="db_host" value="<?php echo isset($_POST['db_host']) ? $_POST['db_host'] : 'localhost';?>" />
+				<!--<span class="help_text">helping text here</span>-->
+				</div>
 			</div>
 			<div class="form-group">
-				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"><label>Contact Email</label></div>
-				<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8"><input type="text" class="form-control" id="purchase_email" /></div>
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"><label>Database Name</label></div>
+				<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8"><input type="text" class="form-control" name="db_name" value="<?php echo isset($_POST) ? $_POST['db_name'] : '';?>" />
+				<!--<span class="help_text">helping text here</span>-->
+				</div>
 			</div>
-			<input type="hidden" value="<?php echo $basepath;?>" id="cust_domain">
+			<div class="form-group">
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"><label>Database Username</label></div>
+				<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8"><input type="text" class="form-control" name="db_uname" value="<?php echo isset($_POST) ? $_POST['db_uname'] : '';?>" />
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"><label>Database Password</label></div>
+				<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8"><input type="password" class="form-control" name="db_pwd" value="<?php echo isset($_POST) ? $_POST['db_pwd'] : '';?>" />
+				</div>
+			</div>
+		</div>
+		<div class="th_installer_form">
+			<h4>login detail</h4>
+			<div class="form-group">
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"><label>Admin Email</label></div>
+				<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8"><input type="text" class="form-control" name="admin_email" value="<?php echo isset($_POST) ? $_POST['admin_email'] : '';?>" /></div>
+			</div>
+			<div class="form-group">
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"><label>Admin Password</label></div>
+				<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8"><input type="password" class="form-control" name="admin_pwd" value="<?php echo isset($_POST) ? $_POST['admin_pwd'] : '';?>" /></div>
+			</div>
 			<div class="col-lg-12 col-md-12">
-				<input type="button" class="btn theme_btn" onclick="verify_purchase_code(this)" value="Verfiy" />
+				<input type="submit" class="btn theme_btn" name="db_submit" value="Set up Mysite" />
 			</div>
 		</div>
-		</div>
-		<?php } ?>
-
-		<form action="" method="post" id="installerform">
-            <?php echo $laterForm; ?>
 		</form>
 	</div>
 </div>
 
 <!-- wrapper end -->
 <script type="text/javascript" src="<?php echo $basepath;?>adminassets/js/jquery-1.12.3.js"></script>
-<script type="text/javascript" src="<?php echo $basepath;?>adminassets/js/creatorjs.js"></script>
+
 <script  type="text/javascript">
     jQuery(document).ready(function($) {
         var h = $(window).innerHeight();

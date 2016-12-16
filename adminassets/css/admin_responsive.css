@@ -363,12 +363,6 @@ div#theme_chart svg, div#theme_bar_chart svg, div#theme_line_chart svg {
 .th_status_wrapper {
 	width: 100%;
 }
-div.table .file-row.dz-image-preview > div:last-child {
-    text-align: right;
-}
-div.table .file-row.dz-image-preview > div .btn {
-    margin-bottom: 5px;
-}
 }
 @media (max-width:240px) {
 /* chart */

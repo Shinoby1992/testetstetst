@@ -1,12 +1,6 @@
 <!---- Editor dependent JS on TOP -------->
 <script type="text/javascript" src="<?php echo $basepath;?>adminassets/js/jquery-1.12.3.js"></script>
-<?php $h_arr = explode('http://', $basepath);
-	if( count($h_arr) == 2 ) {
-?>
 <script src="http://cdn.ckeditor.com/4.5.9/standard/ckeditor.js"></script>
-<?php } else { ?>
-<script src="https://cdn.ckeditor.com/4.5.9/standard/ckeditor.js"></script>
-<?php } ?>
 <!---- Editor dependent JS on TOP -------->
 
 <div class="main_body">

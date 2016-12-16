@@ -78,7 +78,6 @@
 <script type="text/javascript" src="<?php echo $basepath;?>themes/default/js/plugins/jquery.stellar.js"></script>
 <script type="text/javascript" src="<?php echo $basepath;?>themes/default/js/plugins/modernizr.custom.js"></script>
 <script type="text/javascript" src="<?php echo $basepath;?>themes/default/js/plugins/owl.carousel.js"></script>
-<script type="text/javascript" src="<?php echo $basepath;?>themes/default/js/jquery.magnific-popup.min.js"></script>
 <script type="text/javascript" src="<?php echo $basepath;?>themes/default/js/custom.js"></script>
 <!--Main js file End-->
 

@@ -9,12 +9,9 @@
 					<?php if(!empty($freeProducts)) {
 					    foreach($freeProducts as $soloProd) {
 					    $prodName = $this->ts_functions->getProductName($soloProd['prod_id']);
-					    
-					    $image_a = explode('.',$soloProd['prod_image']);
-		        		$dis_img = 'small/'.$image_a[0].'_thumb.'.$image_a[1];
 					?>
 						<tr>
-							<td data-title="<?php echo $this->ts_functions->getlanguage('freeprodtext','userdashboard','solo');?>"><p> <img src="<?php echo $basepath;?>repo/images/<?php echo $dis_img;?>" title="<?php echo $soloProd['prod_name'];?>" style="width: 150px;"> <?php echo $soloProd['prod_name'];?></p></td>
+							<td data-title="<?php echo $this->ts_functions->getlanguage('freeprodtext','userdashboard','solo');?>"><p><?php echo $soloProd['prod_name'];?></p></td>
 
                             <td data-title="Categories"><p><?php echo $soloProd['cate_name'];?></p></td>
 

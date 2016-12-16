@@ -302,10 +302,7 @@ switch (ENVIRONMENT)
  * --------------------------------------------------------------------
  */
 
-    $ckText = file_get_contents('installer/check_install.txt');
-    if( trim($ckText) != 'yes' ) {
-        echo '<script>window.location="installer/setup.php"</script>';
-    }
+
 
  /*
  * --------------------------------------------------------------------

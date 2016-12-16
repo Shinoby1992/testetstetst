@@ -25,9 +25,9 @@ class Backend extends CI_Controller {
 	public function index(){
 		$data['basepath'] = base_url();
 
-        $data['userdetails_active'] = $this->DatabaseModel->access_database('ts_user','select','',array('user_status'=>1,'user_accesslevel !='=>1));
-        $data['userdetails_inactive'] = $this->DatabaseModel->access_database('ts_user','select','',array('user_status'=>2,'user_accesslevel!='=>1));
-        $data['userdetails_blocked'] = $this->DatabaseModel->access_database('ts_user','select','',array('user_status'=>3,'user_accesslevel!='=>1));
+        $data['userdetails_active'] = $this->DatabaseModel->access_database('ts_user','select','',array('user_status'=>1,'user_accesslevel'=>2));
+        $data['userdetails_inactive'] = $this->DatabaseModel->access_database('ts_user','select','',array('user_status'=>2,'user_accesslevel'=>2));
+        $data['userdetails_blocked'] = $this->DatabaseModel->access_database('ts_user','select','',array('user_status'=>3,'user_accesslevel'=>2));
 
         $data['productdetails_active'] = $this->DatabaseModel->access_database('ts_products','select','',array('prod_status'=>1));
         $data['productdetails_free'] = $this->DatabaseModel->access_database('ts_products','select','',array('prod_status'=>1,'prod_free'=>1));
@@ -36,7 +36,7 @@ class Backend extends CI_Controller {
         $data['emaillist_uniq'] = $this->DatabaseModel->access_database('ts_emaillist','groupby','e_email','');
 
         if( !isset($_POST['duration'])) {
-            $data['userdetails'] = $this->DatabaseModel->access_database('ts_user','select','',array('user_accesslevel !='=>1));
+            $data['userdetails'] = $this->DatabaseModel->access_database('ts_user','select','',array('user_accesslevel'=>2));
             $data['prodViews'] = $this->DatabaseModel->access_database('ts_product_analysis','select','','');
             $data['prodSales'] = $this->DatabaseModel->access_database('ts_purchaserecord','select','','');
             $data['emaillist'] = $this->DatabaseModel->access_database('ts_emaillist','select','','');
@@ -46,7 +46,7 @@ class Backend extends CI_Controller {
         else if(isset($_POST['duration'])) {
 
             if( $_POST['duration'] == '' ) {
-                $data['userdetails'] = $this->DatabaseModel->access_database('ts_user','select','',array('user_accesslevel !='=>1));
+                $data['userdetails'] = $this->DatabaseModel->access_database('ts_user','select','',array('user_accesslevel'=>2));
                 $data['prodViews'] = $this->DatabaseModel->access_database('ts_product_analysis','select','','');
                 $data['prodSales'] = $this->DatabaseModel->access_database('ts_purchaserecord','select','','');
                 $data['emaillist'] = $this->DatabaseModel->access_database('ts_emaillist','select','','');
@@ -55,7 +55,7 @@ class Backend extends CI_Controller {
             elseif($_POST['duration'] == 'today'){
                 $todaydate = date('Y-m-d');
 
-                $havingArr = array('user_accesslevel !='=>1);
+                $havingArr = array('user_accesslevel'=>2);
                 $like_arr = array('user_registerdate'=>$todaydate);
                 $data['userdetails'] = $this->DatabaseModel->access_database('ts_user','like',$havingArr,$like_arr);
 
@@ -72,7 +72,7 @@ class Backend extends CI_Controller {
             elseif($_POST['duration'] == 'yesterday'){
                 $yesterdate = date('Y-m-d',strtotime("-1 days"));
 
-                $havingArr = array('user_accesslevel !='=>1);
+                $havingArr = array('user_accesslevel'=>2);
                 $like_arr = array('user_registerdate'=>$yesterdate);
                 $data['userdetails'] = $this->DatabaseModel->access_database('ts_user','like',$havingArr,$like_arr);
 
@@ -361,22 +361,13 @@ class Backend extends CI_Controller {
 
 	/****** Email Section STARTS **************/
 
-	public function email_integrations($em_name='') {
-	if( $em_name != '') {
-		$res_em_resp = $this->DatabaseModel->access_database('ts_emailproviders','select','',array('ep_name'=>$em_name));
-		if(!empty($res_em_resp)) {
-			$this->DatabaseModel->access_database('ts_emailproviders','delete','',array('ep_name'=>$em_name));
-			$resID = $res_em_resp[0]['ep_id'];
-$this->DatabaseModel->access_database('ts_eplist','delete','',array('eplist_parentid'=>$resID));
-redirect(base_url().'backend/email_integrations');
-		}
-	}
+	public function email_integrations() {
 	    $data['basepath'] = base_url();
 	    $res_em_resp = $this->DatabaseModel->access_database('ts_emailproviders','select','','');
         $data['emailresponders'] = $res_em_resp;
 
         //$all_responders = array('CampaignMonitor','ConstantContact','GetResponse','Mailchimp','SendReach','iContact','Infusionsoft','Hubspot','Aweber','ActiveCampaign','Sendlane','Benchmark','Sendy','Madmimi','Sendinblue');
-        $all_responders = array('ConstantContact','GetResponse','Mailchimp','Aweber','Sendinblue','Freshmail','ActiveCampaign');
+        $all_responders = array('ConstantContact','GetResponse','Mailchimp','Aweber','Sendinblue');
 
         $connect_resp = array();
         if(!empty($res_em_resp)) {
@@ -391,7 +382,6 @@ redirect(base_url().'backend/email_integrations');
         }
 
         $data['left_responders'] = $left_respon;
-        $data['connect_resp'] = $connect_resp;
 	    $this->load->view('backend/include/header',$data);
 		$this->load->view('backend/email_integrations',$data);
 		$this->load->view('backend/include/footer',$data);
@@ -413,7 +403,7 @@ redirect(base_url().'backend/email_integrations');
                 $retval = $api->lists();
                 if (!$api->errorCode)
                 {
-                    if($retval['total'] != 0){
+                    if($retval['data'] != 0){
                         foreach ($retval['data'] as $v)
                         {
                             $list[$v['id']] = $v['name'];
@@ -742,184 +732,6 @@ redirect(base_url().'backend/email_integrations');
 
 
         }
-        elseif( $_POST['emAppId'] == 'Freshmail') {
-            // Sendinblue Autoresponder
-
-            if ( isset($_POST['Freshmail_apikey']) && isset($_POST['Freshmail_apisecret']) )
-            {
-
-                define ( 'FM_API_KEY', $_POST['Freshmail_apikey'] );
-                define ( 'FM_API_SECRET', $_POST['Freshmail_apisecret'] );
-
-                require_once 'emailIntegration_resources/Freshmail/class.rest.php';
-
-	            $rest = new FmRestAPI();
-                $rest->setApiKey( FM_API_KEY );
-                $rest->setApiSecret( FM_API_SECRET );
-                //testing GET request
-                try {
-                    $response = $rest->doRequest('ping');
-
-                    try {
-                        $response = $rest->doRequest('subscribers_list/lists');
-                        if( $response['status'] == 'OK' ) {
-                            if( count($response['lists']) != '0' ) {
-
-                                $insertArr = array(
-
-                                        'ep_name'   =>  $_POST['emAppId']
-                                );
-
-                                $res = $this->DatabaseModel->access_database('ts_emailproviders','select','',$insertArr);
-
-                                if( empty($res)) {
-                                    $insertArr['ep_credentials'] = json_encode(array('Freshmail_apikey'=>$_POST['Freshmail_apikey'],'Freshmail_apisecret'=>$_POST['Freshmail_apisecret']));
-
-
-                                    $resID = $this->DatabaseModel->access_database('ts_emailproviders','insert',$insertArr,'');
-                                }
-                                else {
-                                     $resID = $res[0]['ep_id'];
-
-                                     $updateArr['ep_credentials'] = json_encode(array('Freshmail_apikey'=>$_POST['Freshmail_apikey'],'Freshmail_apisecret'=>$_POST['Freshmail_apisecret']));
-
-                                     $this->DatabaseModel->access_database('ts_emailproviders','update',$updateArr,array('ep_id'=>$resID));
-                                }
-
-
-                                $this->DatabaseModel->access_database('ts_eplist','delete','',array('eplist_parentid'=>$resID));
-                                foreach($response['lists'] as $solo_list)
-                                {
-                                    $listInsertArr = array(
-                                        'eplist_parentid' =>  $resID,
-                                        'eplist_uniqid' =>  $solo_list['subscriberListHash'],
-                                        'eplist_name' =>  $solo_list['name']
-                                    );
-                                    $this->DatabaseModel->access_database('ts_eplist','insert',$listInsertArr,'');
-                                }
-                            }
-                            else {
-                                echo 'ZERO';
-                            }
-                        }
-                        else {
-                            echo '404';
-                        }
-
-                    // Get List
-                    } catch (Exception $e) {
-                        echo '404';
-                    }
-
-                // Check Connection
-                } catch (Exception $e) {
-                    echo '404';
-                }
-
-
-            }
-            else {
-                echo '404';
-            }
-
-
-        }
-        elseif( $_POST['emAppId'] == 'ActiveCampaign') {
-            // ActiveCampaign Autoresponder
-
-            if ( $_POST['ActiveCampaign_apiurl'] && $_POST['ActiveCampaign_apikey'] )
-            {
-                $url = $_POST['ActiveCampaign_apiurl'];
-                $apikey = $_POST['ActiveCampaign_apikey'];
-                $params = array(
-
-                    'api_key'      => $apikey,
-                    'api_action'   => 'list_paginator',
-                    'api_output'   => 'json',
-                    'somethingthatwillneverbeused' => '',
-                    'sort' => '',
-                    'offset' => 0,
-                    'limit' => 20,
-                    'filter' => 0,
-                    'public' => 0,
-
-                );
-
-                $query = "";
-                foreach( $params as $key => $value ) $query .= $key . '=' . urlencode($value) . '&';
-                $query = rtrim($query, '& ');
-                $url = rtrim($url, '/ ');
-                
-                if ( !function_exists('curl_init') ) { echo '404'; }
-
-                if ( $params['api_output'] == 'json' && !function_exists('json_decode') ) {
-                    echo '404';
-                }
-                $api = $url . '/admin/api.php?' . $query;
-
-                $request = curl_init($api);
-                curl_setopt($request, CURLOPT_HEADER, 0);
-                curl_setopt($request, CURLOPT_RETURNTRANSFER, 1);
-                curl_setopt($request, CURLOPT_FOLLOWLOCATION, true);
-                $response = (string)curl_exec($request);
-                curl_close($request);
-
-                if ( !$response ) {
-                   echo '404';
-                }
-
-                $result = json_decode($response);
-                if( $result->result_code == 0 ) {
-                    echo '404';
-                }
-                else {
-                    if ( $result->cnt == 0 ) {
-                        echo 'ZERO';
-                    }
-                    else {
-
-						 $insertArr = array(
-								'ep_name'   =>  $_POST['emAppId']
-						);
-
-						$res = $this->DatabaseModel->access_database('ts_emailproviders','select','',$insertArr);
-
-						if( empty($res)) {
-							$insertArr['ep_credentials'] = json_encode(array('ActiveCampaign_apiurl'=>$_POST['ActiveCampaign_apiurl'],'ActiveCampaign_apikey'=>$_POST['ActiveCampaign_apikey']));
-
-
-							$resID = $this->DatabaseModel->access_database('ts_emailproviders','insert',$insertArr,'');
-						}
-						else {
-							 $resID = $res[0]['ep_id'];
-
-							 $updateArr['ep_credentials'] = json_encode(array('ActiveCampaign_apiurl'=>$_POST['ActiveCampaign_apiurl'],'ActiveCampaign_apikey'=>$_POST['ActiveCampaign_apikey']));
-							 $this->DatabaseModel->access_database('ts_emailproviders','update',$updateArr,array('ep_id'=>$resID));
-						}
-
-$this->DatabaseModel->access_database('ts_eplist','delete','',array('eplist_parentid'=>$resID));
-						foreach($result->rows as $solo_list)
-						{
-							$list_key = $solo_list->id;
-							$list_name = $solo_list->name;
-							
-							$listInsertArr = array(
-								'eplist_parentid' =>  $resID,
-								'eplist_uniqid' =>  $list_key,
-								'eplist_name' =>  $list_name
-							);
-							
-							$this->DatabaseModel->access_database('ts_eplist','insert',$listInsertArr,'');
-						}
-                    }
-                }
-                
-            }
-            else {
-                echo '404';
-            }
-
-        }
 
         }
         die();
@@ -981,6 +793,7 @@ $this->DatabaseModel->access_database('ts_eplist','delete','',array('eplist_pare
 	        $result2 = $this->DatabaseModel->access_database('ts_emaillist','select','',array('e_list'=>0));
 
 	        $result = array_merge($result1,$result2);
+
 	        $col_arr = array('Index','Email','List Name','Type','Date');
 	        if(!empty($result)) {
 	                $str = '';
@@ -992,7 +805,7 @@ $this->DatabaseModel->access_database('ts_eplist','delete','',array('eplist_pare
                     header('Content-Disposition: attachment; filename='.$filename);
 
                     foreach($result as $soloRes) {
-                        $elistname = ( $soloRes['e_list'] != '0' && $soloRes['e_list'] != '' ) ? $soloRes['eplist_name'] : '-' ;
+                        $elistname = ( $soloRes['e_list'] != '0' ) ? $soloRes['eplist_name'] : '-' ;
                         $count++;
                         $str .= $count.",".$soloRes['e_email'].",".$elistname.",".$soloRes['e_type'].",".date_format(date_create ( $soloRes['e_date'] ) , 'M d Y')."\r\n";
                     }
@@ -1007,7 +820,7 @@ $this->DatabaseModel->access_database('ts_eplist','delete','',array('eplist_pare
                     header("Content-Disposition: attachment; filename=".$filename);
                     header("Content-Type: application/vnd.ms-excel");
                     foreach($result as $soloRes) {
-                        $elistname = ( $soloRes['e_list'] != '0' && $soloRes['e_list'] != '' ) ? $soloRes['eplist_name'] : '-' ;
+                        $elistname = ( $soloRes['e_list'] != '0' ) ? $soloRes['eplist_name'] : '-' ;
                         $count++;
                         $str .= $count."\t".$soloRes['e_email']."\t".$elistname."\t".$soloRes['e_type']."\t".date_format(date_create ( $soloRes['e_date'] ) , 'M d, Y')."\r\n";
                     }
@@ -1229,73 +1042,6 @@ $this->DatabaseModel->access_database('ts_eplist','delete','',array('eplist_pare
 	}
 
 	/********* Category Settings ENDS **********/
-
-	/********* Sub Category Settings STARTS **********/
-
-	function sub_categories($sub_cid='') {
-	    $data['basepath'] = base_url();
-	    if($sub_cid != '') {
-	        $data['solo_sub_cate'] = $this->DatabaseModel->access_database('ts_subcategories','select','',array('sub_id'=>$sub_cid));
-	    }
-	    else {
-	        $data['solo_sub_cate'] = array();
-	    }
-	    $data['sub_cate_details'] = $this->DatabaseModel->access_database('ts_subcategories','select','','');
-	    $data['cate_details'] = $this->DatabaseModel->access_database('ts_categories','select','','');
-	    $this->load->view('backend/include/header',$data);
-		$this->load->view('backend/sub_categories_page',$data);
-		$this->load->view('backend/include/footer',$data);
-	}
-
-	function add_sub_categories() {
-	    if(isset($_POST['sub_catename'])) {
-	        $sub_cateDataArr = array();
-            if( $_POST['sub_catename'] != '' ) {
-                $sub_cateDataArr['sub_name'] = $_POST['sub_catename'];
-                $sub_cateDataArr['sub_urlname'] = strtolower($_POST['sub_cateurlname']);
-                $sub_cateDataArr['sub_parent'] = $_POST['sub_parent'];
-
-                if($_POST['old_sub_cateid']=='0') {
-                    $this->DatabaseModel->access_database('ts_subcategories','insert',$sub_cateDataArr,'');
-                    $this->session->userdata['ts_success'] = 'Sub Category added successfully.';
-                }
-                else {
-                    $this->DatabaseModel->access_database('ts_subcategories','update',$sub_cateDataArr, array('sub_id'=>$_POST['old_sub_cateid']));
-                    $this->session->userdata['ts_success'] = 'Sub Category updated successfully.';
-                }
-            }
-            else {
-                $this->session->userdata['ts_error'] = "Sub Category can not be added.";
-            }
-
-            redirect(base_url().'backend/sub_categories');
-	    }
-	    else {
-	        echo '0';
-	    }
-	    die();
-	}
-
-    function getSubCategories(){
-        if(isset($_POST['cateId'])) {
-            $subCate  = $this->DatabaseModel->access_database('ts_subcategories','select','',array('sub_parent'=>$_POST['cateId']));
-            $str = '<option value="0">Choose one</option>';
-            if(!empty($subCate)) {
-                foreach($subCate as $solo_subCate) {
-                    $str .= '<option value="'.$solo_subCate['sub_id'].'">'.$solo_subCate['sub_name'].'</option>';
-                }
-            }
-            else {
-                $str .= '<option value="0">Nothing found</option>';
-            }
-            echo $str;
-        }
-        else {
-	        echo '0';
-	    }
-	    die();
-    }
-	/********* Sub Category Settings ENDS **********/
 
 	/************ Compliance Page STARTS *****************/
 	function compliance_pages(){
@@ -1643,14 +1389,7 @@ $this->DatabaseModel->access_database('ts_eplist','delete','',array('eplist_pare
             'venwith_type'  =>  'banktransfer_details'
         );
         $data['withdrawalDetails_bnkdetails'] = $this->DatabaseModel->access_database('ts_vendorwithdrawal','select','', $data_array);
-        
-        $data_array = array(
-            'venwith_uid'   =>  $uid,
-            'venwith_type'  =>  'bitcoin_details'
-        );
-        $data['withdrawalDetails_bitcoin'] = $this->DatabaseModel->access_database('ts_vendorwithdrawal','select','', $data_array);
-        
-        
+
         $data['withdrawalDetails_payed'] = $this->DatabaseModel->access_database('ts_vendorwithdrawal','totalvalue', array('venwith_text','totalPayedAmount') , array('venwith_uid'=>$uid,'venwith_type'=>'payed_amount'));
 
         $data['payment_history_details'] = $this->DatabaseModel->access_database('ts_vendorwithdrawal','select', '' , array('venwith_uid'=>$uid,'venwith_type'=>'payed_amount'));
@@ -1709,36 +1448,6 @@ $this->DatabaseModel->access_database('ts_eplist','delete','',array('eplist_pare
     }
     /************* Single Vendor details ENDS ********************/
 
-    /************* Header Views STARTS ********************/
 
-    function tp_headers($head_id='') {
-        $headers = $this->ts_functions->getsettings('headers','all');
-        $headerArr = explode(',',$headers);
-
-	    if($head_id != '') {
-	        if(in_array($head_id,$headerArr)) {
-	            $this->ts_functions->updatesettings('headers_active',$head_id);
-	            redirect(base_url().'backend/tp_headers');
-	        }
-	    }
-	    $data['basepath'] = base_url();
-	    $data['headerArr'] = $headerArr;
-        $this->load->view('backend/include/header',$data);
-        $this->load->view('backend/tp_headers',$data);
-        $this->load->view('backend/include/footer',$data);
-	}
-    /************* Header Views ENDS ********************/
-
-	/************* Social Login STARTS **********************/
-	
-	function social_login(){
-		$data['basepath'] = base_url();
-        $this->load->view('backend/include/header',$data);
-        $this->load->view('backend/social_login',$data);
-        $this->load->view('backend/include/footer',$data);
-	}
-	
-	/************* Social Login ENDS **********************/
-	
 }
 ?>

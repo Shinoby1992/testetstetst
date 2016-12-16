@@ -69,11 +69,6 @@ Project:	Themeportal
 
             // initialise Stellar js
                 $(window).stellar();
-				
-			// Second Menu Hide ShowProducts
-			$("#menu_show").click(function(){
-				$("#menu_hide").slideToggle();
-			});
 
             // Menu show Hide
             var counter = 0;
@@ -203,18 +198,6 @@ Project:	Themeportal
 		PopupJS: function(){
 		    // popup close
             $('.ts_popup_close').on('click', function(){
-            
-			// Stop Audio / Video Play on Popup Close
-				if( $('#tp_audio').length > 0 ) {
-					$('#tp_audio')[0].pause();
-					$('#tp_audio')[0].currentTime = 0;
-				}
-				
-				if( $('#tp_video').length > 0 ) {
-					$('#tp_video')[0].pause();
-					$('#tp_video')[0].currentTime = 0;
-				}
-
                // $('.ts_popup_wrapper').addClass('popup_close');
                 $('.ts_popup_wrapper').removeClass('popup_open');
             });
@@ -233,27 +216,6 @@ Project:	Themeportal
 		$(this).closest('.ts_pagination').append('<form method="post" style="display:none;" id="paginationForm"><input type="text" name="paginationCount" value="'+$(this).parent().attr('data')+'"></form>');
 		$('#paginationForm').submit();
 	});
-	
-	// MFP Popup JS
-	if($('.popup-gallery').length){
-	  $('.popup-gallery').magnificPopup({
-	   delegate: 'a',
-	   type: 'image',
-	   tLoading: 'Loading image #%curr%...',
-	   mainClass: 'mfp-img-mobile',
-	   gallery: {
-		enabled: true,
-		navigateByImgClick: true,
-		preload: [0,1] // Will preload 0 - before current, and 1 after the current image
-	   },
-	   image: {
-		tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
-		titleSrc: function(item) {
-		 return item.el.attr('title') + '<small>by Marsel Van Oosten</small>';
-		}
-	   }
-	  });
-	 }
 
 })(jQuery);
 
@@ -482,15 +444,6 @@ function initiatepayment(){
                 else if( paymentmethod == 'webmoney') {
                     $('form[name="pay"]').submit();
                 }
-				else if( paymentmethod == 'tpay') {
-                    $('form[name="tpay_form_name"]').submit();
-                }
-                else if( paymentmethod == 'pagseguro') {
-                    $('form[name="pagseguro_form_name"]').submit();
-                }
-                else if( paymentmethod == 'permoney') {
-                    $('form[name="permoney_form_name"]').submit();
-                }
 
             }
             removeMessage();
@@ -562,26 +515,40 @@ function sendcontactform($this){
 /************** Send contact form ENDS *******************/
 
 /************** Image Gallery STARTS **********************/
-    function openthegalleryimages(prodId,type){
+    function openthegalleryimages(prodId){
         var dataArr = {};
         dataArr['prodId'] = prodId;
         var basepath = $('#basepath').val();
         $.post(basepath+"home/getgalleryimages",dataArr,function(data, status) {
             if( data != '0' ) {
-            	if( type == 'other' ) {
-                	$('#popupgallery ul').append(data);
-                }
-                else if( type == 'audio' ) {
-					$('#tp_audio')[0].play();
-                }
-                else if( type == 'video' ) {
-                	$('#tp_video')[0].play();
-                }
+                $('#popupgallery ul').append(data);
             }
             $('.ts_popup_wrapper').addClass('popup_open');
 
         });
         return false;
+    }
+
+    function clickarrows(type) {
+        var totalLi = $('#popupgallery ul li').length;
+        var curId = ($('.currentActive').attr('id')).split('_')[1];
+        $('#img_'+curId).hide();
+        $('#img_'+curId).removeClass('currentActive');
+
+        if( type == 'right' ) {
+            var newId = parseInt(curId) + 1;
+            if( newId == totalLi ) {
+               newId = 0;
+            }
+        }
+        else {
+            var newId = parseInt(curId) - 1;
+            if( newId < 0 ) {
+               newId = totalLi - 1;
+            }
+        }
+        $('#img_'+newId).show();
+        $('#img_'+newId).addClass('currentActive');
     }
 /************** Image Gallery ENDS **********************/
 

@@ -60,16 +60,16 @@
 		<div class="menu_toggle"><span></span><span></span><span></span></div>
 		<div class="th_menu_container">
 			<ul>
-				<li><a href="<?php echo $basepath;?>vendorboard"><?php echo $this->ts_functions->getlanguage('vendorboardmenu','vendorboard','solo');?></a></li>
-				<li><a><?php echo $this->ts_functions->getlanguage('prodmenu','vendorboard','solo');?></a>
+				<li><a href="<?php echo $basepath;?>vendorboard">Vendor Board</a></li>
+				<li><a>Products</a>
 				    <ul>
-				        <li><a href="<?php echo $basepath;?>vendorboard/add_products_1"><?php echo $this->ts_functions->getlanguage('addproductsmenu','vendorboard','solo');?></a></li>
-				        <li><a href="<?php echo $basepath;?>vendorboard/manage_products"><?php echo $this->ts_functions->getlanguage('manageproductsmenu','vendorboard','solo');?></a></li>
+				        <li><a href="<?php echo $basepath;?>vendorboard/add_products">Add Products</a></li>
+				        <li><a href="<?php echo $basepath;?>vendorboard/manage_products">Manage Products</a></li>
 				    </ul>
 				</li>
-				<li><a href="<?php echo $basepath;?>vendorboard/sales_history"><?php echo $this->ts_functions->getlanguage('saleshistorymenu','vendorboard','solo');?></a></li>
-				<li><a href="<?php echo $basepath;?>vendorboard/withdrawal"><?php echo $this->ts_functions->getlanguage('paymentreceivedmenu','vendorboard','solo');?></a></li>
-				<li><a href="<?php echo $basepath;?>vendorboard/wallet_statement"><?php echo $this->ts_functions->getlanguage('walletmenu','vendorboard','solo');?></a></li>
+				<li><a href="<?php echo $basepath;?>vendorboard/sales_history">Sales History</a></li>
+				<li><a href="<?php echo $basepath;?>vendorboard/withdrawal">Payment Received</a></li>
+				<li><a href="<?php echo $basepath;?>vendorboard/wallet_statement">Wallet Statement</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -91,18 +91,17 @@
 				?>
 				<div class="col-lg-4 col-md-4 col-sm-5 wallet_section">
 					<div class="th_wallet_section" style="color:white;">
-						<span><a href="<?php echo $basepath;?>vendorboard/wallet_statement" style="color:white;"> <?php echo $this->ts_functions->getlanguage('wallettop','vendorboard','solo');?> : <b><?php echo $this->ts_functions->getsettings('portal','curreny').' ';?><?php echo empty($currentWallet) ? '0' : $currentWallet[0]['wallet_amount'];?></b> </a> </span>
+						<span><a href="<?php echo $basepath;?>vendorboard/wallet_statement" style="color:white;"> You wallet amount : <b><?php echo $this->ts_functions->getsettings('portal','curreny').' ';?><?php echo empty($currentWallet) ? '0' : $currentWallet[0]['wallet_amount'];?></b> </a> </span>
 					</div>
 				</div>
 				<div class="col-lg-4 col-md-4 col-sm-4 login_section">
 				<div class="th_user_login">
 					<div class="user_login_detail">
-						<h5 class="user_name"><a href="<?php echo $basepath;?>dashboard"><?php echo $this->ts_functions->getlanguage('hi','vendorboard','solo');?>,<span><?php echo $this->session->userdata['ts_uname']; ?></span></a></h5>
+						<h5 class="user_name"><a href="<?php echo $basepath;?>dashboard">Hi,<span><?php echo $this->session->userdata['ts_uname']; ?></span></a></h5>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<?php $vendorpage = 1;?>
 	<!-- top header section -->
 <input type="hidden" id="vendorpage" value="1">

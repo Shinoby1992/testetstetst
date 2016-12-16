@@ -62,8 +62,7 @@
 				<li><a>Products</a>
 				    <ul>
 				        <li><a href="<?php echo $basepath;?>backend/categories">Categories</a></li>
-				        <li><a href="<?php echo $basepath;?>backend/sub_categories">Sub Categories</a></li>
-				        <li><a href="<?php echo $basepath;?>products/add_products_1">Add Products</a></li>
+				        <li><a href="<?php echo $basepath;?>products/add_products">Add Products</a></li>
 				        <li><a href="<?php echo $basepath;?>products/manage_products">Manage Products</a></li>
 				    </ul>
 				</li>
@@ -93,7 +92,6 @@
 				        <li><a href="<?php echo $basepath;?>backend/statements">Sales Statements</a></li>
 				    </ul>
 				</li>
-				<li><a href="<?php echo $basepath;?>backend/social_login">Social Login</a></li>
 				<li><a>Settings</a>
 				    <ul>
 				        <li><a href="<?php echo $basepath;?>settings/payment">Payment Settings</a></li>
@@ -102,13 +100,7 @@
 				        <li><a href="<?php echo $basepath;?>settings/menus">Menu Settings</a></li>
 				    </ul>
 				</li>
-				<li><a>Appearance</a>
-				    <ul>
-				        <li><a href="<?php echo $basepath;?>backend/tp_themes">Themes</a></li>
-				        <li><a href="<?php echo $basepath;?>backend/tp_headers">Header Menu</a></li>
-				    </ul>
-				</li>
-
+				<li><a href="<?php echo $basepath;?>backend/tp_themes">Themes</a></li>
 			</ul>
 		</div>
 	</nav>

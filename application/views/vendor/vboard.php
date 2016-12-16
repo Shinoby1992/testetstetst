@@ -7,7 +7,7 @@
 						<div class="col-lg-12 col-md-12">
 							<div class="theme_page">
 								<div class="theme_panel_section">
-										<h4 class="th_title"><?php echo $this->ts_functions->getlanguage('welcometext','vendorboard','solo');?>
+										<h4 class="th_title">Welcome Vendor , It's all what we have !!
 										</h4>
 										<div class="th_mini_status">
 
@@ -15,22 +15,22 @@
 											<form action="" method="post" id="sort_form">
 
 												<div class="th_filter">
-												<label><?php echo $this->ts_functions->getlanguage('filtertext','vendorboard','solo');?> </label>
+												<label>Filter the results using these options </label>
 													<select name="duration" onchange="displayDate(this)">
-														<option value=""><?php echo $this->ts_functions->getlanguage('alltext','homepage','solo');?></option>
+														<option value="">All</option>
 
-														<option value="today" <?php echo ($duration == 'today') ? 'selected' : '' ; ?>><?php echo $this->ts_functions->getlanguage('todaytext','vendorboard','solo');?></option>
+														<option value="today" <?php echo ($duration == 'today') ? 'selected' : '' ; ?>>Today</option>
 
-														<option value="yesterday" <?php echo ($duration == 'yesterday') ? 'selected' : '' ; ?>><?php echo $this->ts_functions->getlanguage('yesterdaytext','vendorboard','solo');?></option>
+														<option value="yesterday" <?php echo ($duration == 'yesterday') ? 'selected' : '' ; ?>>Yesterday</option>
 
-														<option value="custom" <?php echo ($duration == 'custom') ? 'selected' : '' ; ?>><?php echo $this->ts_functions->getlanguage('customtext','vendorboard','solo');?></option>
+														<option value="custom" <?php echo ($duration == 'custom') ? 'selected' : '' ; ?>>Custom</option>
 													</select>
 												</div>
 												<div class="th_datepicker" <?php echo ($duration != 'custom') ? 'style="display:none;"' : '' ; ?>>
-													<input type="text" class="form-control datepicker" placeholder="dd/mm/yyyy" name="d1" value="<?php echo ($duration == 'custom') ? $d1 : '' ; ?>"> <?php echo $this->ts_functions->getlanguage('totext','vendorboard','solo');?>
+													<input type="text" class="form-control datepicker" placeholder="dd/mm/yyyy" name="d1" value="<?php echo ($duration == 'custom') ? $d1 : '' ; ?>"> to
 													<input type="text" class="form-control datepicker" placeholder="dd/mm/yyyy" name="d2" value="<?php echo ($duration == 'custom') ? $d2 : '' ; ?>">
 												</div>
-												<a onclick="submit_sort_form();" class="btn theme_btn"><?php echo $this->ts_functions->getlanguage('filterw','vendorboard','solo');?></a>
+												<a onclick="submit_sort_form();" class="btn theme_btn">Filter</a>
 											</form>
 											</div>
 											<div class="">
@@ -102,7 +102,7 @@
 												<div class="th_status_wrapper">
 													<a href="#" class="th_icon green"><i class="fa fa-folder" aria-hidden="true"></i></a>
 													<div class="th_status">
-														<strong><?php echo $this->ts_functions->getlanguage('activeprodtext','vendorboard','solo');?></strong>
+														<strong>Active Products</strong>
 														<h6><?php echo count($productdetails_active); ?></h6>
 													</div>
 												</div>
@@ -110,7 +110,7 @@
 												<div class="th_status_wrapper">
 													<a href="#" class="th_icon blue"><i class="fa fa-folder-open" aria-hidden="true"></i></a>
 													<div class="th_status">
-														<strong><?php echo $this->ts_functions->getlanguage('freeprodtext','vendorboard','solo');?></strong>
+														<strong>Free Products</strong>
 														<h6><?php echo count($productdetails_free); ?></h6>
 													</div>
 												</div>
@@ -118,14 +118,14 @@
 												<div class="th_status_wrapper">
 													<a href="#" class="th_icon skyblue"><i class="fa fa-eye" aria-hidden="true"></i></a>
 													<div class="th_status">
-														<strong> <?php echo $this->ts_functions->getlanguage('totprodviewstext','vendorboard','solo');?> </strong>
+														<strong>Total Product Views</strong>
 														<h6><?php echo $tot_prod_views; ?></h6>
 													</div>
 												</div>
 												<div class="th_status_wrapper">
 													<a href="#" class="th_icon teal"><i class="fa fa-money" aria-hidden="true"></i></a>
 													<div class="th_status">
-														<strong><?php echo $this->ts_functions->getlanguage('totprodsalestext','vendorboard','solo');?> </strong>
+														<strong>Total Product Sales</strong>
 														<h6><?php echo count($prodSales); ?></h6>
 													</div>
 												</div>
@@ -140,7 +140,7 @@
 											<div class="row">
 												<div class="col-lg-6 col-md-6">
 													<div class="th_chart_content">
-														<h4><?php echo $this->ts_functions->getlanguage('prodviewdevicetext','vendorboard','solo');?> </h4>
+														<h4>Product Views on Devices</h4>
 														<?php if(!empty($deviceArr)) { ?>
 														<div id="device_chart"></div>
 														<?php } else {
@@ -151,7 +151,7 @@
 
 												<div class="col-lg-6 col-md-6">
 													<div class="th_chart_content">
-														<h4><?php echo $this->ts_functions->getlanguage('prodviewbrowsertext','vendorboard','solo');?> </h4>
+														<h4>Product Views from Browsers</h4>
 														<?php if(!empty($browserArr)) { ?>
 														<div id="browser_chart"></div>
 														<?php } else {

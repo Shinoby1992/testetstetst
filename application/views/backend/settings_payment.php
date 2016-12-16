@@ -316,7 +316,7 @@
 											<div class="panel-body">
 												<div class="col-lg-12 col-md-12">
                     <div class="th_registration_wrapper">
-                        
+                        <p style="color:red;text-align:center;"> Please contact support team of Script to complete the integration, only for <b>Bitcoin</b></p>
                         <div class="alert alert-info th_setting_text">
                             <p><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Setup your account on <a href="https://gourl.io/"> gourl.io </a> </p><br/>
                             <p><i class="fa fa-exclamation-circle" aria-hidden="true"></i> <a href="https://gourl.io/editrecord/coin_boxes/0"> Where to create Public Key and Private Key ? </a> </p><br/>
@@ -429,7 +429,7 @@
 										<div class="panel-heading" role="tab" id="nine">
 											<h4 class="panel-title">
 												<a role="button" data-toggle="collapse" data-parent="#accordion5" href="#accordion9" aria-expanded="true" aria-controls="accordion9" class="collapsed">
-													Yandex  <img src="<?php echo $basepath;?>adminassets/images/yandex_logo.png"/>
+													yandex  <img src="<?php echo $basepath;?>adminassets/images/yandex_logo.png"/>
 												</a>
 											</h4>
 										</div>
@@ -479,179 +479,6 @@
 									</div>
 
 
-									
-									
-
-								<div class="panel panel-default">
-										<div class="panel-heading" role="tab" id="ten">
-											<h4 class="panel-title">
-												<a role="button" data-toggle="collapse" data-parent="#accordion5" href="#accordion10" aria-expanded="true" aria-controls="accordion10" class="collapsed">
-													Tpay  <img src="<?php echo $basepath;?>adminassets/images/tpay_logo.png"/>
-												</a>
-											</h4>
-										</div>
-										<div id="accordion10" class="panel-collapse collapse" role="tabpanel" aria-labelledby="ten">
-											<div class="panel-body">
-												<div class="col-lg-12 col-md-12">
-                    <div class="th_registration_wrapper">
-                       
-                    <div class="th_registration_msg">
-
-                        <div class="form-group">
-                            <div class="col-lg-3 col-md-3">
-                            <label>Show tpay option to users</label>
-                            </div>
-                            <div class="col-lg-6 col-md-6">
-                                <div class="th_checkbox">
-                                    <input type="checkbox" id="tpay_status" class="tpaySettings" value="1"  <?php echo $this->ts_functions->getsettings('tpay','status') == '1' ? 'checked' : '' ; ?> >
-                                    <label for="tpay_status"></label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-lg-3 col-md-3">
-                            <label>Merchant ID</label>
-                            </div>
-                            <div class="col-lg-6 col-md-6">
-                            <input type="text" class="form-control tpaySettings" id="tpay_merchantid" value="<?php echo $this->ts_functions->getsettings('tpay','merchantid');?>">
-                            </div>
-                        </div>
-
-                        <div class="col-lg-12 col-md-12">
-                            <div class="th_btn_wrapper">
-                                <a onclick="updatePaymentSettings('tpaySettings')" class="btn theme_btn">UPDATE</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    </div>
-												</div>
-											</div>
-										</div>
-									</div>
-									
-									
-									
-					<div class="panel panel-default">
-										<div class="panel-heading" role="tab" id="eleven">
-											<h4 class="panel-title">
-												<a role="button" data-toggle="collapse" data-parent="#accordion5" href="#accordion11" aria-expanded="true" aria-controls="accordion11" class="collapsed">
-													Pagseguro  <img src="<?php echo $basepath;?>adminassets/images/pagseguro_logo.png"/>
-												</a>
-											</h4>
-										</div>
-										<div id="accordion11" class="panel-collapse collapse" role="tabpanel" aria-labelledby="eleven">
-											<div class="panel-body">
-												<div class="col-lg-12 col-md-12">
-                    <div class="th_registration_wrapper">
-                    
-                        <div class="alert alert-info th_setting_text">
-                            <p><i class="fa fa-exclamation-circle" aria-hidden="true"></i> You need to set few things in your Pagseguro account.</p><br/>
-                            <p><i class="fa fa-exclamation-circle" aria-hidden="true"></i>Redirect URL : <b> <?php echo base_url().'pages/pagseguro_redirect'; ?></b></p> <br/>
-                            <p><i class="fa fa-exclamation-circle" aria-hidden="true"></i>Unique Key : <b> transaction_id </b></p> <br/>
-                            <p><i class="fa fa-exclamation-circle" aria-hidden="true"></i>Please, follow the below image for help and click to zoom the image</p> <br/>
-                            <p style="text-align: center;display: block;"><a href="<?php echo base_url().'adminassets/images/pagseguro_help.png'?>" target="_blank"> <img src="<?php echo base_url().'adminassets/images/pagseguro_help.png'?>" width="500" /></a></p>
-                        </div>
-                        
-                    <div class="th_registration_msg">
-
-                        <div class="form-group">
-                            <div class="col-lg-3 col-md-3">
-                            <label>Show Pagseguro option to users</label>
-                            </div>
-                            <div class="col-lg-6 col-md-6">
-                                <div class="th_checkbox">
-                                    <input type="checkbox" id="pagseguro_status" class="pagseguroSettings" value="1"  <?php echo $this->ts_functions->getsettings('pagseguro','status') == '1' ? 'checked' : '' ; ?> >
-                                    <label for="pagseguro_status"></label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-lg-3 col-md-3">
-                            <label>Pagseguro's account email</label>
-                            </div>
-                            <div class="col-lg-6 col-md-6">
-                            <input type="text" class="form-control pagseguroSettings" id="pagseguro_email" value="<?php echo $this->ts_functions->getsettings('pagseguro','email');?>">
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <div class="col-lg-3 col-md-3">
-                            <label>Pagseguro's token</label>
-                            </div>
-                            <div class="col-lg-6 col-md-6">
-                            <input type="text" class="form-control pagseguroSettings" id="pagseguro_token" value="<?php echo $this->ts_functions->getsettings('pagseguro','token');?>">
-                            </div>
-                        </div>
-
-                        <div class="col-lg-12 col-md-12">
-                            <div class="th_btn_wrapper">
-                                <a onclick="updatePaymentSettings('pagseguroSettings')" class="btn theme_btn">UPDATE</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    </div>
-												</div>
-											</div>
-										</div>
-									</div>
-									
-									
-									
-									
-				<!--	<div class="panel panel-default">
-										<div class="panel-heading" role="tab" id="twelve">
-											<h4 class="panel-title">
-												<a role="button" data-toggle="collapse" data-parent="#accordion5" href="#accordion12" aria-expanded="true" aria-controls="accordion12" class="collapsed">
-													Perfect Money  <img src="<?php echo $basepath;?>adminassets/images/permoney_logo.png" style="width: 175px;" />
-												</a>
-											</h4>
-										</div>
-										<div id="accordion12" class="panel-collapse collapse" role="tabpanel" aria-labelledby="twelve">
-											<div class="panel-body">
-												<div class="col-lg-12 col-md-12">
-                    <div class="th_registration_wrapper">                        
-                    <div class="th_registration_msg">
-
-                        <div class="form-group">
-                            <div class="col-lg-3 col-md-3">
-                            <label>Show Perfect Money option to users</label>
-                            </div>
-                            <div class="col-lg-6 col-md-6">
-                                <div class="th_checkbox">
-                                    <input type="checkbox" id="permoney_status" class="permoneySettings" value="1"  <?php echo $this->ts_functions->getsettings('permoney','status') == '1' ? 'checked' : '' ; ?> >
-                                    <label for="permoney_status"></label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-lg-3 col-md-3">
-                            <label>Enter Perfectmoney's account to receive payments automatically</label>
-                            </div>
-                            <div class="col-lg-6 col-md-6">
-                            <input type="text" class="form-control permoneySettings" id="permoney_account" value="<?php echo $this->ts_functions->getsettings('permoney','account');?>">
-                            </div>
-                        </div>
-
-                        <div class="col-lg-12 col-md-12">
-                            <div class="th_btn_wrapper">
-                                <a onclick="updatePaymentSettings('permoneySettings')" class="btn theme_btn">UPDATE</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    </div>
-												</div>
-											</div>
-										</div>
-									</div>  -->
-									
-									
-									
 								</div>
 
 

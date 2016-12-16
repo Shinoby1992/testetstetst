@@ -18,14 +18,11 @@
 										<?php if($this->session->userdata['ts_level'] == 1) {
 										    echo '<th>Uploaded By</th>';
 										}?>
-											<th>Type</th>
 											<th>Download Count</th>
 											<th>Status</th>
 											<th>Featured</th>
 											<th>Created Date</th>
 											<th>Last Update</th>
-											<th>Image</th>
-											<th>Final Product</th>
 											<th class="action">Action</th>
 										</tr>
 									<thead>
@@ -37,14 +34,11 @@
 										<?php if($this->session->userdata['ts_level'] == 1) {
 										    echo '<th>Uploaded By</th>';
 										}?>
-											<th>Type</th>
 											<th>Download Count</th>
 											<th>Status</th>
 											<th>Featured</th>
 											<th>Created Date</th>
 											<th>Last Update</th>
-											<th>Image</th>											
-											<th>Final Product</th>										
 											<th class="action">Action</th>
 										</tr>
 									<tfoot>
@@ -69,8 +63,6 @@
 									        echo '<td>'.$userDetails[0]['user_uname'].'</td>';
 									    }
 									}?>
-						                <td><?php echo $soloprod['prod_type'];?></td>
-						                
 						                <td><?php echo $soloprod['prod_download_count'];?></td>
 
 										<?php if( $this->session->userdata['ts_level'] == 1 ) { ?>
@@ -101,17 +93,6 @@
 
 										<td><?php echo date_format(date_create ( $soloprod['prod_date'] ) , 'M d, Y');?></td>
 										<td><?php echo date_format(date_create ( $soloprod['prod_update'] ) , 'M d, Y');?></td>
-										<?php if( $soloprod['prod_image'] != '' ) { ?>
-											<td style="background: rgba(0, 128, 0, 0.79);">Yes</td>
-										<?php } else { ?>
-											<td style="background: rgb(244, 67, 54);">No</td>
-										<?php } ?>
-										
-										<?php if( $soloprod['prod_filename'] != '' ) { ?>
-											<td style="background: rgba(0, 128, 0, 0.79);">Yes</td>
-										<?php } else { ?>
-											<td style="background: rgb(244, 67, 54);">No</td>
-										<?php } ?>
 
 										<td><p>
 										<?php

@@ -180,9 +180,7 @@ class Settings extends CI_Controller {
 	            $dArr = explode('_',$_POST['id']);
 	            $k = 'prod_'.$dArr[1];
 	            $this->DatabaseModel->access_database('ts_products','update',array($k=>$_POST['vlu']),array('prod_id'=>$dArr[0]));
-				if( $k == 'prod_status' ) {
-					$this->ts_functions->sendnotificationemails_productstatus($dArr[0],$_POST['vlu']);
-				}
+
 	        }
 	        elseif( $_POST['type'] == 'testi' ) {
 	            $dArr = explode('_',$_POST['id']);

@@ -27,7 +27,6 @@
 <link rel="stylesheet" href="<?php echo $basepath;?>themes/default/css/font-awesome.css" media="screen"/>
 <link rel="stylesheet" href="<?php echo $basepath;?>themes/default/css/animate.css" media="screen"/>
 <link rel="stylesheet" href="<?php echo $basepath;?>themes/default/css/owl.carousel.css" media="screen"/>
-<link rel="stylesheet" href="<?php echo $basepath;?>themes/default/css/sceen_popup.css" media="screen"/>
 <link rel="stylesheet" href="<?php echo $basepath;?>themes/default/css/color.css" media="screen"/>
 <link rel="stylesheet" href="<?php echo $basepath;?>themes/default/css/style.css" media="screen"/>
 <link rel="stylesheet" href="<?php echo $basepath;?>themes/default/css/responsive.css" media="screen"/>

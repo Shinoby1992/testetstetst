@@ -70,10 +70,9 @@ class Item extends CI_Controller {
 		    $this->db->select('*');
             $this->db->from('ts_products');
             $this->db->join('ts_categories', 'ts_categories.cate_id = ts_products.prod_cateid');
-			$this->db->where('prod_status',1);
             $this->db->where('prod_uniqid !=',$uniqid);
             $this->db->where('prod_cateid',$prodDetails[0]['prod_cateid']);
-            $this->db->limit(0, 4);
+            $this->db->limit(0, 2);
             $rs=$this->db->get();
             $data['relatedProducts'] = $rs->result_array();
 

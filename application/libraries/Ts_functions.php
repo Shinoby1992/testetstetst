@@ -390,91 +390,6 @@ class Ts_functions {
                             echo 0;
                         }
                     } // Sendinblue
-                    elseif( $solo_elist['ep_name'] == 'Freshmail' ) {
-                        define ( 'FM_API_KEY', $em_credentials->Freshmail_apikey );
-                        define ( 'FM_API_SECRET', $em_credentials->Freshmail_apisecret );
-
-                        require_once $pathToEmailLibraries.'emailIntegration_resources/Freshmail/class.rest.php';
-
-                        $rest = new FmRestAPI();
-                        $rest->setApiKey( FM_API_KEY );
-                        $rest->setApiSecret( FM_API_SECRET );
-
-                        $email = $email;
-
-                        try {
-                            $data = array(
-                                'email' =>  $email,
-                                'list'  =>  $listID
-                            );
-                            $rest->doRequest('subscriber/add',$data);
-
-                            $insertArr = array(
-                                'e_date'    =>  date('Y-m-d'),
-                                'e_email'   =>  $email,
-                                'e_list'   =>  $listDBid,
-                                'e_type'   =>  $type
-                            );
-                            $this->CI->DatabaseModel->access_database('ts_emaillist','insert',$insertArr,'');
-
-                        }  catch (Exception $e) {
-                            echo '404';
-                        }
-                    } // Freshmail
-                    elseif( $solo_elist['ep_name'] == 'ActiveCampaign' ) {
-						
-						$url =  $em_credentials->ActiveCampaign_apiurl;
-						$apikey =  $em_credentials->ActiveCampaign_apikey;
-
-						$params = array(
-							'api_key'      => $apikey,
-							'api_action'   => 'contact_add',
-							'api_output'   => 'json'
-						);
-
-						$post = array(
-							'email'                    => $email,
-							'first_name'               => '',
-							'tags'                     => 'api',
-							'p[1]'                   => $listID,
-							'status[1]'              => 1,
-							'instantresponders[123]' => 1
-						);
-
-						$query = "";
-						foreach( $params as $key => $value ) $query .= $key . '=' . urlencode($value) . '&';
-						$query = rtrim($query, '& ');
-
-						$data = "";
-						foreach( $post as $key => $value ) $data .= $key . '=' . urlencode($value) . '&';
-						$data = rtrim($data, '& ');
-
-						$url = rtrim($url, '/ ');
-
-						$api = $url . '/admin/api.php?' . $query;
-
-						$request = curl_init($api);
-						curl_setopt($request, CURLOPT_HEADER, 0);
-						curl_setopt($request, CURLOPT_RETURNTRANSFER, 1);
-						curl_setopt($request, CURLOPT_POSTFIELDS, $data);
-						curl_setopt($request, CURLOPT_FOLLOWLOCATION, true);
-						$response = (string)curl_exec($request);
-						curl_close($request);
-
-						if ( $response ) {
-							$result = json_decode($response);
-							if( $result->result_code != 0) {
-								$insertArr = array(
-									'e_date'    =>  date('Y-m-d'),
-									'e_email'   =>  $email,
-									'e_list'   =>  $listDBid,
-									'e_type'   =>  $type
-								);
-								$this->CI->DatabaseModel->access_database('ts_emaillist','insert',$insertArr,'');
-							}
-						}
-
-					} // ActiveCampaign
 
                 }
 	        }
@@ -784,7 +699,7 @@ class Ts_functions {
 
             $to = $userDetails[0]['user_email'];
             $bodyUser = $body;
-            $bodyUser .="<p>Hi ".$userDetails[0]['user_uname'].",</p> <p> Congratulations, your purchase is successful. <br/> Below is the product detail : </p> <hr/> ".$productStr."<br/><p> Here is the Purchase Code for this transaction : ".$transactionDetails[0]['payment_uniqid']."</p> <p> You can get your product from the download section.</p> <p>Thanks, <br/> ".$this->getsettings('sitename','text')." Team</p>";
+            $bodyUser .="<p>Hi ".$userDetails[0]['user_uname'].",</p> <p> Congratulations, your purchase is successfull. <br/> Below is the product detail : </p> <hr/> ".$productStr."<br/><p> Here is the Purchase Code for this transaction : ".$transactionDetails[0]['payment_uniqid']."</p> <p> You can get your product from the download section.</p> <p>Thanks, <br/> ".$this->getsettings('sitename','text')." Team</p>";
 
             $bodyAdmin = $body;
             $bodyAdmin .="<p>Hi Admin,</p> <p> User has done a successfull purchase. <br/> User details who has done the transaction <p> Username : ".$userDetails[0]['user_uname']." </p>  <p> User Email : ".$userDetails[0]['user_email']." </p>  <p> Transaction mode : ".$transactionDetails[0]['payment_mode']." </p>  Below is the product detail : </p> <hr/> ".$productStr."<br/><p> Here is the Purchase Code for this transaction : ".$transactionDetails[0]['payment_uniqid']."</p>  <p> You can get the transaction details from Admin dashboard, transaction history section.</p> <p>Thanks, <br/> ".$this->getsettings('sitename','text')." Team</p>";
@@ -808,72 +723,6 @@ class Ts_functions {
         }
 
 
-        die();
-	}
-	
-	
-	
-
-    /****
-        getlanguage : Function to get send notifications email when Pending prod moves to Active
-        First Param : product db id
-    ****/
-
-     public function sendnotificationemails_productstatus($prod_id,$status){
-
-        $bodyhead="<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
-        <html xmlns='http://www.w3.org/1999/xhtml'>
-        <head>
-        <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
-        <title>".$this->getsettings('sitetitle','text')."</title>
-        </head><body>";
-        if( $this->getsettings('email','logoshow') == '1' ) {
-            $body = "<img src='".$this->getsettings('logo','url')."' alt='".$this->getsettings('sitetitle','text')."'  title='".$this->getsettings('sitetitle','text')."'/>";
-        }
-        else {
-            $body = '';
-        }
-        $productDetails = $this->CI->DatabaseModel->access_database('ts_products','','',array('prod_id'=>$prod_id),array('ts_user','ts_user.user_id = ts_products.prod_id'));
-
-        if( !empty($productDetails) ) {
-		if($productDetails[0]['user_accesslevel'] != '1' && $productDetails[0]['prod_image'] != '' ) {
-			
-			if( $status == 'update' ) {	
-				
-				$productStr = '<p> Product Name : '.$productDetails[0]['prod_name'].'</p> <p> Vendor Name : '.$productDetails[0]['user_uname'].'</p> <p> Vendor Email : '.$productDetails[0]['user_email'].'</p> ';
-				
-				$to = $this->getsettings('email','contactemail');
-				$bodyUser = $body;
-				$bodyUser .="<p>Hi Admin,</p> <p> A vendor has updated the product.  <br/> Below is the product related info : </p> <hr/> ".$productStr."<br/><p> You can check the product from manage product section.</p> <p>Thanks, <br/> ".$this->getsettings('sitename','text')." Team</p>";
-				$subject = 'Product updated on - '.$this->getsettings('sitename','text');
-			}
-			else {
-				$subject = 'Product status changed on - '.$this->getsettings('sitename','text');
-				
-				$status_msg = ($status == 1) ? '<p>Product Status : <b style="color:green;">ACTIVE</b></p>' : '<p>Product Status : <b style="color:red;">PENDING</b></p>';
-				
-				$productStr = '<p> Product Name : '.$productDetails[0]['prod_name'].'</p> '.$status_msg;
-				
-				$to = $productDetails[0]['user_email'];
-				$bodyUser = $body;
-				$bodyUser .="<p>Hi ".$productDetails[0]['user_uname'].",</p> <p> Your product status has been changed by Admin <br/> Below is the product detail : </p> <hr/> ".$productStr."<br/><p> You can check the status from manage product section.</p> <p>Thanks, <br/> ".$this->getsettings('sitename','text')." Team</p>";
-			}
-            $from = $this->getsettings('email','fromname');
-            $from_add = $this->getsettings('email','fromemail');
-
-            $headers = "MIME-Version: 1.0" . "\r\n";
-            $headers .= "Content-type:text/html;charset=iso-8859-1" . "\r\n";
-            $headers .= "From: =?UTF-8?B?". base64_encode($from) ."?= <$from_add>\r\n" .
-            'Reply-To: '.$from_add . "\r\n" .
-            'X-Mailer: PHP/' . phpversion();
-
-            
-
-            mail($to,$subject,$bodyhead.$bodyUser.'</body></html>',$headers, '-f'.$from_add);
-		}
-		}
-		return 1;
-            
         die();
 	}
 }

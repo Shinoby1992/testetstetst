@@ -140,13 +140,7 @@
 					    <option value="webmoney">WebMoney</option>
 					<?php } if ( $this->ts_functions->getsettings('yandex','status') == '1' ) { ?>
 					    <option value="yandex">Yandex</option>
-					<?php } if ( $this->ts_functions->getsettings('tpay','status') == '1' ) { ?>
-					    <option value="tpay">Tpay</option>
-					<?php } if ( $this->ts_functions->getsettings('pagseguro','status') == '1' ) { ?>
-					    <option value="pagseguro">Pagseguro</option>
-					<?php } if ( $this->ts_functions->getsettings('permoney','status') == '1' ) { ?>
-					    <option value="permoney">Perfect Money</option>
-					<?php }?>
+					<?php } ?>
 					<?php if($this->session->userdata['ts_level'] == 3) {
 					    echo '<option value="wallet">Wallet Credit</option>';
 					} ?>
@@ -168,12 +162,6 @@
 					    <img src="<?php echo $basepath;?>themes/default/images/webmoney_logo.png" class="paymentmethod_cls" />
 					<?php } elseif ( $this->ts_functions->getsettings('yandex','status') == '1' ) { ?>
 					    <img src="<?php echo $basepath;?>themes/default/images/yandex_logo.png" class="paymentmethod_cls" style="width: 140px;"/>
-					<?php } elseif ( $this->ts_functions->getsettings('tpay','status') == '1' ) { ?>
-					    <img src="<?php echo $basepath;?>themes/default/images/tpay_logo.png" class="paymentmethod_cls" />
-					<?php } elseif ( $this->ts_functions->getsettings('pagseguro','status') == '1' ) { ?>
-					    <img src="<?php echo $basepath;?>themes/default/images/pagseguro_logo.png" class="paymentmethod_cls" />
-					<?php }  elseif ( $this->ts_functions->getsettings('permoney','status') == '1' ) { ?>
-					    <img src="<?php echo $basepath;?>themes/default/images/permoney_logo.png" class="paymentmethod_cls" />
 					<?php } else { ?>
 					<?php if($this->session->userdata['ts_level'] == 3) { ?>
 					    <img src="<?php echo $basepath;?>themes/default/images/wallet_logo.png" class="paymentmethod_cls" />

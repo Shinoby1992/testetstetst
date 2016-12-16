@@ -8,7 +8,7 @@
 					<div class="row">
 						<div class="col-lg-12 col-md-12">
 							<div class="th_manage_user">
-								<h3 class="th_title">manage user ( not vendors )</h3>
+								<h3 class="th_title">manage user</h3>
 								<div class="table-responsive">
 								<table class="commonTable table table-striped table-bordered manage_user" cellspacing="0" width="100%">
 									<thead>

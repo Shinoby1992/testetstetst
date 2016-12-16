@@ -28,75 +28,17 @@
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 								<div class="ts_theme_boxes">
 									<div class="ts_theme_boxes_img">
-						<?php if( is_numeric(stripos($productdetails[0]['prod_demourl'],'http'))) { 
-							if( is_numeric(stripos($productdetails[0]['prod_demourl'],'https:'))) { 
-							
-							$live_demo_url = '<a href="'.$productdetails[0]['prod_demourl'].'" target="_blank"><img src="'.$basepath.'repo/images/'.$productdetails[0]['prod_image'].'" title="'. $productdetails[0]['prod_name'].'" class="img-responsive"></a>';
-							
-						} else { 
-						
-							$live_demo_url = '<a href="'.$basepath.'item'.$prodName.'live_demo/'.$productdetails[0]['prod_uniqid'].'" target="_blank"><img src="'.$basepath.'repo/images/'.$productdetails[0]['prod_image'].'" title="'. $productdetails[0]['prod_name'].'" class="img-responsive"></a>';
-							
-						} } else { 
-						
-							$live_demo_url = '<img src="'.$basepath.'repo/images/'.$productdetails[0]['prod_image'].'" title="'. $productdetails[0]['prod_name'].'" class="img-responsive">';
-							
-						} ?>
-						
-									<?php echo $live_demo_url; ?>	
+										<a href="<?php echo $basepath;?>item/<?php echo $prodName.'live_demo/'.$productdetails[0]['prod_uniqid'];?>" target="_blank"><img src="<?php echo $basepath;?>repo/images/<?php echo $productdetails[0]['prod_image'];?>" title="<?php echo $productdetails[0]['prod_name'];?>" class="img-responsive"></a>
 									</div>
 									<!--<span><?php echo $productdetails[0]['cate_name'];?></span>-->
 
 									<div class="ts_theme_boxes_info">
-									
-									<?php 
-									
-							$prod_gallery = $this->DatabaseModel->access_database('ts_prodgallery','select', '' , array('prodgallery_pid'=>$productdetails[0]['prod_id']) );	
-							 if( is_numeric(stripos($productdetails[0]['prod_demourl'],'http'))) { 
-							 	if( is_numeric(stripos($productdetails[0]['prod_demourl'],'https:'))) { 
-							  ?>
-								<a href="<?php echo $productdetails[0]['prod_demourl'];?>" class="ts_btn pull-left"  target="_blank"><?php echo $this->ts_functions->getlanguage('livedemotab','homepage','solo');?></a>
-							<?php } else { ?>
-								<a href="<?php echo $basepath;?>item/<?php echo $prodName.'live_demo/'.$productdetails[0]['prod_uniqid'];?>" class="ts_btn pull-left"  target="_blank"><?php echo $this->ts_functions->getlanguage('livedemotab','homepage','solo');?></a>
-							<?php } } ?>
-
-							<?php		
-								if(!empty($prod_gallery)) { 
-						if($productdetails[0]['prod_type'] == 'Audio') {
-							$btn_kw = 'listenbtn'; $prod_type = 'audio';
-						}
-						elseif( $productdetails[0]['prod_type'] == 'Video' ){
-							$btn_kw = 'videobtn'; $prod_type = 'video';
-						}
-						elseif( $productdetails[0]['prod_type'] == 'Text' ){
-							$btn_kw = 'viewbtn'; $prod_type = 'text';
-						}
-						else {
-							$btn_kw = 'gallerybtn'; $prod_type = 'other';
-						} 
-						
-						if( $productdetails[0]['prod_type'] == 'Text' ) { 
-						$down_link = base_url().'home/download_preview_text/'.$productdetails[0]['prod_id'];
-						
-						?>
-							<a onclick="window.location = '<?php echo $down_link; ?>'" class="ts_btn pull-left popup_open_preview"><?php echo $this->ts_functions->getlanguage($btn_kw,'homepage','solo');?></a>
-						<?php } 
-						else if( $productdetails[0]['prod_type'] == 'Other' ) { ?>
-							
-							<a onclick="$('.popup-gallery').find('img:first').trigger('click');" class="ts_btn pull-left popup_open_preview"><?php echo $this->ts_functions->getlanguage($btn_kw,'homepage','solo');?></a>
-							
-						<?php }
-						else { ?>
-							
-							<a onclick="openthegalleryimages(<?php echo $productdetails[0]['prod_id'];?>,'<?php echo $prod_type;?>');" class="ts_btn pull-left popup_open_preview"><?php echo $this->ts_functions->getlanguage($btn_kw,'homepage','solo');?></a>
-						
-						<?php } ?>
-								<?php 
-								 }
-							
-								 
-								 ?>	
-										
+										<?php if($productdetails[0]['prod_demoshow'] == '1') { ?>
+										<a href="<?php echo $basepath;?>item/<?php echo $prodName.'live_demo/'.$productdetails[0]['prod_uniqid'];?>" class="ts_btn pull-left"  target="_blank"><?php echo $this->ts_functions->getlanguage('livedemotab','homepage','solo');?></a>
+										<?php } ?>
+										<?php if($productdetails[0]['prod_gallery'] == '1') { ?>
+										<a onclick="openthegalleryimages(<?php echo $productdetails[0]['prod_id'];?>)" class="ts_btn pull-left popup_open_preview"><?php echo $this->ts_functions->getlanguage('gallerybtn','homepage','solo');?></a>
+										<?php } ?>
 										<div class="ts_share_box">
 											<a href="https://www.facebook.com/sharer/sharer.php?display=popup&u=<?php echo urlencode($basepath.'item/'.$prodName.$productdetails[0]['prod_uniqid']);?>" class="pull-left" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
 
@@ -205,24 +147,13 @@
 											<p> <a href="<?php echo $basepath;?>vendor/<?php echo $vendorName;?>"><i class="fa fa-user" aria-hidden="true"></i> <?php echo ucfirst($vendorName);?></a></p>
 										</div>
 										<div class="ts_theme_price">
-							    
-                                	<?php if( $soloRelateProd['prod_free'] == '0') {
-											if( $this->ts_functions->getsettings('portal','revenuemodel') != 'subscription' ) { ?>
-
-												<a href="<?php echo $basepath;?>shop/add_to_cart/products/<?php echo $soloRelateProd['prod_uniqid'];?>" class="ts_btn"> <i class="fa fa-shopping-cart"></i> </a>
-
-												<a href="<?php echo $basepath;?>shop/add_to_cart/products/<?php echo $productdetails[0]['prod_uniqid'];?>" class="ts_btn"> <?php echo $this->ts_functions->getsettings('portalcurreny','symbol');?><?php echo $soloRelateProd['prod_price'];?> </a>
-
-											<?php } else { ?>
-												<a href="<?php echo $basepath;?>shop/checkmembership/<?php echo $soloRelateProd['prod_uniqid'];?>" class="ts_btn"> <?php echo $this->ts_functions->getlanguage('buynowtab','homepage','solo');?> </a>
-										<?php   }
-											} else {
-												// Free
-											?>
-												<a href="<?php echo $basepath;?>shop/add_to_cart/products/<?php echo $soloRelateProd['prod_uniqid'];?>" class="ts_btn"> <?php echo $this->ts_functions->getlanguage('freetext','commontext','solo');?></a>
-
-										<?php } ?>
-										
+								<?php if( $this->ts_functions->getsettings('portal','revenuemodel') == 'subscription' ) {
+                                /*** buy now section ***/
+                                ?>
+                                    <a href="javascript:;" class="ts_btn"><?php echo $this->ts_functions->getlanguage('buynowtab','homepage','solo');?></a>
+                                <?php } else { ?>
+                                    <a href="javascript:;" class="ts_price"><?php echo $this->ts_functions->getsettings('portalcurreny','symbol');?> <?php echo $soloRelateProd['prod_price'];?></a>
+                                <?php } ?>
 										</div>
 									</div>
 								</div>
@@ -309,49 +240,18 @@
 	</div>
 </div>
 <!-- Contact wrapper End -->
-
-<?php
-$prod_gallery = $this->DatabaseModel->access_database('ts_prodgallery','select', '' , array('prodgallery_pid'=>$productdetails[0]['prod_id']) );
-	if( $productdetails[0]['prod_type'] == 'Audio' || $productdetails[0]['prod_type'] == 'Video' ) {
-	if(!empty($prod_gallery)) { ?>
-	<!-- PopUp wrappe Start -->
+<!-- PopUp wrappe Start -->
 <div class="ts_popup_wrapper">
 	<div class="ts_popup_close_overlay"></div>
 	<a class="ts_popup_close"><i class="fa fa-times" aria-hidden="true"></i></a>
-	<div class="ts_popup_inner ts_video_popup" id="popupgallery">
+	<span class="ts_left_arrow" onclick="clickarrows('left')"><i class="fa fa-angle-left" aria-hidden="true"></i></span>
+	<span class="ts_right_arrow" onclick="clickarrows('right')"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+	<div class="ts_popup_inner" id="popupgallery">
         <ul>
             <li id="img_0" class="currentActive">
-            <?php if( $productdetails[0]['prod_type'] == 'Audio' ) { ?>
-            
-            <audio controls id="tp_audio"> <source src="<?php echo base_url().'repo/gallery/p_'.$productdetails[0]['prod_id'].'/'.$prod_gallery[0]['prodgallery_img']; ?>" type="audio/mpeg">Your browser does not support the audio element.</audio>
-            
-            <?php } else { ?>
-            
-            <video controls id="tp_video"> <source src="<?php echo base_url().'repo/gallery/p_'.$productdetails[0]['prod_id'].'/'.$prod_gallery[0]['prodgallery_img']; ?>" type="video/mp4">Your browser does not support the video element.</video>  
-                      
-            <?php } ?>
+                <img src="<?php echo $basepath;?>repo/images/<?php echo $productdetails[0]['prod_image'];?>">
             </li>
         </ul>
 	</div>
 </div>
 <!-- PopUp wrappe End -->
-<?php } } else { ?>
-	
-	
-	<!-- PopUp wrappe Start -->
-	<div class="popup-gallery" style="display:none;">
-		
-		<a href="<?php echo $basepath;?>repo/images/<?php echo $productdetails[0]['prod_image'];?>">
-			<img src="<?php echo $basepath;?>repo/images/<?php echo $productdetails[0]['prod_image'];?>" width="75" height="75">
-		</a>
-		
-<?php foreach( $prod_gallery as $solo_gallery) { ?>
-		<a href="<?php echo base_url().'repo/gallery/p_'.$productdetails[0]['prod_id'].'/'.$solo_gallery['prodgallery_img']; ?>">
-			<img src="<?php echo base_url().'repo/gallery/p_'.$productdetails[0]['prod_id'].'/'.$solo_gallery['prodgallery_img']; ?>" width="75" height="75">
-		</a>
-	
-<?php } ?>
-
-	</div>
-	<!-- PopUp wrappe End -->
-<?php } ?>

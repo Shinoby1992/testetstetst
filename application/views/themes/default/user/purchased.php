@@ -36,12 +36,9 @@
                                 $purCodeText = $solo_transaction['payment_uniqid'];
                             }
                         }
-                        
-                        $image_a = explode('.',$soloProd['prod_image']);
-		        		$dis_img = 'small/'.$image_a[0].'_thumb.'.$image_a[1];
                     ?>
 						<tr>
-							<td data-title="<?php echo $this->ts_functions->getlanguage('producttext','userdashboard','solo');?>"><p> <img src="<?php echo $basepath;?>repo/images/<?php echo $dis_img;?>" title="<?php echo $soloProd['prod_name'];?>" style="width: 150px;"> <?php echo $soloProd['prod_name'];?></p></td>
+							<td data-title="<?php echo $this->ts_functions->getlanguage('producttext','userdashboard','solo');?>"><p><?php echo $soloProd['prod_name'];?></p></td>
 							<td data-title="<?php echo $this->ts_functions->getlanguage('datetext','userdashboard','solo');?>"><p>
 							<?php echo isset($dateofplan) ? $dateofplan : date_format(date_create ( $soloProd['purrec_date'] ) , 'M d, Y') ; ?>
 							</p></td>

@@ -49,19 +49,11 @@
 <!--Preloader End-->
 
 <!--Message Popup Start-->
-<?php if(isset($this->session->userdata['ts_loginstatus'])) { ?>
-<div class="ts_message_popup ts_popup_error">
-  <p class="ts_message_popup_text">
-  <?php echo $this->session->userdata['ts_loginstatus'] == 'Inactive' ? $this->ts_functions->getlanguage('activateerror','message','solo') : $this->ts_functions->getlanguage('blockederror','message','solo') ; ?>
-  </p>
-</div>
-<?php } else { ?>
 <div class="ts_message_popup">
   <p class="ts_message_popup_text">
 
   </p>
 </div>
-<?php } ?>
 <!--Message Popup End-->
 
 

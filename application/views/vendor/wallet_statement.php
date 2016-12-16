@@ -9,25 +9,25 @@
 							<?php $currentWallet = $this->DatabaseModel->access_database('ts_wallet','select','',array('wallet_uid'=>$this->session->userdata['ts_uid']));
 							$wallet_amount = empty($currentWallet) ? '0' : $currentWallet[0]['wallet_amount'];
 							?>
-								<h3 class="th_title"><?php echo $this->ts_functions->getlanguage('walletmenu','vendorboard','solo');?> ( <?php echo $this->ts_functions->getlanguage('blncamnttext','vendorboard','solo');?> : <b style="color:#6f5499;"><?php echo $this->ts_functions->getsettings('portal','curreny').' <span id="totEarning">'.$wallet_amount.'</span>';?></b>) </h3>
+								<h3 class="th_title">Wallet Statements ( Balance amount : <b style="color:#6f5499;"><?php echo $this->ts_functions->getsettings('portal','curreny').' <span id="totEarning">'.$wallet_amount.'</span>';?></b>) </h3>
 								<div class="table-responsive">
 								<table class="commonTable table table-striped table-bordered manage_user" cellspacing="0" width="100%">
 									<thead>
 										<tr>
 											<th>#</th>
-											<th><?php echo $this->ts_functions->getlanguage('apnametext','vendorboard','solo');?></th>
-											<th><?php echo $this->ts_functions->getlanguage('purchasedatetext','userdashboard','solo');?></th>
-											<th><?php echo $this->ts_functions->getlanguage('purchasecodetext','userdashboard','solo');?></th>
-											<th><?php echo $this->ts_functions->getlanguage('costtext','vendorboard','solo');?></th>
+											<th>Product Name</th>
+											<th>Purchase Date</th>
+											<th>Purchase Code</th>
+											<th>Cost</th>
 										</tr>
 									<thead>
 									<tfoot>
 										<tr>
 											<th>#</th>
-											<th><?php echo $this->ts_functions->getlanguage('apnametext','vendorboard','solo');?></th>
-											<th><?php echo $this->ts_functions->getlanguage('purchasedatetext','userdashboard','solo');?></th>
-											<th><?php echo $this->ts_functions->getlanguage('purchasecodetext','userdashboard','solo');?></th>
-											<th><?php echo $this->ts_functions->getlanguage('costtext','vendorboard','solo');?></th>
+											<th>Product Name</th>
+											<th>Purchase Date</th>
+											<th>Purchase Code</th>
+											<th>Cost</th>
 										</tr>
 									<tfoot>
 									<tbody>

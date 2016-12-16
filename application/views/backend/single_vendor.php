@@ -294,13 +294,6 @@
 													<textarea rows="6" class="form-control"><?php echo (isset($withdrawalDetails_bnkdetails[0]['venwith_text'])) ? $withdrawalDetails_bnkdetails[0]['venwith_text'] : '' ;?></textarea>
 													</div>
 												</div>
-												
-												<div class="th_product_detail">
-													<div class="theme_label">Bitcoin Details :</div>
-													<div class="product_info status">
-													<textarea rows="6" class="form-control"><?php echo (isset($withdrawalDetails_bitcoin[0]['venwith_text'])) ? $withdrawalDetails_bitcoin[0]['venwith_text'] : '' ;?></textarea>
-													</div>
-												</div>
 
 												<div class="th_product_detail">
 													<div class="theme_label">Amount Already Paid :</div>

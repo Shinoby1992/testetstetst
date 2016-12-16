@@ -106,7 +106,7 @@ class Dashboard extends CI_Controller {
             $data['dateofplan'] = $userDetail[0]['user_plansdate'];
 
             if( $userPlan == '0' ) {
-                $data['planMsg'] = $this->ts_functions->getlanguage('upgrademessage','userdashboard','solo');
+                $data['planMsg'] = 'Upgrade your plan to access the products.';
             }
         }
         else {
@@ -185,20 +185,14 @@ class Dashboard extends CI_Controller {
                     redirect(base_url());
                 }
                 elseif( $checkAvail == '2' ) {
-                    $this->session->set_flashdata('planMsg', $this->ts_functions->getlanguage('upgrademessage','userdashboard','solo'));
+                    $this->session->set_flashdata('planMsg', 'Upgrade your plan to access this product.');
                     redirect(base_url().'dashboard/purchased');
                 }
 
                 $downloadCount = $prodDetails[0]['prod_download_count'];
                 $downloadCount = $downloadCount + 1 ;
                 $this->DatabaseModel->access_database('ts_products','update',array('prod_download_count'=>$downloadCount),array('prod_uniqid'=>$prodUniqid));
-                if( $prodDetails[0]['prod_filename'] == '' ) {
-                	$this->session->set_flashdata('planMsg', $this->ts_functions->getlanguage('missingzipmessage','userdashboard','solo'));
-                    redirect(base_url().'dashboard/purchased');
-                }
-                else {
-                	$this->downloadfiles($prodUniqid);
-                }
+                $this->downloadfiles($prodUniqid);
 	        }
 	        else {
 	            redirect(base_url());
@@ -220,7 +214,6 @@ class Dashboard extends CI_Controller {
 	            if( strpos($prodDetails[0]['prod_filename'],'/') === false ) {
 
                     $filename = $prodDetails[0]['prod_filename'];
-                    
                     $productname = $this->ts_functions->getProductName($prodDetails[0]['prod_id']);
                     $productname = rtrim($productname,'/');
 

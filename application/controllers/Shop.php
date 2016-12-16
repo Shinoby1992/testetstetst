@@ -250,167 +250,25 @@ class Shop extends CI_Controller {
                     /*** Track Payment Details *****/
 
                     if( $_POST['paymentmethod'] == 'paypal' ) {
-						if( $this->ts_functions->getsettings('paypal','adaptive') == '1' ) {
-							
-							$prod_Arr = explode(',',$finalItemNumber);
-														
-							$vendorAmnt = $adminAmnt = $vendorPaypal = array();
-							for($pl=0;$pl < count($prod_Arr);$pl++) {
-							
-								 $findProduct = $this->DatabaseModel->access_database('ts_products','select','',array('prod_uniqid'=>trim($prod_Arr[$pl]),'prod_status'=>1));
-								 
-								 if( !empty($findProduct) ) {
-
-									$prodId = $findProduct[0]['prod_id'];
-									
-									$prodOwner = $this->DatabaseModel->access_database('ts_user','select','',array('user_id'=>$findProduct[0]['prod_uid']));
-									
-									$prodCost = $findProduct[0]['prod_price'];
-									
-									$v_c = 0;
-									$a_c = $prodCost;
-									$vendor_paypal_email = '';
-										
-									if( $prodOwner[0]['user_accesslevel'] == '3') {
-										$vendor_details = $this->DatabaseModel->access_database('ts_vendorwithdrawal','select','',array('venwith_uid'=>$prodOwner[0]['user_id'] , 'venwith_type'=>'paypal_email'));
-										if( !empty($vendor_details) ) {
-											if( $vendor_details[0]['venwith_text'] != '' ) {
-											
-												$vendor_paypal_email = $vendor_details[0]['venwith_text'];
-											
-												if($this->ts_functions->getsettings('vendor','revenuemodel') == 'commission') {
-													$comis = $this->ts_functions->getsettings('vendor','commission');
-
-													$v_c = ( $prodCost * $comis ) / 100;
-													$v_c = round($v_c, 2);
-
-													$a_c = $prodCost - $v_c ;
-												}
-												else {
-													$v_c = $prodCost;
-													$a_c = 0;
-												}
-											}
-										}
-									}
-									$vendorAmnt[ $prodId ] = $v_c;
-									$adminAmnt[ $prodId ] = $a_c;
-									$vendorPaypal[ $prodId ] = $vendor_paypal_email;
-								}
-							}
-                            						
-							$ven_arr = $admin_arr = array();
-							$admin_email = $this->ts_functions->getsettings('paypal','email');
-							
-							foreach( $vendorPaypal as $key=>$val ){
-								if( $val != '' ) {
-									if( isset($ven_arr[ $val ]) ) {
-										$ven_arr[ $val ] =  $ven_arr[ $val ] + $vendorAmnt[ $key ];
-									}
-									else {
-										$ven_arr[ $val ] =  $vendorAmnt[ $key ];
-									}
-									
-									if( isset($admin_arr[ $admin_email ]) ) {
-										$admin_arr[ $admin_email ] =  $admin_arr[ $admin_email ] + $adminAmnt[ $key ];
-									}
-									else {
-										$admin_arr[ $admin_email ] =  $adminAmnt[ $key ];
-									}
-									
-								}
-								else {
-									if( isset($admin_arr[ $admin_email ]) ) {
-										$admin_arr[ $admin_email ] =  $admin_arr[ $admin_email ] + $adminAmnt[ $key ];
-									}
-									else {
-										$admin_arr[ $admin_email ] =  $adminAmnt[ $key ];
-									}
-								}
-							}
-							if( count($ven_arr) < 6 ) {
-								$formData = '<form action="https://www.paypal.com/cgi-bin/webscr" method="post" name="pay_form_name">
-									<input type="hidden" name="actionType" value="PAY">';
-								$formData .= '<input type="hidden" name="receiverList.receiver(0).email" value="'.$admin_email.'">';
-								$j=1;
-								foreach( $ven_arr as $key=>$val ) {
-									$formData .= '<input type="hidden" name="receiverList.receiver('.$j.').email" value="'.$key.'">';
-									$formData .= '<input type="hidden" name="receiverList.receiver('.$j.').amount" value="'.$val.'">';
-									$j++;
-								}
-								$formData .= '<input type="hidden" name="item_number" value="'.$trackingItemNumber.'">
-									  <input type="hidden" name="no_shipping" value="1">
-									  <input type="hidden" name="currency_code" value="'.$this->ts_functions->getsettings('portal','curreny').'">
-									  <input type="hidden" name="cmd" value="_xclick">
-									  <input type="hidden" name="handling" value="0">
-									  <input type="hidden" name="no_note" value="1">
-									  <input type="hidden" name="cpp_logo_image" value="'.$this->ts_functions->getsettings('logo','url').'">
-									  <input type="hidden" name="custom" value="'.$finalItemNumber.'">
-									  <input type="hidden" name="cancel_return" value="'.base_url().'pages/canceled_payment">
-									  <input type="hidden" name="return" value="'.base_url().'pages/success_payment">
-										<input type="hidden" name="notify_url" value="'.base_url().'pages/notify_payment">
-									 </form>';
-							}
-							else {
-								$formData =
-									  '<form action="https://www.paypal.com/cgi-bin/webscr" method="post" name="pay_form_name">
-									  <input type="hidden" name="business" value="'.$this->ts_functions->getsettings('paypal','email').'">
-									  <input type="hidden" name="item_name" value="'.$finalItemName.'">
-									  <input type="hidden" name="amount" value="'.$finalItemAmount.'">
-									  <input type="hidden" name="item_number" value="'.$trackingItemNumber.'">
-									  <input type="hidden" name="no_shipping" value="1">
-									  <input type="hidden" name="currency_code" value="'.$this->ts_functions->getsettings('portal','curreny').'">
-									  <input type="hidden" name="cmd" value="_xclick">
-									  <input type="hidden" name="handling" value="0">
-									  <input type="hidden" name="no_note" value="1">
-									  <input type="hidden" name="cpp_logo_image" value="'.$this->ts_functions->getsettings('logo','url').'">
-									  <input type="hidden" name="custom" value="'.$finalItemNumber.'">
-									  <input type="hidden" name="cancel_return" value="'.base_url().'pages/canceled_payment">
-									  <input type="hidden" name="return" value="'.base_url().'pages/success_payment">
-										<input type="hidden" name="notify_url" value="'.base_url().'pages/notify_payment">
-									 </form>';
-							}
-							
-							
-						}
-						else {
-							$formData =
-								  '<form action="https://www.paypal.com/cgi-bin/webscr" method="post" name="pay_form_name">
-								  <input type="hidden" name="business" value="'.$this->ts_functions->getsettings('paypal','email').'">
-								  <input type="hidden" name="item_name" value="'.$finalItemName.'">
-								  <input type="hidden" name="amount" value="'.$finalItemAmount.'">
-								  <input type="hidden" name="item_number" value="'.$trackingItemNumber.'">
-								  <input type="hidden" name="no_shipping" value="1">
-								  <input type="hidden" name="currency_code" value="'.$this->ts_functions->getsettings('portal','curreny').'">
-								  <input type="hidden" name="cmd" value="_xclick">
-								  <input type="hidden" name="handling" value="0">
-								  <input type="hidden" name="no_note" value="1">
-								  <input type="hidden" name="cpp_logo_image" value="'.$this->ts_functions->getsettings('logo','url').'">
-								  <input type="hidden" name="custom" value="'.$finalItemNumber.'">
-								  <input type="hidden" name="cancel_return" value="'.base_url().'pages/canceled_payment">
-								  <input type="hidden" name="return" value="'.base_url().'pages/success_payment">
-									<input type="hidden" name="notify_url" value="'.base_url().'pages/notify_payment">
-								 </form>';
-						}
-					
+                    $formData =
+                          '<form action="https://www.paypal.com/cgi-bin/webscr" method="post" name="pay_form_name">
+                          <input type="hidden" name="business" value="'.$this->ts_functions->getsettings('paypal','email').'">
+                          <input type="hidden" name="item_name" value="'.$finalItemName.'">
+                          <input type="hidden" name="amount" value="'.$finalItemAmount.'">
+                          <input type="hidden" name="item_number" value="'.$trackingItemNumber.'">
+                          <input type="hidden" name="no_shipping" value="1">
+                          <input type="hidden" name="currency_code" value="'.$this->ts_functions->getsettings('portal','curreny').'">
+                          <input type="hidden" name="cmd" value="_xclick">
+                          <input type="hidden" name="handling" value="0">
+                          <input type="hidden" name="no_note" value="1">
+                          <input type="hidden" name="cpp_logo_image" value="'.$this->ts_functions->getsettings('logo','url').'">
+                          <input type="hidden" name="custom" value="'.$finalItemNumber.'">
+                          <input type="hidden" name="cancel_return" value="'.base_url().'pages/canceled_payment">
+                          <input type="hidden" name="return" value="'.base_url().'pages/success_payment">
+                            <input type="hidden" name="notify_url" value="'.base_url().'pages/notify_payment">
+                         </form>';
                     }
                     elseif( $_POST['paymentmethod'] == 'payu' )  {
-                        $portal_cur = strtolower($this->ts_functions->getsettings('portal','curreny'));
-                        if( $portal_cur == 'usd' ) {
-
-                            $url = "http://www.google.com/finance/converter?a=".$finalItemAmount."&from=USD&to=INR";
-                            $request = curl_init();
-                            $timeOut = 0;
-                            curl_setopt ($request, CURLOPT_URL, $url);
-                            curl_setopt ($request, CURLOPT_RETURNTRANSFER, 1);
-                            curl_setopt ($request, CURLOPT_CONNECTTIMEOUT, $timeOut);
-                            $response = curl_exec($request);
-                            curl_close($request);
-                            $regularExpression     = '#\<span class=bld\>(.+?)\<\/span\>#s';
-                            preg_match($regularExpression, $response, $finalData);
-                            $finalItemAmount = round(explode(' ',$finalData[1])[0]);
-                        }
-
                         $MERCHANT_KEY = $this->ts_functions->getsettings('payu','merchantKey');
 
                         $SALT = $this->ts_functions->getsettings('payu','merchantSalt');
@@ -477,65 +335,81 @@ class Shop extends CI_Controller {
                         </div>';
                     }
                     elseif( $_POST['paymentmethod'] == 'bitcoin' )  {
-
+/*
                         $b_publickey = $this->ts_functions->getsettings('bitcoin','publickey');
                         $b_privatekey = $this->ts_functions->getsettings('bitcoin','privatekey');
-                                             
-                        $a = array($b_privatekey);
- 						define("CRYPTOBOX_PRIVATE_KEYS", implode("^", $a));
- 						
- 						$b_privatekey = CRYPTOBOX_PRIVATE_KEYS;
-                        
-	                    $box_style = $message_style = '';
+                        require_once( "Bitcoin/cryptobox.class.php" );
 
-                    	if (!$box_style) 	 $box_style = "border-radius:15px;box-shadow:0 0 12px #aaa;-moz-box-shadow:0 0 12px #aaa;-webkit-box-shadow:0 0 12px #aaa;padding:3px 6px;margin:10px";
-						if (!$message_style) $message_style = "display:inline-block;max-width:580px;padding:15px 20px;box-shadow:0 0 10px #aaa;-moz-box-shadow: 0 0 10px #aaa;margin:7px;font-size:13px;font-weight:normal;line-height:21px;font-family: Verdana, Arial, Helvetica, sans-serif;";
-						
-						function icrc32($str)
-						{
-							$in = crc32($str);
-							$int_max = pow(2, 31)-1;
-							if ($in > $int_max) $out = $in - $int_max * 2 - 2;
-							else $out = $in;
-							$out = abs($out);
+                        $options = array(
+                            "public_key"  => $b_publickey,
+                            "private_key" => $b_privatekey,
+                            "orderID"     => $trackingItemNumber,
+                            "userFormat"  => "COOKIE",
+                            "amountUSD"   => $finalItemAmount,
+                            "period"      => "24 HOUR",
+                            "iframeID"    => "",
+                            "language"	  => "EN"
+                        );
 
-							return $out;
-						}
-						
-						$width = 530;
-						$height = 230;
-						$boxID = explode('AA',$b_publickey)[0];
-						$coinName = 'bitcoin';
-						$coinLabel = 'BTC';
-						$amount = '0';
-						$amountUSD = $finalItemAmount;
-						$period = "24 HOUR";
-						$language = "EN";
-						$webdev_key = "";
-						$orderID = $trackingItemNumber;
-						$userFormat = "COOKIE";
-						$ip = $_SERVER['REMOTE_ADDR'];
-						$userID =  trim(md5($ip."*&*".$boxID."*&*".$coinLabel."*&*".$orderID));
-						$cookieName = 15963;
-						$iframeID = 'bit_boxx';
-						$submit_btn = true;
-						$cryptobox_html = '';
-						$val = md5($b_privatekey);
-						
-						setcookie($cookieName, $userID , time()+(10*365*24*60*60),'/');
-						
-						$hash_str = $boxID.$coinName.$b_publickey.$b_privatekey.$webdev_key.$amount.$period.$amountUSD.$language.$amount.$iframeID.$amountUSD.$userID.$userFormat.$orderID.$width.$height;
-						$hash = md5($hash_str);
-						
-						$cryptobox_html .= "<div align='center' style='min-width:".$width."px'><iframe id='$iframeID'   ".($box_style?'style="'.htmlspecialchars($box_style, ENT_COMPAT).'"':'')." scrolling='no' marginheight='0' marginwidth='0' frameborder='0' width='$width' height='$height'></iframe></div>";
-						$cryptobox_html .= "<div><script type='text/javascript'>";
-						$cryptobox_html .= "cryptobox_show($boxID, '$coinName', '$b_publickey', '$amount', '$amountUSD', '$period', '$language', '$iframeID', '$userID', '$userFormat', '$orderID', '$cookieName' , '', '$hash', $width, $height);";
-						 
-						$cryptobox_html .= "</script></div>";
+	                    $box = new Cryptobox ($options);
 
-						$cryptobox_html .= "<br>";
+                    	$payment_box = $box->display_cryptobox(true, 560, 230, "border-radius:15px;border:1px solid #eee;padding:3px 6px;margin:10px;",					"display:inline-block;max-width:580px;padding:15px 20px;border:1px solid #eee;margin:7px;line-height:25px;");
 
-                        $formData =  '<script src="'.base_url().'adminassets/js/bitcoin/cryptobox.min.js" type="text/javascript"></script>'.$cryptobox_html;
+                        $message = "";
+*/
+                        // A. Process Received Payment
+                        /*if ($box->is_paid())
+                        {
+                            $message .= "A. User will see this message during 24 hours after payment has been made!";
+
+                            $message .= "<br>".$box1->amount_paid()." ".$box1->coin_label()."  received<br>";
+
+                            // Your code here to handle a successful cryptocoin payment/captcha verification
+                            // For example, give user 24 hour access to your member pages
+                            // ...
+
+                            // Please use IPN (instant payment notification) function cryptobox_new_payment() for update db records, etc
+                            // Function cryptobox_new_payment($paymentID = 0, $payment_details = array(), $box_status = "") called every time
+                            // when a new payment from any user is received.
+                            // IPN description: https://gourl.io/api-php.html#ipn
+                        }
+                        else {
+                            $message .= "The payment has not been made yet";
+                        }
+                        */
+
+/*
+                        // B. Optional - One-time Process Received Payment
+                        if ($box->is_paid() && !$box->is_processed())
+                        {
+                            $message .= "B. User will see this message one time after payment has been made!";
+
+                            // Your code here - user see successful payment result
+                            // ...
+
+                            // Also you can use $box1->is_confirmed() - return true if payment confirmed
+                            // Average transaction confirmation time - 10-20min for 6 confirmations
+
+                            // Set Payment Status to Processed
+                            $box->set_status_processed();
+
+                            // Optional, cryptobox_reset() will delete cookies/sessions with userID and
+                            // new cryptobox with new payment amount will be show after page reload.
+                            // Cryptobox will recognize user as a new one with new generated userID
+                            // $box1->cryptobox_reset();
+
+
+                            // ...
+                            // Also you can use IPN function cryptobox_new_payment($paymentID = 0, $payment_details = array(), $box_status = "")
+                            // for send confirmation email, update database, update user membership, etc.
+                            // You need to modify file - cryptobox.newpayment.php, read more - https://gourl.io/api-php.html#ipn
+                            // ...
+
+                        }
+*/
+                         //$formData =  '<script src="'.base_url().'adminassets/js/bitcoin/cryptobox.min.js" type="text/javascript"></script>'.$payment_box.$message;
+
+                         $formData = '<p style="color:red;text-align:center;"> Please contact support team of Script to complete the integration.</p>';
                     }
                     elseif( $_POST['paymentmethod'] == 'wallet' )  {
                         $_SESSION['walletSession'] = $finalItemName.'@#'.$finalItemAmount.'@#'.$trackingItemNumber;
@@ -560,65 +434,6 @@ class Shop extends CI_Controller {
                         //$formData = '<iframe frameborder="0" allowtransparency="true" scrolling="no" src="https://money.yandex.ru/embed/shop.xml?account='.$walletNumber.'&quickpay=shop&payment-type-choice=on&mobile-payment-type-choice=on&writer=seller&targets='.$finalItemName.'&default-sum='.$finalItemAmount.'&button-text=01&successURL='.$url.'" width="450" height="198"></iframe>';
 
                         $formData = '<iframe frameborder="0" allowtransparency="true" scrolling="no" style="margin-top: 40px;" src="https://money.yandex.ru/quickpay/button-widget?account='.$walletNumber.'&quickpay=small&yamoney-payment-type=on&button-text=02&button-size=m&button-color=orange&targets='.$finalItemName.'&default-sum='.$finalItemAmount.'&successURL='.$url.'" width="125" height="36"></iframe>';
-                    }
-					elseif( $_POST['paymentmethod'] == 'tpay' ) {
-						$ipn_tpay = base_url().'pages/tpay_ipn';
-						$suc_tpay = base_url().'pages/success_payment';
-						$fail_tpay = base_url().'pages/canceled_payment';
-						
-						$formData =
-						'<form action="https://secure.transferuj.pl" method="post" accept-charset="utf-8"  name="tpay_form_name">
-						<input type="hidden" name="id" value="'.$this->ts_functions->getsettings('tpay','merchantid').'">
-						<input type="hidden" name="kwota" value="'.$finalItemAmount.'">
-						<input type="hidden" name="opis" value="'.$finalItemName.'">
-						<input type="hidden" name="crc" value="'.$trackingItemNumber.'">
-						<input type="hidden" name="wyn_url" value="'.$ipn_tpay.'">
-						<input type="hidden" name="pow_url" value="'.$suc_tpay.'">
-						<input type="hidden" name="pow_url_blad" value="'.$fail_tpay.'">
-						</form>';
-                    }
-					elseif( $_POST['paymentmethod'] == 'pagseguro' ) {
-						
-						$pArr = explode('.',$finalItemAmount);
-						if( count($pArr) != '2' ) {
-							$finalItemAmount = $finalItemAmount.'.00';
-						}
-						
-						$ipn_pagseguro = base_url().'pages/pagseguro_ipn';
-						$suc_pagseguro = base_url().'pages/success_payment';
-						
-						$pg_email = $this->ts_functions->getsettings('pagseguro','email');
-						$pg_token = $this->ts_functions->getsettings('pagseguro','token');
-						
-						$ch = curl_init();	 
-						curl_setopt($ch, CURLOPT_URL,"https://ws.pagseguro.uol.com.br/v2/checkout");
-						curl_setopt($ch, CURLOPT_POST, 1);
-						curl_setopt($ch, CURLOPT_POSTFIELDS,
-									"email=".$pg_email."&token=".$pg_token."&currency=BRL&itemId1=".$trackingItemNumber."&itemDescription1=".$finalItemName."&itemAmount1=".$finalItemAmount."&itemQuantity1=1&shippingType=1&notificationURL=".$ipn_pagseguro."&redirectURL=".$suc_pagseguro."");
-
-						curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-						$response_pagseg = curl_exec ($ch);
-						curl_close ($ch);
-						$xml_response = simplexml_load_string($response_pagseg);
-						
-						if( isset($xml_response->code) ) {
-							$pageseg_code = $xml_response->code;
-							
-							$formData = '<form action="https://pagseguro.uol.com.br/v2/checkout/payment.html" method="post" name="pagseguro_form_name"><input type="hidden" name="code" value="'.$pageseg_code.'" /><input type="hidden" name="iot" value="button" /><input type="image" src="https://stc.pagseguro.uol.com.br/public/img/botoes/pagamentos/209x48-comprar-assina.gif" name="submit" alt="Pague com PagSeguro - é rápido, grátis e seguro!" /></form>';
-						}
-						else {
-							$formData = '<p style="color:red;text-align:center;"> Error Occured. Please, contact support.</p>';
-						}
-						
-                    }
-                    elseif( $_POST['paymentmethod'] == 'permoney' ) {
-						
-						$uname = $this->session->userdata['ts_uname'];
-						$permoney_account = $this->ts_functions->getsettings('permoney','account');
-						
-						$formData = '<form action="https://perfectmoney.is/api/step1.asp" method="POST" name="permoney_form_name"><input type="hidden" name="PAYEE_ACCOUNT" value="'.$permoney_account.'"><input type="hidden" name="PAYEE_NAME" value="'.$uname.'"><input type="hidden" name="PAYMENT_ID" value="'.$trackingItemNumber.'"><input type="hidden" name="PAYMENT_AMOUNT" value="'.$finalItemAmount.'"><input type="hidden" name="PAYMENT_UNITS" value="USD"> <input type="hidden" name="STATUS_URL" value="http://kamleshyadav.com/scripts/themeportal/pages/perfectmoney_ipn"> <input type="hidden" name="PAYMENT_URL" value="http://kamleshyadav.com/scripts/themeportal/pages/success_payment"><input type="hidden" name="PAYMENT_URL_METHOD" value="POST">
-<input type="hidden" name="NOPAYMENT_URL" value="http://kamleshyadav.com/scripts/themeportal/pages/perfectmoney_fail"><input type="hidden" name="NOPAYMENT_URL_METHOD" value="POST"><input type="hidden" name="SUGGESTED_MEMO" value=""><input type="hidden" name="BAGGAGE_FIELDS" value=""></form>';
-						
                     }
                     echo $formData;
                 }
@@ -662,53 +477,5 @@ class Shop extends CI_Controller {
         die();
     }
     /**************** Manual Transactions ENDS ****************/
-    
-    function aa(){
-    	$config = array(
-		  "environment" => "sandbox", # or live
-		  "userid" => "info-facilitator_api1.commercefactory.org",
-		  "password" => "1399139964",
-		  "signature" => "AFcWxV21C7fd0v3bYYYRCpSSRl31ABA-4mmfZiu.G30Dl3DKyBo9-GF8",
-		  // "appid" => "", # You can set this when you go live
-		);
-
-    	include('Adaptive.php');
-    	$paypal = new PayPal($config);
-    	$result = $paypal->call(
-		  array(
-			'actionType'  => 'PAY',
-			'currencyCode'  => 'USD',
-			'feesPayer'  => 'EACHRECEIVER',
-			'memo'  => 'Order number #123',
-			'cancelUrl' => 'cancel.php',
-			'returnUrl' => 'success.php',
-			'receiverList' => array(
-			  'receiver' => array(
-				array(
-				  'amount'  => '100.00',
-				  'email'  => 'info-facilitator@commercefactory.org',
-				  'primary'  => 'true',
-				),
-				array(
-				  'amount'  => '45.00',
-				  'email'  => 'us-provider@commercefactory.org',
-				),
-				array(
-				  'amount'  => '45.00',
-				  'email'  => 'us-provider2@commercefactory.org',
-				),
-			  ),
-			),
-		  ), 'Pay'
-		);
-		
-		
-		if ($result['responseEnvelope']['ack'] == 'Success') {
-		  $_SESSION['payKey'] = $result["payKey"];
-		  $paypal->redirect($result);
-		} else {
-		  echo 'Handle the payment creation failure';
-		}
-    }
 
 }
